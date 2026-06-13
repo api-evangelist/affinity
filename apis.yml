@@ -1,0 +1,94 @@
+name: Affinity
+description: >-
+  Affinity is a relationship intelligence CRM built for private equity, venture
+  capital, and investment banking teams. It provides a REST API that enables
+  developers to manage contacts, organizations, opportunities, lists, notes, and
+  relationship timelines derived from email and calendar activity. The API is
+  available in two versions: a legacy V1 with full read/write capabilities for
+  persons, companies, opportunities, notes, interactions, reminders, and webhooks,
+  and a modern V2 RESTful interface designed for internal apps, automated
+  workflows, and third-party integrations. API access is included in the Scale,
+  Advanced, and Enterprise subscription tiers, with monthly call limits ranging
+  from 100,000 to unlimited depending on the plan.
+image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+url: https://raw.githubusercontent.com/api-evangelist/affinity/refs/heads/main/apis.yml
+created: '2026-06-12'
+modified: '2026-06-12'
+specificationVersion: '0.19'
+type: Index
+tags:
+  - CRM
+  - Relationship Intelligence
+  - Private Equity
+  - Venture Capital
+  - Contacts
+  - Organizations
+  - Opportunities
+  - Deal Management
+apis:
+  - name: Affinity API V1
+    description: >-
+      The legacy Affinity V1 API provides comprehensive read and write access to
+      core CRM data including persons, organizations, opportunities, lists, notes,
+      interactions, reminders, and webhooks. It uses HTTP Basic Auth or Bearer
+      Auth with an API key obtained from the Affinity Settings dashboard.
+    image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    humanURL: https://api-docs.affinity.co/
+    baseURL: https://api.affinity.co
+    tags:
+      - CRM
+      - Contacts
+      - Organizations
+      - Opportunities
+      - Notes
+      - Webhooks
+    properties:
+      - type: Documentation
+        url: https://api-docs.affinity.co/
+  - name: Affinity API V2
+    description: >-
+      The modern Affinity V2 API is a RESTful interface for building internal
+      apps, automated workflows, and third-party integrations. It supports
+      reading and writing data about people, companies, and opportunities, with
+      Bearer Auth authentication. While not yet at full feature parity with V1,
+      it is the actively developed version and includes a hosted MCP server
+      integration for AI-powered workflows.
+    image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    humanURL: https://developer.affinity.co/
+    baseURL: https://api.affinity.co
+    tags:
+      - CRM
+      - Contacts
+      - Organizations
+      - Opportunities
+      - MCP
+    properties:
+      - type: Documentation
+        url: https://developer.affinity.co/
+common:
+  - type: Website
+    url: https://www.affinity.co/
+  - type: Documentation
+    url: https://developer.affinity.co/
+  - type: GitHubOrg
+    url: https://github.com/affinity
+  - type: LinkedIn
+    url: https://www.linkedin.com/company/project-affinity
+  - type: Blog
+    url: https://www.affinity.co/resources/blog
+  - type: Pricing
+    url: https://www.affinity.co/product/affinity-pricing
+  - type: StatusPage
+    url: https://status.affinity.co/
+  - type: X
+    url: https://x.com/affinity
+  - type: Plans
+    url: plans/affinity-plans-pricing.yml
+  - type: RateLimits
+    url: rate-limits/affinity-rate-limits.yml
+  - type: FinOps
+    url: finops/affinity-finops.yml
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com
+aid: affinity

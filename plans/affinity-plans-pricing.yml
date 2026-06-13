@@ -1,0 +1,72 @@
+name: Affinity Plans and Pricing
+description: >-
+  Affinity offers four subscription tiers targeting private equity, venture
+  capital, and investment banking teams. API access is available starting at the
+  Scale tier. All plans are priced per user per year.
+specificationVersion: '0.1'
+url: https://www.affinity.co/product/affinity-pricing
+plans:
+  - name: Essential
+    description: >-
+      Entry-level plan providing automated activity capture, relationship
+      scoring, deal pipeline management, and access to Affinity Labs. API
+      access is not included in this tier.
+    price: 2000
+    unit: user/year
+    currency: USD
+    apis: false
+    features:
+      - Automated activity capture
+      - Relationship scoring
+      - Deal pipeline management
+      - Affinity Labs access
+  - name: Scale
+    description: >-
+      Most popular plan for growing teams. Includes everything in Essential
+      plus 100,000 API calls per month, hosted MCP server integration, deal
+      analytics, Chrome and email extensions, and enhanced relationship mapping.
+    price: 2300
+    unit: user/year
+    currency: USD
+    apis: true
+    features:
+      - Everything in Essential
+      - API access - 100,000 calls/month
+      - Hosted MCP server integration
+      - Deal analytics
+      - Chrome and email extensions
+      - Enhanced relationship mapping
+  - name: Advanced
+    description: >-
+      Full-featured plan for larger teams. Includes everything in Scale plus
+      100,000 API calls per month, AI meeting intelligence, Notetaker, scaled
+      email communication, premium data enrichment, and IP allowlists.
+    price: 2700
+    unit: user/year
+    currency: USD
+    apis: true
+    features:
+      - Everything in Scale
+      - API access - 100,000 calls/month
+      - AI meeting intelligence
+      - Notetaker
+      - Scaled email communication
+      - Premium data enrichment
+      - IP allowlists
+  - name: Enterprise
+    description: >-
+      Enterprise plan with custom pricing for large organizations requiring
+      unlimited API calls, full API Suite access, enterprise SSO, custom data
+      governance, and dedicated support.
+    price: custom
+    unit: user/year
+    currency: USD
+    apis: true
+    features:
+      - Everything in Advanced
+      - Unlimited API calls
+      - Full API Suite access
+      - Enterprise SSO
+      - Custom data governance
+      - Dedicated support
+      - Collaborator seats available

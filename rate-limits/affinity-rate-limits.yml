@@ -1,0 +1,73 @@
+name: Affinity API Rate Limits
+description: >-
+  Affinity enforces rate limits at both the per-user per-minute level and the
+  monthly account level. Requests that exceed limits receive a 429 HTTP status
+  code. Usage can be monitored via response headers and through the Settings >
+  Manage Apps dashboard. Per-minute limits reset every minute; monthly limits
+  reset at the end of each calendar month.
+specificationVersion: '0.1'
+url: https://api-docs.affinity.co/#rate-limits
+limits:
+  - name: Per-User Per-Minute Limit
+    description: >-
+      All API requests are halted at 900 per user per minute across all plan
+      tiers. Exceeding this limit returns a 429 error. This limit applies to
+      both V1 and V2 APIs.
+    limit: 900
+    period: minute
+    scope: user
+    applies_to:
+      - Essential
+      - Scale
+      - Advanced
+      - Enterprise
+  - name: Monthly Account Limit - Scale
+    description: >-
+      Scale plan subscribers receive 100,000 API calls per month at the account
+      level. This limit resets at the end of each calendar month.
+    limit: 100000
+    period: month
+    scope: account
+    applies_to:
+      - Scale
+  - name: Monthly Account Limit - Advanced
+    description: >-
+      Advanced plan subscribers receive 100,000 API calls per month at the
+      account level. This limit resets at the end of each calendar month.
+    limit: 100000
+    period: month
+    scope: account
+    applies_to:
+      - Advanced
+  - name: Monthly Account Limit - Enterprise
+    description: >-
+      Enterprise plan subscribers have unlimited API calls per month. Per-minute
+      and concurrent request limits still apply.
+    limit: unlimited
+    period: month
+    scope: account
+    applies_to:
+      - Enterprise
+  - name: Concurrent Request Limit
+    description: >-
+      Affinity enforces reasonable concurrent request limits at the account
+      level to maintain system stability. The specific threshold is not
+      published but may be temporarily lowered to manage API availability.
+    limit: reasonable
+    period: concurrent
+    scope: account
+    applies_to:
+      - Scale
+      - Advanced
+      - Enterprise
+headers:
+  - name: X-Ratelimit-Limit-User
+    description: The per-user per-minute request limit
+  - name: X-Ratelimit-Limit-User-Remaining
+    description: Remaining per-user per-minute requests
+  - name: X-Ratelimit-Limit-Org
+    description: The account-level monthly call limit
+  - name: X-Ratelimit-Reset
+    description: Time when the rate limit window resets
+error_code: 429
+monitoring_url: https://support.affinity.co/s/article/Getting-started-with-the-Affinity-API-FAQs

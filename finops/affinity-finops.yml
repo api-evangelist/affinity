@@ -1,0 +1,79 @@
+name: Affinity API FinOps
+description: >-
+  FinOps Framework FOCUS-aligned cost and usage tracking for Affinity API
+  consumption. Affinity pricing is subscription-based per user per year, with
+  API call quotas tied to plan tier. Cost optimization focuses on right-sizing
+  the plan to actual API call volumes and managing user seat counts.
+specificationVersion: '1.0'
+framework: FinOps Framework
+alignment: FOCUS 1.0
+provider: Affinity
+service: Affinity CRM API
+url: https://www.affinity.co/product/affinity-pricing
+billing_model: subscription
+billing_period: annual
+currency: USD
+cost_dimensions:
+  - name: User Seats
+    description: >-
+      Primary cost driver. Each user seat is billed annually at the plan rate.
+      Reducing seat count or consolidating users is the primary lever for
+      cost reduction.
+    unit: user/year
+    rates:
+      - plan: Essential
+        price: 2000
+        api_included: false
+      - plan: Scale
+        price: 2300
+        api_included: true
+        monthly_api_calls: 100000
+      - plan: Advanced
+        price: 2700
+        api_included: true
+        monthly_api_calls: 100000
+      - plan: Enterprise
+        price: custom
+        api_included: true
+        monthly_api_calls: unlimited
+  - name: API Call Volume
+    description: >-
+      API calls are bundled into the subscription. There is no per-call
+      overage charge published; exceeding monthly limits results in 429
+      errors rather than additional charges. Enterprise provides unlimited calls.
+    unit: calls/month
+    overage: blocked
+    monitoring: Settings > Manage Apps
+optimization_recommendations:
+  - name: Plan Right-Sizing
+    description: >-
+      If API call usage consistently stays below 100,000 calls/month, Scale
+      or Advanced plans are sufficient. Only upgrade to Enterprise if unlimited
+      API access is required for automation at scale.
+    potential_savings: high
+  - name: Seat Count Management
+    description: >-
+      Deactivating unused user accounts automatically revokes their API keys
+      and reduces the seat count cost. Audit active vs. inactive users quarterly.
+    potential_savings: high
+  - name: API Key Governance
+    description: >-
+      Admins can view and manage all organizational API keys via Settings >
+      Manage Apps. Remove orphaned keys and consolidate API usage to fewer
+      service accounts to stay within per-user-per-minute rate limits.
+    potential_savings: medium
+  - name: Rate Limit Monitoring
+    description: >-
+      Monitor X-Ratelimit-Limit-User-Remaining and X-Ratelimit-Limit-Org
+      response headers to track usage against limits. Implement exponential
+      backoff on 429 responses to avoid wasted retry calls.
+    potential_savings: low
+usage_tracking:
+  - method: Response Headers
+    details: >-
+      X-Ratelimit-Limit-User, X-Ratelimit-Limit-User-Remaining,
+      X-Ratelimit-Limit-Org headers on every API response
+  - method: Dashboard
+    details: >-
+      API usage visible in Affinity Settings > Manage Apps
+    url: https://support.affinity.co/s/article/Getting-started-with-the-Affinity-API-FAQs

@@ -1,0 +1,103 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "ListEntry",
+  "type": "object",
+  "properties": {
+    "id": {
+      "description": "The list entry's unique identifier",
+      "type": "integer",
+      "format": "int64",
+      "minimum": 1,
+      "maximum": 9007199254740991,
+      "examples": [
+        1
+      ]
+    },
+    "listId": {
+      "description": "The ID of the list that this list entry belongs to",
+      "type": "integer",
+      "format": "int64",
+      "minimum": 1,
+      "maximum": 9007199254740991,
+      "examples": [
+        1
+      ]
+    },
+    "createdAt": {
+      "description": "The date that the list entry was created",
+      "type": "string",
+      "format": "date-time",
+      "examples": [
+        "2023-01-01T00:00:00Z"
+      ]
+    },
+    "creatorId": {
+      "description": "The ID of the user that created this list entry",
+      "type": "integer",
+      "format": "int64",
+      "minimum": 1,
+      "maximum": 9007199254740991,
+      "examples": [
+        1
+      ],
+      "nullable": true
+    },
+    "fields": {
+      "description": "The fields associated with the list entry",
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/Field"
+      }
+    }
+  },
+  "required": [
+    "createdAt",
+    "creatorId",
+    "fields",
+    "id",
+    "listId"
+  ],
+  "additionalProperties": false,
+  "examples": [
+    {
+      "listId": 1,
+      "createdAt": "2023-01-01T00:00:00Z",
+      "creatorId": 1,
+      "id": 1,
+      "fields": [
+        {
+          "enrichmentSource": "affinity-data",
+          "name": "Location",
+          "id": "affinity-data-location",
+          "type": "enriched",
+          "value": {
+            "data": {
+              "continent": "North America",
+              "country": "United States",
+              "streetAddress": "1 Main Street",
+              "city": "San Francisco",
+              "state": "California"
+            },
+            "type": "location"
+          }
+        },
+        {
+          "enrichmentSource": "affinity-data",
+          "name": "Location",
+          "id": "affinity-data-location",
+          "type": "enriched",
+          "value": {
+            "data": {
+              "continent": "North America",
+              "country": "United States",
+              "streetAddress": "1 Main Street",
+              "city": "San Francisco",
+              "state": "California"
+            },
+            "type": "location"
+          }
+        }
+      ]
+    }
+  ]
+}

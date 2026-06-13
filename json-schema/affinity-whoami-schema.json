@@ -1,0 +1,45 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "WhoAmI",
+  "description": "WhoAmI model",
+  "type": "object",
+  "properties": {
+    "tenant": {
+      "$ref": "#/components/schemas/Tenant"
+    },
+    "user": {
+      "$ref": "#/components/schemas/User"
+    },
+    "grant": {
+      "$ref": "#/components/schemas/Grant"
+    }
+  },
+  "required": [
+    "grant",
+    "tenant",
+    "user"
+  ],
+  "additionalProperties": false,
+  "examples": [
+    {
+      "grant": {
+        "createdAt": "2023-01-01T00:00:00Z",
+        "scopes": [
+          "api"
+        ],
+        "type": "api-key"
+      },
+      "user": {
+        "firstName": "John",
+        "lastName": "Smith",
+        "emailAddress": "john.smith@contoso.com",
+        "id": 1
+      },
+      "tenant": {
+        "name": "Contoso Ltd.",
+        "subdomain": "contoso",
+        "id": 1
+      }
+    }
+  ]
+}

@@ -1,0 +1,55 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "User",
+  "type": "object",
+  "properties": {
+    "id": {
+      "description": "The user's unique identifier",
+      "type": "integer",
+      "format": "int64",
+      "minimum": 1,
+      "maximum": 9007199254740991,
+      "examples": [
+        1
+      ]
+    },
+    "firstName": {
+      "description": "The user's first name",
+      "type": "string",
+      "examples": [
+        "John"
+      ]
+    },
+    "lastName": {
+      "description": "The user's last name",
+      "type": "string",
+      "examples": [
+        "Smith"
+      ],
+      "nullable": true
+    },
+    "emailAddress": {
+      "description": "The user's email address",
+      "type": "string",
+      "format": "email",
+      "examples": [
+        "john.smith@contoso.com"
+      ]
+    }
+  },
+  "required": [
+    "emailAddress",
+    "firstName",
+    "id",
+    "lastName"
+  ],
+  "additionalProperties": false,
+  "examples": [
+    {
+      "firstName": "John",
+      "lastName": "Smith",
+      "emailAddress": "john.smith@contoso.com",
+      "id": 1
+    }
+  ]
+}

@@ -1,0 +1,127 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "schema": "https://schema.org/",
+    "affinity": "https://developer.affinity.co/vocabulary#",
+
+    "Person": "schema:Person",
+    "Company": "schema:Organization",
+    "Opportunity": "affinity:Opportunity",
+    "List": "affinity:List",
+    "ListEntry": "affinity:ListEntry",
+    "Field": "affinity:Field",
+    "FieldValue": "affinity:FieldValue",
+    "Note": "affinity:Note",
+    "Interaction": "affinity:Interaction",
+    "Meeting": "schema:Event",
+    "Attendee": "schema:attendee",
+    "Reminder": "affinity:Reminder",
+    "Webhook": "affinity:Webhook",
+    "RelationshipStrength": "affinity:RelationshipStrength",
+    "Tenant": "affinity:Tenant",
+    "WhoAmI": "affinity:WhoAmI",
+    "Grant": "affinity:Grant",
+    "CompanyMerge": "affinity:CompanyMerge",
+    "PersonMerge": "affinity:PersonMerge",
+    "Pagination": "affinity:Pagination",
+
+    "id": "@id",
+    "type": "@type",
+
+    "name": "schema:name",
+    "description": "schema:description",
+    "email": "schema:email",
+    "url": "schema:url",
+    "createdAt": {
+      "@id": "schema:dateCreated",
+      "@type": "xsd:dateTime"
+    },
+    "updatedAt": {
+      "@id": "schema:dateModified",
+      "@type": "xsd:dateTime"
+    },
+
+    "personId": {
+      "@id": "affinity:personId",
+      "@type": "xsd:integer"
+    },
+    "companyId": {
+      "@id": "affinity:companyId",
+      "@type": "xsd:integer"
+    },
+    "opportunityId": {
+      "@id": "affinity:opportunityId",
+      "@type": "xsd:integer"
+    },
+    "listId": {
+      "@id": "affinity:listId",
+      "@type": "xsd:integer"
+    },
+    "listEntryId": {
+      "@id": "affinity:listEntryId",
+      "@type": "xsd:integer"
+    },
+    "fieldId": {
+      "@id": "affinity:fieldId",
+      "@type": "xsd:integer"
+    },
+    "noteId": {
+      "@id": "affinity:noteId",
+      "@type": "xsd:integer"
+    },
+    "tenantId": {
+      "@id": "affinity:tenantId",
+      "@type": "xsd:integer"
+    },
+    "userId": {
+      "@id": "affinity:userId",
+      "@type": "xsd:integer"
+    },
+
+    "firstName": "schema:givenName",
+    "lastName": "schema:familyName",
+    "primaryEmail": "schema:email",
+    "emails": "schema:email",
+    "phones": "schema:telephone",
+    "linkedInUrl": "schema:sameAs",
+
+    "domain": "schema:url",
+    "domains": "affinity:domains",
+    "globalIntro": "schema:description",
+
+    "content": "schema:text",
+    "mentions": "affinity:mentions",
+
+    "persons": "affinity:persons",
+    "companies": "affinity:companies",
+    "opportunities": "affinity:opportunities",
+    "listEntries": "affinity:listEntries",
+    "fields": "affinity:fields",
+    "attendees": "schema:attendee",
+
+    "nextPageToken": "affinity:nextPageToken",
+    "prevPageToken": "affinity:prevPageToken",
+
+    "strength": {
+      "@id": "affinity:strength",
+      "@type": "xsd:decimal"
+    },
+
+    "webhookUrl": {
+      "@id": "affinity:webhookUrl",
+      "@type": "xsd:anyURI"
+    },
+    "subscriptions": "affinity:subscriptions",
+    "secret": "affinity:secret",
+
+    "grantType": "affinity:grantType",
+    "scopes": "affinity:scopes",
+
+    "statusCode": {
+      "@id": "affinity:statusCode",
+      "@type": "xsd:integer"
+    },
+    "message": "schema:description"
+  }
+}

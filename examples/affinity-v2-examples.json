@@ -1,0 +1,377 @@
+{
+  "v2_company-merges__GET": {
+    "path": "/v2/company-merges",
+    "method": "GET",
+    "status": "200",
+    "example": {
+      "merges-list": {
+        "$ref": "#/components/examples/merges-list"
+      }
+    }
+  },
+  "v2_company-merges__POST": {
+    "path": "/v2/company-merges",
+    "method": "POST",
+    "status": "202",
+    "example": {
+      "merge-initiated": {
+        "$ref": "#/components/examples/merge-initiated"
+      }
+    }
+  },
+  "v2_company-merges_mergeId__GET": {
+    "path": "/v2/company-merges/{mergeId}",
+    "method": "GET",
+    "status": "200",
+    "example": {
+      "completed-merge": {
+        "$ref": "#/components/examples/succeeded-merge"
+      },
+      "failed-merge": {
+        "$ref": "#/components/examples/failed-merge"
+      },
+      "in-progress-merge": {
+        "$ref": "#/components/examples/in-progress-merge"
+      }
+    }
+  },
+  "v2_lists__GET": {
+    "path": "/v2/lists",
+    "method": "GET",
+    "status": "200",
+    "example": {
+      "success": {
+        "$ref": "#/components/examples/success"
+      }
+    }
+  },
+  "v2_lists_listId__GET": {
+    "path": "/v2/lists/{listId}",
+    "method": "GET",
+    "status": "200",
+    "example": {
+      "company-list": {
+        "$ref": "#/components/examples/company-list"
+      },
+      "opportunity-list": {
+        "$ref": "#/components/examples/opportunity-list"
+      },
+      "person-list": {
+        "$ref": "#/components/examples/person-list"
+      }
+    }
+  },
+  "v2_lists_listId_list-entries__GET": {
+    "path": "/v2/lists/{listId}/list-entries",
+    "method": "GET",
+    "status": "200",
+    "example": {
+      "company-list-enriched": {
+        "$ref": "#/components/examples/company-list-enriched"
+      },
+      "company-list-relationship-intelligence": {
+        "$ref": "#/components/examples/company-list-relationship-intelligence"
+      },
+      "company-list-global-and-list": {
+        "$ref": "#/components/examples/company-list-global-and-list"
+      }
+    }
+  },
+  "v2_lists_listId_list-entries_listEntryId__GET": {
+    "path": "/v2/lists/{listId}/list-entries/{listEntryId}",
+    "method": "GET",
+    "status": "200",
+    "example": {
+      "company-list-enriched": {
+        "$ref": "#/components/examples/company-list-enriched-2"
+      },
+      "company-list-relationship-intelligence": {
+        "$ref": "#/components/examples/company-list-relationship-intelligence-2"
+      },
+      "company-list-global-and-list": {
+        "$ref": "#/components/examples/company-list-global-and-list-2"
+      }
+    }
+  },
+  "v2_lists_listId_list-entries_listEntryId_fields__GET": {
+    "path": "/v2/lists/{listId}/list-entries/{listEntryId}/fields",
+    "method": "GET",
+    "status": "200",
+    "example": {
+      "company-list-enriched": {
+        "$ref": "#/components/examples/company-list-enriched-3"
+      },
+      "company-list-relationship-intelligence": {
+        "$ref": "#/components/examples/company-list-relationship-intelligence-3"
+      },
+      "company-list-global-and-list": {
+        "$ref": "#/components/examples/company-list-global-and-list-3"
+      }
+    }
+  },
+  "v2_lists_listId_list-entries_listEntryId_fields__PATCH": {
+    "path": "/v2/lists/{listId}/list-entries/{listEntryId}/fields",
+    "method": "PATCH",
+    "status": "200",
+    "example": {
+      "update-fields": {
+        "$ref": "#/components/examples/update-fields-2"
+      }
+    }
+  },
+  "v2_lists_listId_list-entries_listEntryId_fields_fieldId__GET": {
+    "path": "/v2/lists/{listId}/list-entries/{listEntryId}/fields/{fieldId}",
+    "method": "GET",
+    "status": "200",
+    "example": {
+      "company": {
+        "$ref": "#/components/examples/company"
+      },
+      "company-multi": {
+        "$ref": "#/components/examples/company-multi"
+      },
+      "datetime": {
+        "$ref": "#/components/examples/datetime"
+      },
+      "dropdown": {
+        "$ref": "#/components/examples/dropdown"
+      },
+      "dropdown-multi": {
+        "$ref": "#/components/examples/dropdown-multi"
+      },
+      "filterable-text": {
+        "$ref": "#/components/examples/filterable-text"
+      },
+      "filterable-text-multi": {
+        "$ref": "#/components/examples/filterable-text-multi"
+      },
+      "formula-number": {
+        "$ref": "#/components/examples/formula-number"
+      },
+      "interaction": {
+        "$ref": "#/components/examples/interaction"
+      },
+      "location": {
+        "$ref": "#/components/examples/location"
+      },
+      "location-multi": {
+        "$ref": "#/components/examples/location-multi"
+      },
+      "number": {
+        "$ref": "#/components/examples/number"
+      },
+      "number-multi": {
+        "$ref": "#/components/examples/number-multi"
+      },
+      "person": {
+        "$ref": "#/components/examples/person"
+      },
+      "person-multi": {
+        "$ref": "#/components/examples/person-multi"
+      },
+      "ranked-dropdown": {
+        "$ref": "#/components/examples/ranked-dropdown"
+      },
+      "text": {
+        "$ref": "#/components/examples/text"
+      }
+    }
+  },
+  "v2_lists_listId_fields__GET": {
+    "path": "/v2/lists/{listId}/fields",
+    "method": "GET",
+    "status": "200",
+    "example": {
+      "company-list": {
+        "$ref": "#/components/examples/company-list-2"
+      },
+      "person-list": {
+        "$ref": "#/components/examples/person-list-2"
+      },
+      "opportunity-list": {
+        "$ref": "#/components/examples/opportunity-list-2"
+      }
+    }
+  },
+  "v2_notes__GET": {
+    "path": "/v2/notes",
+    "method": "GET",
+    "status": "200",
+    "example": {
+      "ai-notetaker": {
+        "$ref": "#/components/examples/ai-notetaker"
+      },
+      "entities": {
+        "$ref": "#/components/examples/entities"
+      },
+      "interaction": {
+        "$ref": "#/components/examples/interaction-2"
+      }
+    }
+  },
+  "v2_notes_noteId__GET": {
+    "path": "/v2/notes/{noteId}",
+    "method": "GET",
+    "status": "200",
+    "example": {
+      "ai-notetaker": {
+        "$ref": "#/components/examples/ai-notetaker-2"
+      },
+      "ai-notetaker-reply": {
+        "$ref": "#/components/examples/ai-notetaker-reply"
+      },
+      "entities": {
+        "$ref": "#/components/examples/entities-2"
+      },
+      "interaction": {
+        "$ref": "#/components/examples/interaction-3"
+      },
+      "user-reply": {
+        "$ref": "#/components/examples/user-reply"
+      }
+    }
+  },
+  "v2_notes_noteId_attached-opportunities__GET": {
+    "path": "/v2/notes/{noteId}/attached-opportunities",
+    "method": "GET",
+    "status": "200",
+    "example": {
+      "success": {
+        "$ref": "#/components/examples/success-2"
+      }
+    }
+  },
+  "v2_notes_noteId_replies__GET": {
+    "path": "/v2/notes/{noteId}/replies",
+    "method": "GET",
+    "status": "200",
+    "example": {
+      "user-reply": {
+        "$ref": "#/components/examples/user-reply-2"
+      },
+      "ai-notetaker-reply": {
+        "$ref": "#/components/examples/ai-notetaker-reply-2"
+      }
+    }
+  },
+  "v2_opportunities_opportunityId_notes__GET": {
+    "path": "/v2/opportunities/{opportunityId}/notes",
+    "method": "GET",
+    "status": "200",
+    "example": {
+      "entities": {
+        "$ref": "#/components/examples/entities-3"
+      },
+      "interaction": {
+        "$ref": "#/components/examples/interaction-4"
+      },
+      "ai-notetaker": {
+        "$ref": "#/components/examples/ai-notetaker-3"
+      }
+    }
+  },
+  "v2_persons_personId_notes__GET": {
+    "path": "/v2/persons/{personId}/notes",
+    "method": "GET",
+    "status": "200",
+    "example": {
+      "entities": {
+        "$ref": "#/components/examples/entities-3"
+      },
+      "interaction": {
+        "$ref": "#/components/examples/interaction-4"
+      },
+      "ai-notetaker": {
+        "$ref": "#/components/examples/ai-notetaker-3"
+      }
+    }
+  },
+  "v2_person-merges__GET": {
+    "path": "/v2/person-merges",
+    "method": "GET",
+    "status": "200",
+    "example": {
+      "merges-list": {
+        "$ref": "#/components/examples/merges-list-2"
+      }
+    }
+  },
+  "v2_person-merges__POST": {
+    "path": "/v2/person-merges",
+    "method": "POST",
+    "status": "202",
+    "example": {
+      "merge-initiated": {
+        "$ref": "#/components/examples/merge-initiated-2"
+      }
+    }
+  },
+  "v2_person-merges_mergeId__GET": {
+    "path": "/v2/person-merges/{mergeId}",
+    "method": "GET",
+    "status": "200",
+    "example": {
+      "completed-merge": {
+        "$ref": "#/components/examples/succeeded-merge-2"
+      },
+      "failed-merge": {
+        "$ref": "#/components/examples/failed-merge-2"
+      },
+      "in-progress-merge": {
+        "$ref": "#/components/examples/in-progress-merge-2"
+      }
+    }
+  },
+  "v2_tasks_person-merges__GET": {
+    "path": "/v2/tasks/person-merges",
+    "method": "GET",
+    "status": "200",
+    "example": {
+      "tasks-list": {
+        "$ref": "#/components/examples/tasks-list"
+      }
+    }
+  },
+  "v2_tasks_person-merges_taskId__GET": {
+    "path": "/v2/tasks/person-merges/{taskId}",
+    "method": "GET",
+    "status": "200",
+    "example": {
+      "task-in-progress": {
+        "$ref": "#/components/examples/task-in-progress"
+      },
+      "task-success": {
+        "$ref": "#/components/examples/task-success"
+      },
+      "task-failed": {
+        "$ref": "#/components/examples/task-failed"
+      }
+    }
+  },
+  "v2_tasks_company-merges__GET": {
+    "path": "/v2/tasks/company-merges",
+    "method": "GET",
+    "status": "200",
+    "example": {
+      "tasks-list": {
+        "$ref": "#/components/examples/tasks-list-2"
+      }
+    }
+  },
+  "v2_tasks_company-merges_taskId__GET": {
+    "path": "/v2/tasks/company-merges/{taskId}",
+    "method": "GET",
+    "status": "200",
+    "example": {
+      "task-in-progress": {
+        "$ref": "#/components/examples/task-in-progress"
+      },
+      "task-success": {
+        "$ref": "#/components/examples/task-success-2"
+      },
+      "task-failed": {
+        "$ref": "#/components/examples/task-failed"
+      }
+    }
+  }
+}

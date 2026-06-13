@@ -1,0 +1,33 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "notes.Note",
+  "x-stability-level": "beta",
+  "description": "Note model",
+  "oneOf": [
+    {
+      "$ref": "#/components/schemas/notes.EntitiesNote"
+    },
+    {
+      "$ref": "#/components/schemas/notes.InteractionNote"
+    },
+    {
+      "$ref": "#/components/schemas/notes.AiNotetakerRootNote"
+    },
+    {
+      "$ref": "#/components/schemas/notes.UserReplyNote"
+    },
+    {
+      "$ref": "#/components/schemas/notes.AiNotetakerReplyNote"
+    }
+  ],
+  "discriminator": {
+    "propertyName": "type",
+    "mapping": {
+      "entities": "#/components/schemas/notes.EntitiesNote",
+      "interaction": "#/components/schemas/notes.InteractionNote",
+      "ai-notetaker": "#/components/schemas/notes.AiNotetakerRootNote",
+      "user-reply": "#/components/schemas/notes.UserReplyNote",
+      "ai-notetaker-reply": "#/components/schemas/notes.AiNotetakerReplyNote"
+    }
+  }
+}

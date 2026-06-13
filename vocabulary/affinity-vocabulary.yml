@@ -1,0 +1,156 @@
+name: Affinity API Vocabulary
+description: >-
+  Domain vocabulary for the Affinity relationship intelligence CRM platform,
+  covering persons, companies, opportunities, lists, notes, interactions,
+  and related CRM constructs used in both V1 and V2 APIs.
+url: https://developer.affinity.co/
+version: '2026-06-12'
+terms:
+  - term: Person
+    definition: >-
+      An individual contact record in Affinity. Persons are associated with
+      organizations and can appear in list entries, notes, interactions, and
+      opportunities.
+    relatedURLs:
+      - https://developer.affinity.co/api-reference/
+
+  - term: Company
+    definition: >-
+      An organization or business entity in Affinity. Companies can be linked
+      to persons, opportunities, and lists.
+    relatedURLs:
+      - https://developer.affinity.co/api-reference/
+
+  - term: Opportunity
+    definition: >-
+      A deal or investment opportunity being tracked in Affinity. Opportunities
+      are typically associated with companies and persons and can be organized
+      into lists.
+    relatedURLs:
+      - https://developer.affinity.co/api-reference/
+
+  - term: List
+    definition: >-
+      A collection of entities (persons, companies, or opportunities) in
+      Affinity. Lists are the primary organizational structure for CRM records
+      and serve as pipelines or portfolios.
+    relatedURLs:
+      - https://developer.affinity.co/api-reference/
+
+  - term: ListEntry
+    definition: >-
+      A record that associates an entity (person, company, or opportunity) with
+      a specific list. List entries hold field values specific to that list
+      context.
+    relatedURLs:
+      - https://developer.affinity.co/api-reference/
+
+  - term: Field
+    definition: >-
+      A custom or system-defined data attribute attached to an entity or list
+      entry. Fields define the schema for structured data beyond the standard
+      CRM properties.
+    relatedURLs:
+      - https://developer.affinity.co/api-reference/
+
+  - term: FieldValue
+    definition: >-
+      The value stored for a specific Field on a given entity or list entry.
+      Field values are typed (text, number, date, dropdown, person, etc.).
+    relatedURLs:
+      - https://developer.affinity.co/api-reference/
+
+  - term: Note
+    definition: >-
+      A free-text or structured annotation attached to a person, company,
+      or opportunity. Notes may include mentions of other entities and can
+      be associated with interactions.
+    relatedURLs:
+      - https://developer.affinity.co/api-reference/
+
+  - term: Interaction
+    definition: >-
+      An automatically captured communication event derived from email or
+      calendar data, representing a touchpoint between an Affinity user and
+      a contact.
+    relatedURLs:
+      - https://developer.affinity.co/api-reference/
+
+  - term: Meeting
+    definition: >-
+      A calendar-based interaction event between Affinity users and contacts,
+      automatically captured from connected calendar accounts.
+    relatedURLs:
+      - https://developer.affinity.co/api-reference/
+
+  - term: Attendee
+    definition: >-
+      A participant in a meeting interaction. Attendees are linked to person
+      records in Affinity when matched by email address.
+    relatedURLs:
+      - https://developer.affinity.co/api-reference/
+
+  - term: Reminder
+    definition: >-
+      A scheduled alert associated with a contact or opportunity in Affinity,
+      used to prompt follow-up actions. Available in the V1 API.
+    relatedURLs:
+      - https://api-docs.affinity.co/
+
+  - term: Webhook
+    definition: >-
+      A subscription mechanism allowing external systems to receive real-time
+      notifications when CRM records are created, updated, or deleted in
+      Affinity. Available in the V1 API.
+    relatedURLs:
+      - https://api-docs.affinity.co/
+
+  - term: RelationshipStrength
+    definition: >-
+      A computed score indicating the warmth of the relationship between an
+      Affinity user and a contact, derived from email and calendar interaction
+      frequency and recency.
+    relatedURLs:
+      - https://api-docs.affinity.co/
+
+  - term: Tenant
+    definition: >-
+      The Affinity organization or workspace to which an API key belongs,
+      representing a single customer account.
+    relatedURLs:
+      - https://developer.affinity.co/api-reference/
+
+  - term: WhoAmI
+    definition: >-
+      An authentication endpoint response object that returns the authenticated
+      user, grant scope, and tenant information for a given API key.
+    relatedURLs:
+      - https://developer.affinity.co/api-reference/
+
+  - term: Grant
+    definition: >-
+      The permission scope associated with an API key, defining what operations
+      and data the key is authorized to access.
+    relatedURLs:
+      - https://developer.affinity.co/api-reference/
+
+  - term: CompanyMerge
+    definition: >-
+      An operation that combines two duplicate company records into a single
+      canonical record in Affinity.
+    relatedURLs:
+      - https://developer.affinity.co/api-reference/
+
+  - term: PersonMerge
+    definition: >-
+      An operation that combines two duplicate person records into a single
+      canonical record in Affinity.
+    relatedURLs:
+      - https://developer.affinity.co/api-reference/
+
+  - term: Pagination
+    definition: >-
+      The cursor-based navigation mechanism used by Affinity V2 API to page
+      through large result sets. Uses nextPageToken for forward iteration.
+    relatedURLs:
+      - https://developer.affinity.co/api-reference/

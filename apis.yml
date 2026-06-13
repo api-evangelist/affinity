@@ -65,6 +65,8 @@ apis:
     properties:
       - type: Documentation
         url: https://developer.affinity.co/
+      - type: OpenAPI
+        url: openapi/affinity-v2-openapi.yml
 common:
   - type: Website
     url: https://www.affinity.co/
@@ -88,6 +90,10 @@ common:
     url: rate-limits/affinity-rate-limits.yml
   - type: FinOps
     url: finops/affinity-finops.yml
+  - type: Vocabulary
+    url: vocabulary/affinity-vocabulary.yml
+  - type: JSONLDContext
+    url: json-ld/affinity-context.jsonld
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com

@@ -1,0 +1,53 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Grant",
+  "type": "object",
+  "properties": {
+    "type": {
+      "description": "The type of grant used to authenticate",
+      "type": "string",
+      "enum": [
+        "api-key",
+        "access-token"
+      ],
+      "examples": [
+        "api-key"
+      ]
+    },
+    "scopes": {
+      "description": "The scopes available to the current grant",
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "examples": [
+        [
+          "api"
+        ]
+      ]
+    },
+    "createdAt": {
+      "description": "When the grant was created",
+      "type": "string",
+      "format": "date-time",
+      "examples": [
+        "2023-01-01T00:00:00Z"
+      ]
+    }
+  },
+  "required": [
+    "createdAt",
+    "scopes",
+    "type"
+  ],
+  "additionalProperties": false,
+  "examples": [
+    {
+      "createdAt": "2023-01-01T00:00:00Z",
+      "scopes": [
+        "api"
+      ],
+      "type": "api-key"
+    }
+  ]
+}

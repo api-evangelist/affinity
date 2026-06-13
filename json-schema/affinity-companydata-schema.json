@@ -1,0 +1,39 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "CompanyData",
+  "type": "object",
+  "properties": {
+    "id": {
+      "description": "The company's unique identifier",
+      "type": "integer",
+      "format": "int64",
+      "minimum": 1,
+      "maximum": 9007199254740991,
+      "examples": [
+        1
+      ]
+    },
+    "name": {
+      "description": "The company's name",
+      "type": "string",
+      "examples": [
+        "Acme"
+      ]
+    },
+    "domain": {
+      "description": "The company's primary domain",
+      "type": "string",
+      "format": "hostname",
+      "examples": [
+        "acme.co"
+      ],
+      "nullable": true
+    }
+  },
+  "required": [
+    "domain",
+    "id",
+    "name"
+  ],
+  "additionalProperties": false
+}

@@ -1,0 +1,77 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Field",
+  "type": "object",
+  "properties": {
+    "id": {
+      "description": "The field's unique identifier",
+      "type": "string",
+      "examples": [
+        "affinity-data-location",
+        "field-1234"
+      ]
+    },
+    "name": {
+      "description": "The field's name",
+      "type": "string",
+      "examples": [
+        "Location"
+      ]
+    },
+    "type": {
+      "description": "The field's type",
+      "type": "string",
+      "enum": [
+        "enriched",
+        "global",
+        "list",
+        "relationship-intelligence"
+      ],
+      "examples": [
+        "enriched"
+      ]
+    },
+    "enrichmentSource": {
+      "description": "The source of the data in this Field (if it is enriched)",
+      "type": "string",
+      "enum": [
+        "affinity-data",
+        "dealroom",
+        null
+      ],
+      "examples": [
+        "affinity-data"
+      ],
+      "nullable": true
+    },
+    "value": {
+      "$ref": "#/components/schemas/FieldValue"
+    }
+  },
+  "required": [
+    "enrichmentSource",
+    "id",
+    "name",
+    "type",
+    "value"
+  ],
+  "additionalProperties": false,
+  "examples": [
+    {
+      "enrichmentSource": "affinity-data",
+      "name": "Location",
+      "id": "affinity-data-location",
+      "type": "enriched",
+      "value": {
+        "data": {
+          "continent": "North America",
+          "country": "United States",
+          "streetAddress": "1 Main Street",
+          "city": "San Francisco",
+          "state": "California"
+        },
+        "type": "location"
+      }
+    }
+  ]
+}

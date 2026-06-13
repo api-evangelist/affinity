@@ -1,0 +1,88 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "FieldValue",
+  "oneOf": [
+    {
+      "$ref": "#/components/schemas/CompaniesValue"
+    },
+    {
+      "$ref": "#/components/schemas/CompanyValue"
+    },
+    {
+      "$ref": "#/components/schemas/DateValue"
+    },
+    {
+      "$ref": "#/components/schemas/DropdownsValue"
+    },
+    {
+      "$ref": "#/components/schemas/DropdownValue"
+    },
+    {
+      "$ref": "#/components/schemas/FloatsValue"
+    },
+    {
+      "$ref": "#/components/schemas/FloatValue"
+    },
+    {
+      "$ref": "#/components/schemas/FormulaValue"
+    },
+    {
+      "$ref": "#/components/schemas/InteractionValue"
+    },
+    {
+      "$ref": "#/components/schemas/LocationsValue"
+    },
+    {
+      "$ref": "#/components/schemas/LocationValue"
+    },
+    {
+      "$ref": "#/components/schemas/PersonsValue"
+    },
+    {
+      "$ref": "#/components/schemas/PersonValue"
+    },
+    {
+      "$ref": "#/components/schemas/RankedDropdownValue"
+    },
+    {
+      "$ref": "#/components/schemas/TextsValue"
+    },
+    {
+      "$ref": "#/components/schemas/TextValue"
+    }
+  ],
+  "discriminator": {
+    "propertyName": "type",
+    "mapping": {
+      "company": "#/components/schemas/CompanyValue",
+      "company-multi": "#/components/schemas/CompaniesValue",
+      "datetime": "#/components/schemas/DateValue",
+      "dropdown": "#/components/schemas/DropdownValue",
+      "dropdown-multi": "#/components/schemas/DropdownsValue",
+      "number": "#/components/schemas/FloatValue",
+      "number-multi": "#/components/schemas/FloatsValue",
+      "filterable-text": "#/components/schemas/TextValue",
+      "filterable-text-multi": "#/components/schemas/TextsValue",
+      "formula-number": "#/components/schemas/FormulaValue",
+      "interaction": "#/components/schemas/InteractionValue",
+      "location": "#/components/schemas/LocationValue",
+      "location-multi": "#/components/schemas/LocationsValue",
+      "person": "#/components/schemas/PersonValue",
+      "person-multi": "#/components/schemas/PersonsValue",
+      "ranked-dropdown": "#/components/schemas/RankedDropdownValue",
+      "text": "#/components/schemas/TextValue"
+    }
+  },
+  "examples": [
+    {
+      "data": {
+        "continent": "North America",
+        "country": "United States",
+        "streetAddress": "1 Main Street",
+        "city": "San Francisco",
+        "state": "California"
+      },
+      "type": "location"
+    }
+  ]
+}

@@ -1,0 +1,62 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "PersonData",
+  "type": "object",
+  "properties": {
+    "id": {
+      "description": "The persons's unique identifier",
+      "type": "integer",
+      "format": "int64",
+      "minimum": 1,
+      "maximum": 9007199254740991,
+      "examples": [
+        1
+      ]
+    },
+    "firstName": {
+      "description": "The person's first name",
+      "type": "string",
+      "examples": [
+        "Jane"
+      ],
+      "nullable": true
+    },
+    "lastName": {
+      "description": "The person's last name",
+      "type": "string",
+      "examples": [
+        "Doe"
+      ],
+      "nullable": true
+    },
+    "primaryEmailAddress": {
+      "description": "The person's primary email address",
+      "type": "string",
+      "format": "email",
+      "examples": [
+        "jane.doe@acme.co"
+      ],
+      "nullable": true
+    },
+    "type": {
+      "description": "The person's type",
+      "type": "string",
+      "enum": [
+        "internal",
+        "external",
+        "collaborator"
+      ],
+      "examples": [
+        "internal"
+      ]
+    }
+  },
+  "required": [
+    "firstName",
+    "id",
+    "lastName",
+    "primaryEmailAddress",
+    "type"
+  ],
+  "additionalProperties": false
+}

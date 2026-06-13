@@ -1,0 +1,76 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Meeting",
+  "type": "object",
+  "properties": {
+    "type": {
+      "description": "The type of interaction",
+      "type": "string",
+      "examples": [
+        "meeting"
+      ],
+      "enum": [
+        "meeting"
+      ]
+    },
+    "id": {
+      "description": "The meeting's unique identifier",
+      "type": "integer",
+      "format": "int64",
+      "minimum": 1,
+      "maximum": 9007199254740991,
+      "examples": [
+        1
+      ]
+    },
+    "title": {
+      "description": "The meeting's title",
+      "type": "string",
+      "examples": [
+        "Acme Upsell $10k"
+      ],
+      "nullable": true
+    },
+    "allDay": {
+      "description": "Whether the meeting is an all-day event",
+      "type": "boolean",
+      "examples": [
+        false
+      ]
+    },
+    "startTime": {
+      "description": "The meeting start time",
+      "type": "string",
+      "format": "date-time",
+      "examples": [
+        "2023-02-03T04:00:00Z"
+      ]
+    },
+    "endTime": {
+      "description": "The meeting end time",
+      "type": "string",
+      "format": "date-time",
+      "examples": [
+        "2023-02-03T05:00:00Z"
+      ],
+      "nullable": true
+    },
+    "attendees": {
+      "description": "People attending the meeting",
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/Attendee"
+      }
+    }
+  },
+  "required": [
+    "allDay",
+    "attendees",
+    "endTime",
+    "id",
+    "startTime",
+    "title",
+    "type"
+  ],
+  "additionalProperties": false
+}

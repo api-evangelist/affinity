@@ -1,0 +1,31 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Attendee",
+  "type": "object",
+  "properties": {
+    "emailAddress": {
+      "description": "The email addresses of the attendee",
+      "type": "string",
+      "format": "email",
+      "examples": [
+        "john.smith@contoso.com"
+      ],
+      "nullable": true
+    },
+    "person": {
+      "oneOf": [
+        {
+          "$ref": "#/components/schemas/PersonData"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    }
+  },
+  "required": [
+    "emailAddress",
+    "person"
+  ],
+  "additionalProperties": false
+}

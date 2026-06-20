@@ -10,7 +10,7 @@ description: >-
   workflows, and third-party integrations. API access is included in the Scale,
   Advanced, and Enterprise subscription tiers, with monthly call limits ranging
   from 100,000 to unlimited depending on the plan.
-image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
 url: https://raw.githubusercontent.com/api-evangelist/affinity/refs/heads/main/apis.yml
 created: '2026-06-12'
 modified: '2026-06-12'
@@ -32,7 +32,7 @@ apis:
       core CRM data including persons, organizations, opportunities, lists, notes,
       interactions, reminders, and webhooks. It uses HTTP Basic Auth or Bearer
       Auth with an API key obtained from the Affinity Settings dashboard.
-    image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
     humanURL: https://api-docs.affinity.co/
     baseURL: https://api.affinity.co
     tags:
@@ -53,7 +53,7 @@ apis:
       Bearer Auth authentication. While not yet at full feature parity with V1,
       it is the actively developed version and includes a hosted MCP server
       integration for AI-powered workflows.
-    image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
     humanURL: https://developer.affinity.co/
     baseURL: https://api.affinity.co
     tags:

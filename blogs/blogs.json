@@ -2,10 +2,13 @@
   "repo": "affinity",
   "feeds": [
     {
-      "source": "https://www.linkedin.com/company/project-affinity",
-      "error": "HTTPError"
+      "source": "https://www.affinity.co/resources/blog",
+      "feed_url": "https://www.affinity.co/resources/blog",
+      "title": "Affinity Blog",
+      "saved": 5,
+      "note": "No RSS/Atom feed resolved at common paths (all 404); scraped HTML listing for /blog/{slug} links and fetched post pages for dates and summaries."
     }
   ],
-  "post_count": 0,
-  "fetched": "2026-06-14T20:42:17Z"
+  "fetched": "2026-06-21T17:00:00Z",
+  "post_count": 5
 }

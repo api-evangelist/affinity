@@ -68,6 +68,12 @@ apis:
       - type: OpenAPI
         url: openapi/affinity-v2-openapi.yml
 common:
+  - type: TrustCenter
+    url: security/affinity-trust-center.yml
+  - type: DomainSecurity
+    url: security/affinity-domain-security.yml
+  - type: Authentication
+    url: authentication/affinity-authentication.yml
   - type: Website
     url: https://www.affinity.co/
   - type: Documentation

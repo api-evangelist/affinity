@@ -2,13 +2,11 @@
   "repo": "affinity",
   "feeds": [
     {
-      "source": "https://www.affinity.co/resources/blog",
-      "feed_url": "",
-      "saved": 1,
-      "method": "agent-scrape"
+      "source": "https://www.linkedin.com/company/project-affinity",
+      "error": "HTTPError"
     }
   ],
-  "fetched": "2026-06-27T12:21:34Z",
+  "fetched": "2026-07-11T11:50:51Z",
   "post_count": 6,
-  "agent_pulled": "2026-06-27"
+  "agent_pulled": "2026-07-04"
 }

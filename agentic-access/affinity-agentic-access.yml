@@ -1,0 +1,500 @@
+generated: '2026-07-15'
+method: generated
+source: openapi/affinity-v2-openapi.yml
+description: Recommended x-agentic-access execution contracts, classified heuristically from
+  the OpenAPI. A governance starting point for exposing this API to AI agents — review and bind
+  audience per deployment. See research/curity/agentic-governance/.
+summary:
+  operations: 46
+  by_action_class:
+    connected: 42
+    acting: 4
+  by_consequence:
+    read: 42
+    write: 4
+  human_in_the_loop_required: 0
+operations:
+- path: /v2/auth/whoami
+  method: get
+  operationId: v2_auth_whoami__GET
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/companies
+  method: get
+  operationId: v2_companies__GET
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/companies/{companyId}
+  method: get
+  operationId: v2_companies_companyId__GET
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/companies/fields
+  method: get
+  operationId: v2_companies_fields__GET
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/companies/{companyId}/lists
+  method: get
+  operationId: v2_companies_companyId_lists__GET
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/companies/{companyId}/list-entries
+  method: get
+  operationId: v2_companies_companyId_list-entries__GET
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/companies/{companyId}/notes
+  method: get
+  operationId: v2_companies_companyId_notes__GET
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/company-merges
+  method: get
+  operationId: v2_company-merges__GET
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/company-merges
+  method: post
+  operationId: v2_company-merges__POST
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v2/company-merges/{mergeId}
+  method: get
+  operationId: v2_company-merges_mergeId__GET
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/emails
+  method: get
+  operationId: v2_emails__GET
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/lists
+  method: get
+  operationId: v2_lists__GET
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/lists/{listId}
+  method: get
+  operationId: v2_lists_listId__GET
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/lists/{listId}/list-entries
+  method: get
+  operationId: v2_lists_listId_list-entries__GET
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/lists/{listId}/list-entries/{listEntryId}
+  method: get
+  operationId: v2_lists_listId_list-entries_listEntryId__GET
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/lists/{listId}/list-entries/{listEntryId}/fields
+  method: get
+  operationId: v2_lists_listId_list-entries_listEntryId_fields__GET
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/lists/{listId}/list-entries/{listEntryId}/fields
+  method: patch
+  operationId: v2_lists_listId_list-entries_listEntryId_fields__PATCH
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v2/lists/{listId}/list-entries/{listEntryId}/fields/{fieldId}
+  method: get
+  operationId: v2_lists_listId_list-entries_listEntryId_fields_fieldId__GET
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/lists/{listId}/list-entries/{listEntryId}/fields/{fieldId}
+  method: post
+  operationId: v2_lists_listId_list-entries_listEntryId_fields_fieldId__POST
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v2/lists/{listId}/fields
+  method: get
+  operationId: v2_lists_listId_fields__GET
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/lists/{listId}/saved-views
+  method: get
+  operationId: v2_lists_listId_saved-views__GET
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/lists/{listId}/saved-views/{viewId}
+  method: get
+  operationId: v2_lists_listId_saved-views_viewId__GET
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/lists/{listId}/saved-views/{viewId}/list-entries
+  method: get
+  operationId: v2_lists_listId_saved-views_viewId_list-entries__GET
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/meetings
+  method: get
+  operationId: v2_meetings__GET
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/notes
+  method: get
+  operationId: v2_notes__GET
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/notes/{noteId}
+  method: get
+  operationId: v2_notes_noteId__GET
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/notes/{noteId}/attached-companies
+  method: get
+  operationId: v2_notes_noteId_attached-companies__GET
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/notes/{noteId}/attached-opportunities
+  method: get
+  operationId: v2_notes_noteId_attached-opportunities__GET
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/notes/{noteId}/attached-persons
+  method: get
+  operationId: v2_notes_noteId_attached-persons__GET
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/notes/{noteId}/replies
+  method: get
+  operationId: v2_notes_noteId_replies__GET
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/opportunities
+  method: get
+  operationId: v2_opportunities__GET
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/opportunities/{opportunityId}
+  method: get
+  operationId: v2_opportunities_opportunityId__GET
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/opportunities/{opportunityId}/notes
+  method: get
+  operationId: v2_opportunities_opportunityId_notes__GET
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/persons
+  method: get
+  operationId: v2_persons__GET
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/persons/{personId}
+  method: get
+  operationId: v2_persons_personId__GET
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/persons/{personId}/notes
+  method: get
+  operationId: v2_persons_personId_notes__GET
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/persons/fields
+  method: get
+  operationId: v2_persons_fields__GET
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/persons/{personId}/lists
+  method: get
+  operationId: v2_persons_personId_lists__GET
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/persons/{personId}/list-entries
+  method: get
+  operationId: v2_persons_personId_list-entries__GET
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/person-merges
+  method: get
+  operationId: v2_person-merges__GET
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/person-merges
+  method: post
+  operationId: v2_person-merges__POST
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v2/person-merges/{mergeId}
+  method: get
+  operationId: v2_person-merges_mergeId__GET
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/tasks/person-merges
+  method: get
+  operationId: v2_tasks_person-merges__GET
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/tasks/person-merges/{taskId}
+  method: get
+  operationId: v2_tasks_person-merges_taskId__GET
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/tasks/company-merges
+  method: get
+  operationId: v2_tasks_company-merges__GET
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v2/tasks/company-merges/{taskId}
+  method: get
+  operationId: v2_tasks_company-merges_taskId__GET
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none

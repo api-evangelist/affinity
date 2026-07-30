@@ -10,7 +10,20 @@ description: >-
   workflows, and third-party integrations. API access is included in the Scale,
   Advanced, and Enterprise subscription tiers, with monthly call limits ranging
   from 100,000 to unlimited depending on the plan.
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+accessModel:
+  pricing: paid
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Paid · Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/affinity.png
 url: https://raw.githubusercontent.com/api-evangelist/affinity/refs/heads/main/apis.yml
 created: '2026-06-12'
 modified: '2026-06-12'
@@ -26,47 +39,144 @@ tags:
   - Opportunities
   - Deal Management
 apis:
-  - name: Affinity API V1
-    description: >-
-      The legacy Affinity V1 API provides comprehensive read and write access to
-      core CRM data including persons, organizations, opportunities, lists, notes,
-      interactions, reminders, and webhooks. It uses HTTP Basic Auth or Bearer
-      Auth with an API key obtained from the Affinity Settings dashboard.
-    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-    humanURL: https://api-docs.affinity.co/
-    baseURL: https://api.affinity.co
-    tags:
-      - CRM
-      - Contacts
-      - Organizations
-      - Opportunities
-      - Notes
-      - Webhooks
-    properties:
-      - type: Documentation
-        url: https://api-docs.affinity.co/
-  - name: Affinity API V2
-    description: >-
-      The modern Affinity V2 API is a RESTful interface for building internal
-      apps, automated workflows, and third-party integrations. It supports
-      reading and writing data about people, companies, and opportunities, with
-      Bearer Auth authentication. While not yet at full feature parity with V1,
-      it is the actively developed version and includes a hosted MCP server
-      integration for AI-powered workflows.
-    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-    humanURL: https://developer.affinity.co/
-    baseURL: https://api.affinity.co
-    tags:
-      - CRM
-      - Contacts
-      - Organizations
-      - Opportunities
-      - MCP
-    properties:
-      - type: Documentation
-        url: https://developer.affinity.co/
-      - type: OpenAPI
-        url: openapi/affinity-v2-openapi.yml
+- name: Affinity API V1
+  description: >-
+    The legacy Affinity V1 API provides comprehensive read and write access to core CRM data including
+    persons, organizations, opportunities, lists, notes, interactions, reminders, and webhooks. It uses
+    HTTP Basic Auth or Bearer Auth with an API key obtained from the Affinity Settings dashboard.
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://api-docs.affinity.co/
+  baseURL: https://api.affinity.co
+  tags:
+  - CRM
+  - Contacts
+  - Organizations
+  - Opportunities
+  - Notes
+  - Webhooks
+  properties:
+  - type: Documentation
+    url: https://api-docs.affinity.co/
+- aid: affinity:affinity-auth-api
+  name: Affinity auth API
+  description: Operations about auths
+  humanURL: https://api-docs.affinity.co/
+  baseURL: https://api.affinity.co
+  tags:
+  - auth
+  properties:
+  - type: OpenAPI
+    url: openapi/affinity-auth-api-openapi.yml
+  - type: Documentation
+    url: https://developer.affinity.co/
+- aid: affinity:affinity-companies-api
+  name: Affinity companies API
+  description: Operations about companies
+  humanURL: https://api-docs.affinity.co/
+  baseURL: https://api.affinity.co
+  tags:
+  - companies
+  properties:
+  - type: OpenAPI
+    url: openapi/affinity-companies-api-openapi.yml
+  - type: Documentation
+    url: https://developer.affinity.co/
+- aid: affinity:affinity-companymerges-api
+  name: Affinity companyMerges API
+  description: Operations about company merges
+  humanURL: https://api-docs.affinity.co/
+  baseURL: https://api.affinity.co
+  tags:
+  - companyMerges
+  properties:
+  - type: OpenAPI
+    url: openapi/affinity-companymerges-api-openapi.yml
+  - type: Documentation
+    url: https://developer.affinity.co/
+- aid: affinity:affinity-emails-api
+  name: Affinity emails API
+  description: Operations about emails
+  humanURL: https://api-docs.affinity.co/
+  baseURL: https://api.affinity.co
+  tags:
+  - emails
+  properties:
+  - type: OpenAPI
+    url: openapi/affinity-emails-api-openapi.yml
+  - type: Documentation
+    url: https://developer.affinity.co/
+- aid: affinity:affinity-lists-api
+  name: Affinity lists API
+  description: Operations about lists
+  humanURL: https://api-docs.affinity.co/
+  baseURL: https://api.affinity.co
+  tags:
+  - lists
+  properties:
+  - type: OpenAPI
+    url: openapi/affinity-lists-api-openapi.yml
+  - type: Documentation
+    url: https://developer.affinity.co/
+- aid: affinity:affinity-meetings-api
+  name: Affinity meetings API
+  description: Operations about meetings
+  humanURL: https://api-docs.affinity.co/
+  baseURL: https://api.affinity.co
+  tags:
+  - meetings
+  properties:
+  - type: OpenAPI
+    url: openapi/affinity-meetings-api-openapi.yml
+  - type: Documentation
+    url: https://developer.affinity.co/
+- aid: affinity:affinity-notes-api
+  name: Affinity notes API
+  description: Operations about notes
+  humanURL: https://api-docs.affinity.co/
+  baseURL: https://api.affinity.co
+  tags:
+  - notes
+  properties:
+  - type: OpenAPI
+    url: openapi/affinity-notes-api-openapi.yml
+  - type: Documentation
+    url: https://developer.affinity.co/
+- aid: affinity:affinity-opportunities-api
+  name: Affinity opportunities API
+  description: Operations about opportunities
+  humanURL: https://api-docs.affinity.co/
+  baseURL: https://api.affinity.co
+  tags:
+  - opportunities
+  properties:
+  - type: OpenAPI
+    url: openapi/affinity-opportunities-api-openapi.yml
+  - type: Documentation
+    url: https://developer.affinity.co/
+- aid: affinity:affinity-personmerges-api
+  name: Affinity personMerges API
+  description: Operations about person merges
+  humanURL: https://api-docs.affinity.co/
+  baseURL: https://api.affinity.co
+  tags:
+  - personMerges
+  properties:
+  - type: OpenAPI
+    url: openapi/affinity-personmerges-api-openapi.yml
+  - type: Documentation
+    url: https://developer.affinity.co/
+- aid: affinity:affinity-persons-api
+  name: Affinity persons API
+  description: Operations about persons
+  humanURL: https://api-docs.affinity.co/
+  baseURL: https://api.affinity.co
+  tags:
+  - persons
+  properties:
+  - type: OpenAPI
+    url: openapi/affinity-persons-api-openapi.yml
+  - type: Documentation
+    url: https://developer.affinity.co/
 common:
   - type: AgenticAccess
     url: agentic-access/affinity-agentic-access.yml

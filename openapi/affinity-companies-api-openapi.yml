@@ -1,6 +1,6 @@
 openapi: 3.0.3
 info:
-  version: ''
+  version: "1.0"
   x-affinity-api-version: '2024-01-01'
   contact:
     email: support@affinity.co

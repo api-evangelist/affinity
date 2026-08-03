@@ -1,0 +1,43 @@
+{
+  "provider": "affinity",
+  "sources": [
+    "affinity-auth-api-openapi.yml",
+    "affinity-companies-api-openapi.yml",
+    "affinity-companymerges-api-openapi.yml",
+    "affinity-emails-api-openapi.yml",
+    "affinity-lists-api-openapi.yml",
+    "affinity-meetings-api-openapi.yml",
+    "affinity-notes-api-openapi.yml",
+    "affinity-opportunities-api-openapi.yml",
+    "affinity-personmerges-api-openapi.yml",
+    "affinity-persons-api-openapi.yml"
+  ],
+  "outputs": [
+    "affinity-auth-api-openapi.yml",
+    "affinity-companies-api-openapi.yml",
+    "affinity-companymerges-api-openapi.yml",
+    "affinity-emails-api-openapi.yml",
+    "affinity-lists-api-openapi.yml",
+    "affinity-meetings-api-openapi.yml",
+    "affinity-notes-api-openapi.yml",
+    "affinity-opportunities-api-openapi.yml",
+    "affinity-personmerges-api-openapi.yml",
+    "affinity-persons-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [
+    "affinity-auth-api-openapi.yml: info.version missing",
+    "affinity-companies-api-openapi.yml: info.version missing",
+    "affinity-companymerges-api-openapi.yml: info.version missing",
+    "affinity-emails-api-openapi.yml: info.version missing",
+    "affinity-lists-api-openapi.yml: info.version missing",
+    "affinity-meetings-api-openapi.yml: info.version missing",
+    "affinity-notes-api-openapi.yml: info.version missing",
+    "affinity-opportunities-api-openapi.yml: info.version missing",
+    "affinity-personmerges-api-openapi.yml: info.version missing",
+    "affinity-persons-api-openapi.yml: info.version missing"
+  ],
+  "notes": [],
+  "skipped": []
+}

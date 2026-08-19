@@ -1,0 +1,416 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Affinity API v2 auth lists API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "lists",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get metadata on all Lists",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.affinity.co/v2/lists",
+            "params": [
+              {
+                "name": "cursor",
+                "value": "ICAgICAgYmVmb3JlOjo6Nw",
+                "type": "query",
+                "description": "Cursor for the next or previous page"
+              },
+              {
+                "name": "limit",
+                "value": "100",
+                "type": "query",
+                "description": "Number of items to include in the page"
+              }
+            ]
+          },
+          "docs": "Paginate through all Lists in your organization that you have access to view.\nReturns basic information about each List, including name, owner, and privacy settings."
+        },
+        {
+          "info": {
+            "name": "Get metadata on a single List",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.affinity.co/v2/lists/:listId",
+            "params": [
+              {
+                "name": "listId",
+                "value": "",
+                "type": "path",
+                "description": "List ID"
+              }
+            ]
+          },
+          "docs": "Retrieve detailed information about a specific List you have access to view.\nReturns List configuration including name, owner, privacy settings, and creation details."
+        },
+        {
+          "info": {
+            "name": "Get all List Entries on a List",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.affinity.co/v2/lists/:listId/list-entries",
+            "params": [
+              {
+                "name": "listId",
+                "value": "",
+                "type": "path",
+                "description": "List ID"
+              },
+              {
+                "name": "cursor",
+                "value": "ICAgICAgYmVmb3JlOjo6Nw",
+                "type": "query",
+                "description": "Cursor for the next or previous page"
+              },
+              {
+                "name": "limit",
+                "value": "100",
+                "type": "query",
+                "description": "Number of items to include in the page"
+              },
+              {
+                "name": "fieldIds",
+                "value": "field-1,field-2",
+                "type": "query",
+                "description": "Field IDs for which to return field data"
+              },
+              {
+                "name": "fieldTypes",
+                "value": "enriched,global",
+                "type": "query",
+                "description": "Field Types for which to return field data"
+              }
+            ]
+          },
+          "docs": "Paginate through the List Entries (AKA rows) on a given List.\nReturns basic information and field data, including list-specific\nfield data, on each Company, Person, or Opportunity on the List.\nList Entries also include metadata about their creation,\ni.e., when they were added to the List and by whom.\n\nTo retrieve field data, you must use either the `fieldIds` or the `fieldTypes` parameter\nto specify the Fields for which you want data returned.\nThese Field IDs and Types can be found using the GET"
+        },
+        {
+          "info": {
+            "name": "Get a single List Entry on a List",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.affinity.co/v2/lists/:listId/list-entries/:listEntryId",
+            "params": [
+              {
+                "name": "listId",
+                "value": "",
+                "type": "path",
+                "description": "List ID"
+              },
+              {
+                "name": "listEntryId",
+                "value": "",
+                "type": "path",
+                "description": "List Entry ID"
+              },
+              {
+                "name": "fieldIds",
+                "value": "field-1,field-2",
+                "type": "query",
+                "description": "Field IDs for which to return field data"
+              },
+              {
+                "name": "fieldTypes",
+                "value": "enriched,global",
+                "type": "query",
+                "description": "Field Types for which to return field data"
+              }
+            ]
+          },
+          "docs": "Retrieve a single list entry.\nReturns basic information and field data, including list-specific field data.\n\nTo retrieve field data, you must use either the `fieldIds` or the `fieldTypes` parameter\nto specify the Fields for which you want data returned.\nThese Field IDs and Types can be found using the GET `/v2/lists/{listId}/fields` endpoint.\nWhen no `fieldIds` or `fieldTypes` are provided, the List Entry will be returned without any field data attached.\nTo supply multiple `fieldIds` or `fieldTy"
+        },
+        {
+          "info": {
+            "name": "Get field values on a single List Entry",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.affinity.co/v2/lists/:listId/list-entries/:listEntryId/fields",
+            "params": [
+              {
+                "name": "listId",
+                "value": "",
+                "type": "path",
+                "description": "List ID"
+              },
+              {
+                "name": "listEntryId",
+                "value": "",
+                "type": "path",
+                "description": "List Entry ID"
+              },
+              {
+                "name": "ids",
+                "value": "field-1,field-2",
+                "type": "query",
+                "description": "Field IDs for which to return field data"
+              },
+              {
+                "name": "types",
+                "value": "enriched,global",
+                "type": "query",
+                "description": "Field Types for which to return field data"
+              },
+              {
+                "name": "cursor",
+                "value": "ICAgICAgYmVmb3JlOjo6Nw",
+                "type": "query",
+                "description": "Cursor for the next or previous page"
+              },
+              {
+                "name": "limit",
+                "value": "20",
+                "type": "query",
+                "description": "Number of items to include in the page"
+              }
+            ]
+          },
+          "docs": "Paginate through all field values on a single list entry.\n\nAll fields will be included by default. The `ids` and `types` parameters can be used to filter the collection.\n\nRequires the \"Export data from Lists\" [permission](#section/Getting-Started/Permissions)."
+        },
+        {
+          "info": {
+            "name": "Perform batch operations on a list entry's fields",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.affinity.co/v2/lists/:listId/list-entries/:listEntryId/fields",
+            "params": [
+              {
+                "name": "listId",
+                "value": "",
+                "type": "path",
+                "description": "List ID"
+              },
+              {
+                "name": "listEntryId",
+                "value": "",
+                "type": "path",
+                "description": "List Entry ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Perform batch operations on a list entry's fields.\n\nCurrently the only operation at the endpoint is `update-fields`, which allows you to update multiple field values with a single request. This is equivalent to calling [the single field update](#operation/v2_lists_listId_list-entries_listEntryId_fields_fieldId__POST) endpoint multiple times.    \n\nRequires the \"Export data from Lists\" [permission](#section/Getting-Started/Permissions)."
+        },
+        {
+          "info": {
+            "name": "Get a single field value",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.affinity.co/v2/lists/:listId/list-entries/:listEntryId/fields/:fieldId",
+            "params": [
+              {
+                "name": "listId",
+                "value": "",
+                "type": "path",
+                "description": "List ID"
+              },
+              {
+                "name": "listEntryId",
+                "value": "",
+                "type": "path",
+                "description": "List Entry ID"
+              },
+              {
+                "name": "fieldId",
+                "value": "field-1234",
+                "type": "path",
+                "description": "Field ID"
+              }
+            ]
+          },
+          "docs": "Returns a single field value on a list entry.\n\nRequires the \"Export data from Lists\" [permission](#section/Getting-Started/Permissions)."
+        },
+        {
+          "info": {
+            "name": "Update a single field value on a List Entry",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.affinity.co/v2/lists/:listId/list-entries/:listEntryId/fields/:fieldId",
+            "params": [
+              {
+                "name": "listId",
+                "value": "",
+                "type": "path",
+                "description": "List ID"
+              },
+              {
+                "name": "listEntryId",
+                "value": "",
+                "type": "path",
+                "description": "List Entry ID"
+              },
+              {
+                "name": "fieldId",
+                "value": "",
+                "type": "path",
+                "description": "Field ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update a single field value.\n    \nRequires the \"Export data from Lists\" [permission](#section/Getting-Started/Permissions)."
+        },
+        {
+          "info": {
+            "name": "Get metadata on a single List's Fields",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.affinity.co/v2/lists/:listId/fields",
+            "params": [
+              {
+                "name": "listId",
+                "value": "",
+                "type": "path",
+                "description": "List ID"
+              },
+              {
+                "name": "cursor",
+                "value": "ICAgICAgYmVmb3JlOjo6Nw",
+                "type": "query",
+                "description": "Cursor for the next or previous page"
+              },
+              {
+                "name": "limit",
+                "value": "100",
+                "type": "query",
+                "description": "Number of items to include in the page"
+              }
+            ]
+          },
+          "docs": "Returns metadata on the Fields available on a single List.\n\nUse the returned Field IDs to request field data from the GET `/v2/lists/{listId}/list-entries` endpoint."
+        },
+        {
+          "info": {
+            "name": "Get metadata on Saved Views",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.affinity.co/v2/lists/:listId/saved-views",
+            "params": [
+              {
+                "name": "listId",
+                "value": "",
+                "type": "path",
+                "description": "List ID"
+              },
+              {
+                "name": "cursor",
+                "value": "ICAgICAgYmVmb3JlOjo6Nw",
+                "type": "query",
+                "description": "Cursor for the next or previous page"
+              },
+              {
+                "name": "limit",
+                "value": "100",
+                "type": "query",
+                "description": "Number of items to include in the page"
+              }
+            ]
+          },
+          "docs": "Paginate through all Saved Views you have access to view for a specific List.\nReturns Saved View configurations including name, column settings, and owner information."
+        },
+        {
+          "info": {
+            "name": "Get metadata on a single Saved View",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.affinity.co/v2/lists/:listId/saved-views/:viewId",
+            "params": [
+              {
+                "name": "listId",
+                "value": "",
+                "type": "path",
+                "description": "List ID"
+              },
+              {
+                "name": "viewId",
+                "value": "",
+                "type": "path",
+                "description": "Saved view ID"
+              }
+            ]
+          },
+          "docs": "Retrieve detailed information about a specific Saved View you have access to view.\nReturns complete Saved View configuration including name, sorting, and column visibility settings."
+        },
+        {
+          "info": {
+            "name": "Get all List Entries on a Saved View",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.affinity.co/v2/lists/:listId/saved-views/:viewId/list-entries",
+            "params": [
+              {
+                "name": "listId",
+                "value": "",
+                "type": "path",
+                "description": "List ID"
+              },
+              {
+                "name": "viewId",
+                "value": "",
+                "type": "path",
+                "description": "Saved view ID"
+              },
+              {
+                "name": "cursor",
+                "value": "ICAgICAgYmVmb3JlOjo6Nw",
+                "type": "query",
+                "description": "Cursor for the next or previous page"
+              },
+              {
+                "name": "limit",
+                "value": "100",
+                "type": "query",
+                "description": "Number of items to include in the page"
+              }
+            ]
+          },
+          "docs": "Paginate through the List Entries (AKA rows) on a given Saved View.\nUse this endpoint when you need to filter entities or only want **some**\nfield data to be returned: This endpoint respects the filters set on a Saved View\nvia web app, and only returns field data corresponding to the columns that have been\npulled into the Saved View via web app.\n\nThough this endpoint respects the Saved View's filters and column/Field selection,\nit does not yet preserve sort order. This endpoint also only support"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

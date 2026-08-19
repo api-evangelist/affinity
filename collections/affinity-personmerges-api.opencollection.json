@@ -1,0 +1,139 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Affinity API v2 auth personMerges API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "personMerges",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get All Person Merges",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.affinity.co/v2/person-merges",
+            "params": [
+              {
+                "name": "cursor",
+                "value": "ICAgICAgYmVmb3JlOjo6Nw",
+                "type": "query",
+                "description": "Cursor for the next or previous page"
+              },
+              {
+                "name": "limit",
+                "value": "25",
+                "type": "query",
+                "description": "Number of items to include in the page"
+              },
+              {
+                "name": "filter",
+                "value": "status=failed | taskId=789e0123-e45b-67c8-d901-234567890123",
+                "type": "query",
+                "description": "Filter person merges using Affinity Filtering Language"
+              }
+            ]
+          },
+          "docs": "| ⚠️ This endpoint is currently in BETA |\n|--|\n\n\nRetrieve paginated person merges for the organization.\n\n\nReturns all person merges initiated by users in your organization, including their current\nstatus, the persons involved, and merge details. You can filter person merges using the `filter` query parameter. The filter parameter is a string that you can specify conditions based on the following properties:\n\n\n| Property | Type | Operators | Values | Examples |\n|----------|------|-----------|----"
+        },
+        {
+          "info": {
+            "name": "Initiate Person Merge",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.affinity.co/v2/person-merges",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "| ⚠️ This endpoint is currently in BETA |\n|--|\n\nInitiate a person merge to combine a duplicate person profile into a primary person profile.\n\nThis is an asynchronous process that will merge all data from the duplicate person into the primary person. Once the merge is initiated, you can track its progress using the returned [task URL](#tag/personMerges/operation/v2_tasks_person-merges_taskId__GET).\n\nRequires the \"Manage duplicates\" [permission](#section/Getting-Started/Permissions) and organizati"
+        },
+        {
+          "info": {
+            "name": "Get Person Merge",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.affinity.co/v2/person-merges/:mergeId",
+            "params": [
+              {
+                "name": "mergeId",
+                "value": "",
+                "type": "path",
+                "description": "Person merge ID"
+              }
+            ]
+          },
+          "docs": "| ⚠️ This endpoint is currently in BETA |\n|--|\n\nRetrieve the status and details of a specific person merge.\n\nReturns information about the person merge including its current status, the persons involved, timestamps, and any error information if the merge failed.\n\nThe `mergeId` can be obtained from the response of the [Get All Person Merges](#tag/personMerges/operation/v2_person-merges__GET) endpoint, or by filtering person merges by task ID using `/v2/person-merges?filter=taskId={taskId}` after "
+        },
+        {
+          "info": {
+            "name": "Get All Person Merge Tasks",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.affinity.co/v2/tasks/person-merges",
+            "params": [
+              {
+                "name": "cursor",
+                "value": "ICAgICAgYmVmb3JlOjo6Nw",
+                "type": "query",
+                "description": "Cursor for the next or previous page"
+              },
+              {
+                "name": "limit",
+                "value": "25",
+                "type": "query",
+                "description": "Number of items to include in the page"
+              },
+              {
+                "name": "filter",
+                "value": "status=failed",
+                "type": "query",
+                "description": "Filter tasks using Affinity Filtering Language"
+              }
+            ]
+          },
+          "docs": "| ⚠️ This endpoint is currently in BETA |\n|--|\n\n\nRetrieve paginated person merge tasks for the organization.\n\n\nReturns all merge tasks initiated by users in your organization, including their current status,\nthe persons involved, and task details.\n\n\nYou can filter tasks using the `filter` query parameter. The filter parameter is a string that you can specify conditions based on the following properties:\n\n| Property | Type | Operators | Values | Examples |\n|----------|------|-----------|--------|"
+        },
+        {
+          "info": {
+            "name": "Get Person Merge Task",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.affinity.co/v2/tasks/person-merges/:taskId",
+            "params": [
+              {
+                "name": "taskId",
+                "value": "",
+                "type": "path",
+                "description": "Person merge task ID"
+              }
+            ]
+          },
+          "docs": "| ⚠️ This endpoint is currently in BETA |\n|--|\n\n\nRetrieve the status and details of a specific task for person merges.\n\n\nReturns information about the person merges for a specific task including its overall status,\nnumber of merges in-progress, completed, and failed.\n\n\nDetailed information about individual merges for this task can be found by querying:\n`/v2/person-merges?filter=taskId={taskId}` See [Person\nMerges](#tag/personMerges/operation/v2_person-merges__GET) for more details.\n\n\nTask status"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

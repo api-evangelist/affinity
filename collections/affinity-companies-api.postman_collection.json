@@ -1,0 +1,3006 @@
+{
+  "item": [
+    {
+      "id": "c81146d8-7322-490a-873e-79e089aa272c",
+      "name": "companies",
+      "description": {
+        "content": "Operations about companies",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "d64e7ded-0360-46eb-b209-a1d87694ad02",
+          "name": "Get all Companies",
+          "request": {
+            "name": "Get all Companies",
+            "description": {
+              "content": "Paginate through Companies in Affinity.\nReturns basic information and non-list-specific field data on each Company.\n\nTo retrieve field data, you must use either the `fieldIds` or the `fieldTypes` parameter\nto specify the Fields for which you want data returned.\nThese Field IDs and Types can be found using the GET `/v2/companies/fields` endpoint.\nWhen no `fieldIds` or `fieldTypes` are provided, Companies will be returned without any field data attached.\nTo supply multiple `fieldIds` or `fieldTypes` parameters, generate a query string that looks like this:\n`?fieldIds=field-1234&fieldIds=affinity-data-location` or `?fieldTypes=enriched&fieldTypes=global`.\n\nRequires the \"Export All Organizations directory\" [permission](#section/Getting-Started/Permissions).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v2",
+                "companies"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "cursor",
+                  "value": "<string>",
+                  "description": "Cursor for the next or previous page"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "100",
+                  "description": "Number of items to include in the page"
+                },
+                {
+                  "disabled": false,
+                  "key": "ids",
+                  "value": "<long>",
+                  "description": "Company IDs"
+                },
+                {
+                  "disabled": false,
+                  "key": "ids",
+                  "value": "<long>",
+                  "description": "Company IDs"
+                },
+                {
+                  "disabled": false,
+                  "key": "fieldIds",
+                  "value": "<string>",
+                  "description": "Field IDs for which to return field data"
+                },
+                {
+                  "disabled": false,
+                  "key": "fieldIds",
+                  "value": "<string>",
+                  "description": "Field IDs for which to return field data"
+                },
+                {
+                  "disabled": false,
+                  "key": "fieldTypes",
+                  "value": "<string>",
+                  "description": "Field Types for which to return field data"
+                },
+                {
+                  "disabled": false,
+                  "key": "fieldTypes",
+                  "value": "<string>",
+                  "description": "Field Types for which to return field data"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "c72fba9b-af67-432d-9d9f-81362bb4e5d5",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "companies"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "cursor",
+                      "value": "ICAgICAgYmVmb3JlOjo6Nw"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "ids",
+                      "value": "1"
+                    },
+                    {
+                      "key": "ids",
+                      "value": "2"
+                    },
+                    {
+                      "key": "fieldIds",
+                      "value": "field-1"
+                    },
+                    {
+                      "key": "fieldIds",
+                      "value": "field-2"
+                    },
+                    {
+                      "key": "fieldTypes",
+                      "value": "enriched"
+                    },
+                    {
+                      "key": "fieldTypes",
+                      "value": "global"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Number of requests allowed per minute for the user",
+                  "key": "X-Ratelimit-Limit-User",
+                  "value": "8565"
+                },
+                {
+                  "disabled": false,
+                  "description": "Number of requests remaining for the user",
+                  "key": "X-Ratelimit-Limit-User-Remaining",
+                  "value": "8565"
+                },
+                {
+                  "disabled": false,
+                  "description": "Time in seconds before the limit resets for the user",
+                  "key": "X-Ratelimit-Limit-User-Reset",
+                  "value": "8565"
+                },
+                {
+                  "disabled": false,
+                  "description": "Number of requests allowed per month for the account",
+                  "key": "X-Ratelimit-Limit-Org",
+                  "value": "8565"
+                },
+                {
+                  "disabled": false,
+                  "description": "Number of requests remaining for the account",
+                  "key": "X-Ratelimit-Limit-Org-Remaining",
+                  "value": "8565"
+                },
+                {
+                  "disabled": false,
+                  "description": "Time in seconds before the limit resets for the account",
+                  "key": "X-Ratelimit-Limit-Org-Reset",
+                  "value": "8565"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"domain\": \"RxGWe.cvv\",\n      \"domains\": [\n        \"PJiPCCtMpoOTELAc.slux\",\n        \"uFCAFAWkEGGbJQqJBeSAPIk.qw\"\n      ],\n      \"id\": 1547743463630764,\n      \"isGlobal\": true,\n      \"name\": \"string\",\n      \"fields\": [\n        {\n          \"enrichmentSource\": \"affinity-data\",\n          \"id\": \"string\",\n          \"name\": \"string\",\n          \"type\": \"relationship-intelligence\",\n          \"value\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        {\n          \"enrichmentSource\": \"affinity-data\",\n          \"id\": \"string\",\n          \"name\": \"string\",\n          \"type\": \"global\",\n          \"value\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      ]\n    },\n    {\n      \"domain\": \"FjnSVslQtzuKwzJj.gzyy\",\n      \"domains\": [\n        \"YRhHdmPSCaTKSiMBwAVcMCtOVt.ej\",\n        \"wmMHRgyhnpvZsubiTX.mrll\"\n      ],\n      \"id\": 3898387523742413,\n      \"isGlobal\": true,\n      \"name\": \"string\",\n      \"fields\": [\n        {\n          \"enrichmentSource\": \"affinity-data\",\n          \"id\": \"string\",\n          \"name\": \"string\",\n          \"type\": \"enriched\",\n          \"value\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        {\n          \"enrichmentSource\": \"affinity-data\",\n          \"id\": \"string\",\n          \"name\": \"string\",\n          \"type\": \"relationship-intelligence\",\n          \"value\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      ]\n    }\n  ],\n  \"pagination\": {\n    \"prevUrl\": \"https://ieEcOsLyQOHgcLsQRIiVyu.gwhr2Uhkt6nifFMo,XR1SPYt\",\n    \"nextUrl\": \"http://kVJXvQDEeAU.eewdRRLOa0391KcSY.JMhCvuo9PcA,HvnztZ-NJBoc5,pCKxsKfCvGR0mebATY\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "bb3c0a6b-ea82-4cfb-9aac-22aadab6150a",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "companies"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "cursor",
+                      "value": "ICAgICAgYmVmb3JlOjo6Nw"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "ids",
+                      "value": "1"
+                    },
+                    {
+                      "key": "ids",
+                      "value": "2"
+                    },
+                    {
+                      "key": "fieldIds",
+                      "value": "field-1"
+                    },
+                    {
+                      "key": "fieldIds",
+                      "value": "field-2"
+                    },
+                    {
+                      "key": "fieldTypes",
+                      "value": "enriched"
+                    },
+                    {
+                      "key": "fieldTypes",
+                      "value": "global"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Number of requests allowed per minute for the user",
+                  "key": "X-Ratelimit-Limit-User",
+                  "value": "8565"
+                },
+                {
+                  "disabled": false,
+                  "description": "Number of requests remaining for the user",
+                  "key": "X-Ratelimit-Limit-User-Remaining",
+                  "value": "8565"
+                },
+                {
+                  "disabled": false,
+                  "description": "Time in seconds before the limit resets for the user",
+                  "key": "X-Ratelimit-Limit-User-Reset",
+                  "value": "8565"
+                },
+                {
+                  "disabled": false,
+                  "description": "Number of requests allowed per month for the account",
+                  "key": "X-Ratelimit-Limit-Org",
+                  "value": "8565"
+                },
+                {
+                  "disabled": false,
+                  "description": "Number of requests remaining for the account",
+                  "key": "X-Ratelimit-Limit-Org-Remaining",
+                  "value": "8565"
+                },
+                {
+                  "disabled": false,
+                  "description": "Time in seconds before the limit resets for the account",
+                  "key": "X-Ratelimit-Limit-Org-Reset",
+                  "value": "8565"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": \"bad-request\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"bad-request\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5490d6ea-f3b6-4860-8e80-1434631b7dee",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "companies"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "cursor",
+                      "value": "ICAgICAgYmVmb3JlOjo6Nw"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "ids",
+                      "value": "1"
+                    },
+                    {
+                      "key": "ids",
+                      "value": "2"
+                    },
+                    {
+                      "key": "fieldIds",
+                      "value": "field-1"
+                    },
+                    {
+                      "key": "fieldIds",
+                      "value": "field-2"
+                    },
+                    {
+                      "key": "fieldTypes",
+                      "value": "enriched"
+                    },
+                    {
+                      "key": "fieldTypes",
+                      "value": "global"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Number of requests allowed per minute for the user",
+                  "key": "X-Ratelimit-Limit-User",
+                  "value": "8565"
+                },
+                {
+                  "disabled": false,
+                  "description": "Number of requests remaining for the user",
+                  "key": "X-Ratelimit-Limit-User-Remaining",
+                  "value": "8565"
+                },
+                {
+                  "disabled": false,
+                  "description": "Time in seconds before the limit resets for the user",
+                  "key": "X-Ratelimit-Limit-User-Reset",
+                  "value": "8565"
+                },
+                {
+                  "disabled": false,
+                  "description": "Number of requests allowed per month for the account",
+                  "key": "X-Ratelimit-Limit-Org",
+                  "value": "8565"
+                },
+                {
+                  "disabled": false,
+                  "description": "Number of requests remaining for the account",
+                  "key": "X-Ratelimit-Limit-Org-Remaining",
+                  "value": "8565"
+                },
+                {
+                  "disabled": false,
+                  "description": "Time in seconds before the limit resets for the account",
+                  "key": "X-Ratelimit-Limit-Org-Reset",
+                  "value": "8565"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": \"authorization\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"authorization\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fb26246b-28b7-4f7b-b271-78265717cfbb",
+              "name": "Errors",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "companies"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "cursor",
+                      "value": "ICAgICAgYmVmb3JlOjo6Nw"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "ids",
+                      "value": "1"
+                    },
+                    {
+                      "key": "ids",
+                      "value": "2"
+                    },
+                    {
+                      "key": "fieldIds",
+                      "value": "field-1"
+                    },
+                    {
+                      "key": "fieldIds",
+                      "value": "field-2"
+                    },
+                    {
+                      "key": "fieldTypes",
+                      "value": "enriched"
+                    },
+                    {
+                      "key": "fieldTypes",
+                      "value": "global"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Number of requests allowed per minute for the user",
+                  "key": "X-Ratelimit-Limit-User",
+                  "value": "8565"
+                },
+                {
+                  "disabled": false,
+                  "description": "Number of requests remaining for the user",
+                  "key": "X-Ratelimit-Limit-User-Remaining",
+                  "value": "8565"
+                },
+                {
+                  "disabled": false,
+                  "description": "Time in seconds before the limit resets for the user",
+                  "key": "X-Ratelimit-Limit-User-Reset",
+                  "value": "8565"
+                },
+                {
+                  "disabled": false,
+                  "description": "Number of requests allowed per month for the account",
+                  "key": "X-Ratelimit-Limit-Org",
+                  "value": "8565"
+                },
+                {
+                  "disabled": false,
+                  "description": "Number of requests remaining for the account",
+                  "key": "X-Ratelimit-Limit-Org-Remaining",
+                  "value": "8565"
+                },
+                {
+                  "disabled": false,
+                  "description": "Time in seconds before the limit resets for the account",
+                  "key": "X-Ratelimit-Limit-Org-Reset",
+                  "value": "8565"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": \"authentication\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"authentication\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "47fb4bfd-9cc3-4344-907d-af247f6d2d49",
+          "name": "Get a single Company",
+          "request": {
+            "name": "Get a single Company",
+            "description": {
+              "content": "Returns basic information and non-list-specific field data on the requested Company.\n\nTo retrieve field data, you must use either the `fieldIds` or the `fieldTypes` parameter\nto specify the Fields for which you want data returned.\nThese Field IDs and Types can be found using the GET `/v2/companies/fields` endpoint.\nWhen no `fieldIds` or `fieldTypes` are provided, Companies will be returned without any field data attached.\nTo supply multiple `fieldIds` or `fieldTypes` parameters, generate a query string that looks like this:\n`?fieldIds=field-1234&fieldIds=affinity-data-location` or `?fieldTypes=enriched&fieldTypes=global`.\n\nRequires the \"Export All Organizations directory\" [permission](#section/Getting-Started/Permissions).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v2",
+                "companies",
+                ":companyId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "fieldIds",
+                  "value": "<string>",
+                  "description": "Field IDs for which to return field data"
+                },
+                {
+                  "disabled": false,
+                  "key": "fieldIds",
+                  "value": "<string>",
+                  "description": "Field IDs for which to return field data"
+                },
+                {
+                  "disabled": false,
+                  "key": "fieldTypes",
+                  "value": "<string>",
+                  "description": "Field Types for which to return field data"
+                },
+                {
+                  "disabled": false,
+                  "key": "fieldTypes",
+                  "value": "<string>",
+                  "description": "Field Types for which to return field data"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<long>",
+                  "key": "companyId",
+                  "description": "(Required) Company ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "beca3976-185d-4c27-9a7c-992c3894b645",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "companies",
+                    ":companyId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fieldIds",
+                      "value": "field-1"
+                    },
+                    {
+                      "key": "fieldIds",
+                      "value": "field-2"
+                    },
+                    {
+                      "key": "fieldTypes",
+                      "value": "enriched"
+                    },
+                    {
+                      "key": "fieldTypes",
+                      "value": "global"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "companyId",
+                      "description": "(Required) Company ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Number of requests allowed per minute for the user",
+                  "key": "X-Ratelimit-Limit-User",
+                  "value": "8565"
+                },
+                {
+                  "disabled": false,
+                  "description": "Number of requests remaining for the user",
+                  "key": "X-Ratelimit-Limit-User-Remaining",
+                  "value": "8565"
+                },
+                {
+                  "disabled": false,
+                  "description": "Time in seconds before the limit resets for the user",
+                  "key": "X-Ratelimit-Limit-User-Reset",
+                  "value": "8565"
+                },
+                {
+                  "disabled": false,
+                  "description": "Number of requests allowed per month for the account",
+                  "key": "X-Ratelimit-Limit-Org",
+                  "value": "8565"
+                },
+                {
+                  "disabled": false,
+                  "description": "Number of requests remaining for the account",
+                  "key": "X-Ratelimit-Limit-Org-Remaining",
+                  "value": "8565"
+                },
+                {
+                  "disabled": false,
+                  "description": "Time in seconds before the limit resets for the account",
+                  "key": "X-Ratelimit-Limit-Org-Reset",
+                  "value": "8565"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"domain\": \"WzjftPgtC.nqa\",\n  \"domains\": [\n    \"BYdHMnTAuvbTwmJgkPMigPWUV.lie\",\n    \"LamfXZG.xsa\"\n  ],\n  \"id\": 657385629893200,\n  \"isGlobal\": true,\n  \"name\": \"string\",\n  \"fields\": [\n    {\n      \"enrichmentSource\": \"dealroom\",\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"type\": \"list\",\n      \"value\": {\n        \"data\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"type\": \"company-multi\"\n      }\n    },\n    {\n      \"enrichmentSource\": \"dealroom\",\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"type\": \"list\",\n      \"value\": {\n        \"data\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"type\": \"company-multi\"\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6942f93f-9b71-40d9-93ca-8ea2293d12cc",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "companies",
+                    ":companyId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fieldIds",
+                      "value": "field-1"
+                    },
+                    {
+                      "key": "fieldIds",
+                      "value": "field-2"
+                    },
+                    {
+                      "key": "fieldTypes",
+                      "value": "enriched"
+                    },
+                    {
+                      "key": "fieldTypes",
+                      "value": "global"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "companyId",
+                      "description": "(Required) Company ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Number of requests allowed per minute for the user",
+                  "key": "X-Ratelimit-Limit-User",
+                  "value": "8565"
+                },
+                {
+                  "disabled": false,
+                  "description": "Number of requests remaining for the user",
+                  "key": "X-Ratelimit-Limit-User-Remaining",
+                  "value": "8565"
+                },
+                {
+                  "disabled": false,
+                  "description": "Time in seconds before the limit resets for the user",
+                  "key": "X-Ratelimit-Limit-User-Reset",
+                  "value": "8565"
+                },
+                {
+                  "disabled": false,
+                  "description": "Number of requests allowed per month for the account",
+                  "key": "X-Ratelimit-Limit-Org",
+                  "value": "8565"
+                },
+                {
+                  "disabled": false,
+                  "description": "Number of requests remaining for the account",
+                  "key": "X-Ratelimit-Limit-Org-Remaining",
+                  "value": "8565"
+                },
+                {
+                  "disabled": false,
+                  "description": "Time in seconds before the limit resets for the account",
+                  "key": "X-Ratelimit-Limit-Org-Reset",
+                  "value": "8565"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": \"bad-request\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"bad-request\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "26aea778-3c33-451f-b36f-a7f2be31caf3",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "companies",
+                    ":companyId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fieldIds",
+                      "value": "field-1"
+                    },
+                    {
+                      "key": "fieldIds",
+                      "value": "field-2"
+                    },
+                    {
+                      "key": "fieldTypes",
+                      "value": "enriched"
+                    },
+                    {
+                      "key": "fieldTypes",
+                      "value": "global"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "companyId",
+                      "description": "(Required) Company ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Number of requests allowed per minute for the user",
+                  "key": "X-Ratelimit-Limit-User",
+                  "value": "8565"
+                },
+                {
+                  "disabled": false,
+                  "description": "Number of requests remaining for the user",
+                  "key": "X-Ratelimit-Limit-User-Remaining",
+                  "value": "8565"
+                },
+                {
+                  "disabled": false,
+                  "description": "Time in seconds before the limit resets for the user",
+                  "key": "X-Ratelimit-Limit-User-Reset",
+                  "value": "8565"
+                },
+                {
+                  "disabled": false,
+                  "description": "Number of requests allowed per month for the account",
+                  "key": "X-Ratelimit-Limit-Org",
+                  "value": "8565"
+                },
+                {
+                  "disabled": false,
+                  "description": "Number of requests remaining for the account",
+                  "key": "X-Ratelimit-Limit-Org-Remaining",
+                  "value": "8565"
+                },
+                {
+                  "disabled": false,
+                  "description": "Time in seconds before the limit resets for the account",
+                  "key": "X-Ratelimit-Limit-Org-Reset",
+                  "value": "8565"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": \"authorization\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"authorization\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "586c8e22-266b-4c22-88ff-930aa5ab66c2",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "companies",
+                    ":companyId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fieldIds",
+                      "value": "field-1"
+                    },
+                    {
+                      "key": "fieldIds",
+                      "value": "field-2"
+                    },
+                    {
+                      "key": "fieldTypes",
+                      "value": "enriched"
+                    },
+                    {
+                      "key": "fieldTypes",
+                      "value": "global"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "companyId",
+                      "description": "(Required) Company ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Number of requests allowed per minute for the user",
+                  "key": "X-Ratelimit-Limit-User",
+                  "value": "8565"
+                },
+                {
+                  "disabled": false,
+                  "description": "Number of requests remaining for the user",
+                  "key": "X-Ratelimit-Limit-User-Remaining",
+                  "value": "8565"
+                },
+                {
+                  "disabled": false,
+                  "description": "Time in seconds before the limit resets for the user",
+                  "key": "X-Ratelimit-Limit-User-Reset",
+                  "value": "8565"
+                },
+                {
+                  "disabled": false,
+                  "description": "Number of requests allowed per month for the account",
+                  "key": "X-Ratelimit-Limit-Org",
+                  "value": "8565"
+                },
+                {
+                  "disabled": false,
+                  "description": "Number of requests remaining for the account",
+                  "key": "X-Ratelimit-Limit-Org-Remaining",
+                  "value": "8565"
+                },
+                {
+                  "disabled": false,
+                  "description": "Time in seconds before the limit resets for the account",
+                  "key": "X-Ratelimit-Limit-Org-Reset",
+                  "value": "8565"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": \"not-found\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"not-found\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "bf0a0a79-3234-4920-9c2a-11b99176c0fe",
+              "name": "Errors",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "companies",
+                    ":companyId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fieldIds",
+                      "value": "field-1"
+                    },
+                    {
+                      "key": "fieldIds",
+                      "value": "field-2"
+                    },
+                    {
+                      "key": "fieldTypes",
+                      "value": "enriched"
+                    },
+                    {
+                      "key": "fieldTypes",
+                      "value": "global"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "companyId",
+                      "description": "(Required) Company ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Number of requests allowed per minute for the user",
+                  "key": "X-Ratelimit-Limit-User",
+                  "value": "8565"
+                },
+                {
+                  "disabled": false,
+                  "description": "Number of requests remaining for the user",
+                  "key": "X-Ratelimit-Limit-User-Remaining",
+                  "value": "8565"
+                },
+                {
+                  "disabled": false,
+                  "description": "Time in seconds before the limit resets for the user",
+                  "key": "X-Ratelimit-Limit-User-Reset",
+                  "value": "8565"
+                },
+                {
+                  "disabled": false,
+                  "description": "Number of requests allowed per month for the account",
+                  "key": "X-Ratelimit-Limit-Org",
+                  "value": "8565"
+                },
+                {
+                  "disabled": false,
+                  "description": "Number of requests remaining for the account",
+                  "key": "X-Ratelimit-Limit-Org-Remaining",
+                  "value": "8565"
+                },
+                {
+                  "disabled": false,
+                  "description": "Time in seconds before the limit resets for the account",
+                  "key": "X-Ratelimit-Limit-Org-Reset",
+                  "value": "8565"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": \"authentication\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"authentication\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "70213054-e8e7-490e-a72e-cb38a3393a4d",
+          "name": "Get metadata on Company Fields",
+          "request": {
+            "name": "Get metadata on Company Fields",
+            "description": {
+              "content": "Returns metadata on non-list-specific Company Fields.\n\nUse the returned Field IDs to request field data from the GET `/v2/companies` and GET `/v2/companies/{id}` endpoints.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v2",
+                "companies",
+                "fields"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "cursor",
+                  "value": "<string>",
+                  "description": "Cursor for the next or previous page"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "100",
+                  "description": "Number of items to include in the page"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "e69df81e-549b-4d2d-a8bd-d76cb5b1e24f",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "companies",
+                    "fields"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "cursor",
+                      "value": "ICAgICAgYmVmb3JlOjo6Nw"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Number of requests allowed per minute for the user",
+                  "key": "X-Ratelimit-Limit-User",
+                  "value": "8565"
+                },
+                {
+                  "disabled": false,
+                  "description": "Number of requests remaining for the user",
+                  "key": "X-Ratelimit-Limit-User-Remaining",
+                  "value": "8565"
+                },
+                {
+                  "disabled": false,
+                  "description": "Time in seconds before the limit resets for the user",
+                  "key": "X-Ratelimit-Limit-User-Reset",
+                  "value": "8565"
+                },
+                {
+                  "disabled": false,
+                  "description": "Number of requests allowed per month for the account",
+                  "key": "X-Ratelimit-Limit-Org",
+                  "value": "8565"
+                },
+                {
+                  "disabled": false,
+                  "description": "Number of requests remaining for the account",
+                  "key": "X-Ratelimit-Limit-Org-Remaining",
+                  "value": "8565"
+                },
+                {
+                  "disabled": false,
+                  "description": "Time in seconds before the limit resets for the account",
+                  "key": "X-Ratelimit-Limit-Org-Reset",
+                  "value": "8565"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"enrichmentSource\": null,\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"type\": \"global\",\n      \"valueType\": \"filterable-text-multi\"\n    },\n    {\n      \"enrichmentSource\": \"dealroom\",\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"type\": \"list\",\n      \"valueType\": \"person-multi\"\n    }\n  ],\n  \"pagination\": {\n    \"prevUrl\": \"https://mAUTohvLkWa.mmysawrTmKx92KQg,1sAUaD,bqIzYeboM+RSSNF\",\n    \"nextUrl\": \"https://FOxjRyXJVBVDjiNhT.uohIlMxisyj7fWHNdFiTV2YsqbXWOv4flpOVliGA45atkVBH4oFO3jFw\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7d5dd697-ca46-4e4e-a253-4a60dca7b511",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "companies",
+                    "fields"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "cursor",
+                      "value": "ICAgICAgYmVmb3JlOjo6Nw"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Number of requests allowed per minute for the user",
+                  "key": "X-Ratelimit-Limit-User",
+                  "value": "8565"
+                },
+                {
+                  "disabled": false,
+                  "description": "Number of requests remaining for the user",
+                  "key": "X-Ratelimit-Limit-User-Remaining",
+                  "value": "8565"
+                },
+                {
+                  "disabled": false,
+                  "description": "Time in seconds before the limit resets for the user",
+                  "key": "X-Ratelimit-Limit-User-Reset",
+                  "value": "8565"
+                },
+                {
+                  "disabled": false,
+                  "description": "Number of requests allowed per month for the account",
+                  "key": "X-Ratelimit-Limit-Org",
+                  "value": "8565"
+                },
+                {
+                  "disabled": false,
+                  "description": "Number of requests remaining for the account",
+                  "key": "X-Ratelimit-Limit-Org-Remaining",
+                  "value": "8565"
+                },
+                {
+                  "disabled": false,
+                  "description": "Time in seconds before the limit resets for the account",
+                  "key": "X-Ratelimit-Limit-Org-Reset",
+                  "value": "8565"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": \"bad-request\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"bad-request\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9efcea13-f42a-4618-9698-5c02627dafb8",
+              "name": "Errors",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "companies",
+                    "fields"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "cursor",
+                      "value": "ICAgICAgYmVmb3JlOjo6Nw"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Number of requests allowed per minute for the user",
+                  "key": "X-Ratelimit-Limit-User",
+                  "value": "8565"
+                },
+                {
+                  "disabled": false,
+                  "description": "Number of requests remaining for the user",
+                  "key": "X-Ratelimit-Limit-User-Remaining",
+                  "value": "8565"
+                },
+                {
+                  "disabled": false,
+                  "description": "Time in seconds before the limit resets for the user",
+                  "key": "X-Ratelimit-Limit-User-Reset",
+                  "value": "8565"
+                },
+                {
+                  "disabled": false,
+                  "description": "Number of requests allowed per month for the account",
+                  "key": "X-Ratelimit-Limit-Org",
+                  "value": "8565"
+                },
+                {
+                  "disabled": false,
+                  "description": "Number of requests remaining for the account",
+                  "key": "X-Ratelimit-Limit-Org-Remaining",
+                  "value": "8565"
+                },
+                {
+                  "disabled": false,
+                  "description": "Time in seconds before the limit resets for the account",
+                  "key": "X-Ratelimit-Limit-Org-Reset",
+                  "value": "8565"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": \"authentication\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"authentication\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1aa4d10c-38e4-4e2b-8dda-04186061cd6b",
+          "name": "Get a Company's Lists",
+          "request": {
+            "name": "Get a Company's Lists",
+            "description": {
+              "content": "Paginate through all Lists where the given Company appears as an entry and that you have access to view.\nReturns basic List information for each List that contains this Company.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v2",
+                "companies",
+                ":companyId",
+                "lists"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "cursor",
+                  "value": "<string>",
+                  "description": "Cursor for the next or previous page"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "100",
+                  "description": "Number of items to include in the page"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<long>",
+                  "key": "companyId",
+                  "description": "(Required) Company ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "687a517d-d28b-4b78-9112-3256dcf3d09f",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "companies",
+                    ":companyId",
+                    "lists"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "cursor",
+                      "value": "ICAgICAgYmVmb3JlOjo6Nw"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "companyId",
+                      "description": "(Required) Company ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Number of requests allowed per minute for the user",
+                  "key": "X-Ratelimit-Limit-User",
+                  "value": "8565"
+                },
+                {
+                  "disabled": false,
+                  "description": "Number of requests remaining for the user",
+                  "key": "X-Ratelimit-Limit-User-Remaining",
+                  "value": "8565"
+                },
+                {
+                  "disabled": false,
+                  "description": "Time in seconds before the limit resets for the user",
+                  "key": "X-Ratelimit-Limit-User-Reset",
+                  "value": "8565"
+                },
+                {
+                  "disabled": false,
+                  "description": "Number of requests allowed per month for the account",
+                  "key": "X-Ratelimit-Limit-Org",
+                  "value": "8565"
+                },
+                {
+                  "disabled": false,
+                  "description": "Number of requests remaining for the account",
+                  "key": "X-Ratelimit-Limit-Org-Remaining",
+                  "value": "8565"
+                },
+                {
+                  "disabled": false,
+                  "description": "Time in seconds before the limit resets for the account",
+                  "key": "X-Ratelimit-Limit-Org-Reset",
+                  "value": "8565"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"creatorId\": 2373067478699668,\n      \"id\": 1639277681243455,\n      \"isPublic\": true,\n      \"name\": \"string\",\n      \"ownerId\": 7130447065510074\n    },\n    {\n      \"creatorId\": 4836850791081609,\n      \"id\": 8630630953713940,\n      \"isPublic\": true,\n      \"name\": \"string\",\n      \"ownerId\": 7314941261921666\n    }\n  ],\n  \"pagination\": {\n    \"prevUrl\": \"http://yBbfnLa.sqoIlD1CtOQrAOenOXvwxQLa7ALyfxqywJiylblgb-FRg3exO4p1B\",\n    \"nextUrl\": \"http://JCKUXwDel.kekBkcOOJbIzA6IX2L0dM8kCtYehk\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e9f300be-d8bf-42aa-ae38-2b3b41e37085",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "companies",
+                    ":companyId",
+                    "lists"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "cursor",
+                      "value": "ICAgICAgYmVmb3JlOjo6Nw"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "companyId",
+                      "description": "(Required) Company ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Number of requests allowed per minute for the user",
+                  "key": "X-Ratelimit-Limit-User",
+                  "value": "8565"
+                },
+                {
+                  "disabled": false,
+                  "description": "Number of requests remaining for the user",
+                  "key": "X-Ratelimit-Limit-User-Remaining",
+                  "value": "8565"
+                },
+                {
+                  "disabled": false,
+                  "description": "Time in seconds before the limit resets for the user",
+                  "key": "X-Ratelimit-Limit-User-Reset",
+                  "value": "8565"
+                },
+                {
+                  "disabled": false,
+                  "description": "Number of requests allowed per month for the account",
+                  "key": "X-Ratelimit-Limit-Org",
+                  "value": "8565"
+                },
+                {
+                  "disabled": false,
+                  "description": "Number of requests remaining for the account",
+                  "key": "X-Ratelimit-Limit-Org-Remaining",
+                  "value": "8565"
+                },
+                {
+                  "disabled": false,
+                  "description": "Time in seconds before the limit resets for the account",
+                  "key": "X-Ratelimit-Limit-Org-Reset",
+                  "value": "8565"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": \"bad-request\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"bad-request\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e2dee4f0-3955-4e66-abda-0a9a75e6f60f",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "companies",
+                    ":companyId",
+                    "lists"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "cursor",
+                      "value": "ICAgICAgYmVmb3JlOjo6Nw"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "companyId",
+                      "description": "(Required) Company ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Number of requests allowed per minute for the user",
+                  "key": "X-Ratelimit-Limit-User",
+                  "value": "8565"
+                },
+                {
+                  "disabled": false,
+                  "description": "Number of requests remaining for the user",
+                  "key": "X-Ratelimit-Limit-User-Remaining",
+                  "value": "8565"
+                },
+                {
+                  "disabled": false,
+                  "description": "Time in seconds before the limit resets for the user",
+                  "key": "X-Ratelimit-Limit-User-Reset",
+                  "value": "8565"
+                },
+                {
+                  "disabled": false,
+                  "description": "Number of requests allowed per month for the account",
+                  "key": "X-Ratelimit-Limit-Org",
+                  "value": "8565"
+                },
+                {
+                  "disabled": false,
+                  "description": "Number of requests remaining for the account",
+                  "key": "X-Ratelimit-Limit-Org-Remaining",
+                  "value": "8565"
+                },
+                {
+                  "disabled": false,
+                  "description": "Time in seconds before the limit resets for the account",
+                  "key": "X-Ratelimit-Limit-Org-Reset",
+                  "value": "8565"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": \"not-found\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"not-found\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8e328eaf-b64f-4c1e-9d0d-fe7903ffd58e",
+              "name": "Errors",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "companies",
+                    ":companyId",
+                    "lists"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "cursor",
+                      "value": "ICAgICAgYmVmb3JlOjo6Nw"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "companyId",
+                      "description": "(Required) Company ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Number of requests allowed per minute for the user",
+                  "key": "X-Ratelimit-Limit-User",
+                  "value": "8565"
+                },
+                {
+                  "disabled": false,
+                  "description": "Number of requests remaining for the user",
+                  "key": "X-Ratelimit-Limit-User-Remaining",
+                  "value": "8565"
+                },
+                {
+                  "disabled": false,
+                  "description": "Time in seconds before the limit resets for the user",
+                  "key": "X-Ratelimit-Limit-User-Reset",
+                  "value": "8565"
+                },
+                {
+                  "disabled": false,
+                  "description": "Number of requests allowed per month for the account",
+                  "key": "X-Ratelimit-Limit-Org",
+                  "value": "8565"
+                },
+                {
+                  "disabled": false,
+                  "description": "Number of requests remaining for the account",
+                  "key": "X-Ratelimit-Limit-Org-Remaining",
+                  "value": "8565"
+                },
+                {
+                  "disabled": false,
+                  "description": "Time in seconds before the limit resets for the account",
+                  "key": "X-Ratelimit-Limit-Org-Reset",
+                  "value": "8565"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": \"authentication\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"authentication\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e98126b1-773b-450f-a971-4ae209dbbf9f",
+          "name": "Get a Company's List Entries",
+          "request": {
+            "name": "Get a Company's List Entries",
+            "description": {
+              "content": "Paginate through the List Entries (AKA rows) for the given Company across all Lists.\nEach List Entry includes field data for the Company, including list-specific field data.\nEach List Entry also includes metadata about its creation, i.e., when it was added to the List and by whom.\n\nRequires the \"Export data from Lists\" [permission](#section/Getting-Started/Permissions).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v2",
+                "companies",
+                ":companyId",
+                "list-entries"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "cursor",
+                  "value": "<string>",
+                  "description": "Cursor for the next or previous page"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "100",
+                  "description": "Number of items to include in the page"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<long>",
+                  "key": "companyId",
+                  "description": "(Required) Company ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "8939fe5a-bee3-4065-8009-89416dc7aa1f",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "companies",
+                    ":companyId",
+                    "list-entries"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "cursor",
+                      "value": "ICAgICAgYmVmb3JlOjo6Nw"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "companyId",
+                      "description": "(Required) Company ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Number of requests allowed per minute for the user",
+                  "key": "X-Ratelimit-Limit-User",
+                  "value": "8565"
+                },
+                {
+                  "disabled": false,
+                  "description": "Number of requests remaining for the user",
+                  "key": "X-Ratelimit-Limit-User-Remaining",
+                  "value": "8565"
+                },
+                {
+                  "disabled": false,
+                  "description": "Time in seconds before the limit resets for the user",
+                  "key": "X-Ratelimit-Limit-User-Reset",
+                  "value": "8565"
+                },
+                {
+                  "disabled": false,
+                  "description": "Number of requests allowed per month for the account",
+                  "key": "X-Ratelimit-Limit-Org",
+                  "value": "8565"
+                },
+                {
+                  "disabled": false,
+                  "description": "Number of requests remaining for the account",
+                  "key": "X-Ratelimit-Limit-Org-Remaining",
+                  "value": "8565"
+                },
+                {
+                  "disabled": false,
+                  "description": "Time in seconds before the limit resets for the account",
+                  "key": "X-Ratelimit-Limit-Org-Reset",
+                  "value": "8565"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"createdAt\": \"1984-02-01T13:28:18.679Z\",\n      \"creatorId\": 6730032230123938,\n      \"fields\": [\n        {\n          \"enrichmentSource\": \"affinity-data\",\n          \"id\": \"string\",\n          \"name\": \"string\",\n          \"type\": \"list\",\n          \"value\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        {\n          \"enrichmentSource\": null,\n          \"id\": \"string\",\n          \"name\": \"string\",\n          \"type\": \"list\",\n          \"value\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      ],\n      \"id\": 3447413682480965,\n      \"listId\": 2352821130842626\n    },\n    {\n      \"createdAt\": \"1947-09-06T02:40:07.036Z\",\n      \"creatorId\": 4888097800437660,\n      \"fields\": [\n        {\n          \"enrichmentSource\": \"affinity-data\",\n          \"id\": \"string\",\n          \"name\": \"string\",\n          \"type\": \"list\",\n          \"value\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        {\n          \"enrichmentSource\": \"affinity-data\",\n          \"id\": \"string\",\n          \"name\": \"string\",\n          \"type\": \"enriched\",\n          \"value\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      ],\n      \"id\": 5127050078021817,\n      \"listId\": 8360607785633623\n    }\n  ],\n  \"pagination\": {\n    \"prevUrl\": \"https://dCAhYMqdTBEYFyhVpmyVjTY.izxmiEwsIzmujJBBgqfBKj97y95xuzr3rI4SHSASxUU,tRTQckPIOaCKhdIksZGsggahtk,cXqtZhqYBotJ9Iu,\",\n    \"nextUrl\": \"https://zbLBHSKfsohfvrIKiBvRCjfWznhyBuA.dlvmgJAT-9hrNE+-1syS.O+muRnivKKCmy0hmvI8E6INOrl.rFYWG42ZjC-728\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7ac818b7-aee6-4cc3-8c84-ef83a4db8c1c",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "companies",
+                    ":companyId",
+                    "list-entries"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "cursor",
+                      "value": "ICAgICAgYmVmb3JlOjo6Nw"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "companyId",
+                      "description": "(Required) Company ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Number of requests allowed per minute for the user",
+                  "key": "X-Ratelimit-Limit-User",
+                  "value": "8565"
+                },
+                {
+                  "disabled": false,
+                  "description": "Number of requests remaining for the user",
+                  "key": "X-Ratelimit-Limit-User-Remaining",
+                  "value": "8565"
+                },
+                {
+                  "disabled": false,
+                  "description": "Time in seconds before the limit resets for the user",
+                  "key": "X-Ratelimit-Limit-User-Reset",
+                  "value": "8565"
+                },
+                {
+                  "disabled": false,
+                  "description": "Number of requests allowed per month for the account",
+                  "key": "X-Ratelimit-Limit-Org",
+                  "value": "8565"
+                },
+                {
+                  "disabled": false,
+                  "description": "Number of requests remaining for the account",
+                  "key": "X-Ratelimit-Limit-Org-Remaining",
+                  "value": "8565"
+                },
+                {
+                  "disabled": false,
+                  "description": "Time in seconds before the limit resets for the account",
+                  "key": "X-Ratelimit-Limit-Org-Reset",
+                  "value": "8565"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": \"bad-request\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"bad-request\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e0acfb29-6fee-40ce-bf07-876dfb3faf7d",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "companies",
+                    ":companyId",
+                    "list-entries"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "cursor",
+                      "value": "ICAgICAgYmVmb3JlOjo6Nw"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "companyId",
+                      "description": "(Required) Company ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Number of requests allowed per minute for the user",
+                  "key": "X-Ratelimit-Limit-User",
+                  "value": "8565"
+                },
+                {
+                  "disabled": false,
+                  "description": "Number of requests remaining for the user",
+                  "key": "X-Ratelimit-Limit-User-Remaining",
+                  "value": "8565"
+                },
+                {
+                  "disabled": false,
+                  "description": "Time in seconds before the limit resets for the user",
+                  "key": "X-Ratelimit-Limit-User-Reset",
+                  "value": "8565"
+                },
+                {
+                  "disabled": false,
+                  "description": "Number of requests allowed per month for the account",
+                  "key": "X-Ratelimit-Limit-Org",
+                  "value": "8565"
+                },
+                {
+                  "disabled": false,
+                  "description": "Number of requests remaining for the account",
+                  "key": "X-Ratelimit-Limit-Org-Remaining",
+                  "value": "8565"
+                },
+                {
+                  "disabled": false,
+                  "description": "Time in seconds before the limit resets for the account",
+                  "key": "X-Ratelimit-Limit-Org-Reset",
+                  "value": "8565"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": \"authorization\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"authorization\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b600f6fe-b560-46f4-a27f-f009cac48d36",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "companies",
+                    ":companyId",
+                    "list-entries"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "cursor",
+                      "value": "ICAgICAgYmVmb3JlOjo6Nw"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "companyId",
+                      "description": "(Required) Company ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Number of requests allowed per minute for the user",
+                  "key": "X-Ratelimit-Limit-User",
+                  "value": "8565"
+                },
+                {
+                  "disabled": false,
+                  "description": "Number of requests remaining for the user",
+                  "key": "X-Ratelimit-Limit-User-Remaining",
+                  "value": "8565"
+                },
+                {
+                  "disabled": false,
+                  "description": "Time in seconds before the limit resets for the user",
+                  "key": "X-Ratelimit-Limit-User-Reset",
+                  "value": "8565"
+                },
+                {
+                  "disabled": false,
+                  "description": "Number of requests allowed per month for the account",
+                  "key": "X-Ratelimit-Limit-Org",
+                  "value": "8565"
+                },
+                {
+                  "disabled": false,
+                  "description": "Number of requests remaining for the account",
+                  "key": "X-Ratelimit-Limit-Org-Remaining",
+                  "value": "8565"
+                },
+                {
+                  "disabled": false,
+                  "description": "Time in seconds before the limit resets for the account",
+                  "key": "X-Ratelimit-Limit-Org-Reset",
+                  "value": "8565"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": \"not-found\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"not-found\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8415dc69-ddd4-4e18-b44e-c2a9f714554d",
+              "name": "Errors",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "companies",
+                    ":companyId",
+                    "list-entries"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "cursor",
+                      "value": "ICAgICAgYmVmb3JlOjo6Nw"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "companyId",
+                      "description": "(Required) Company ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Number of requests allowed per minute for the user",
+                  "key": "X-Ratelimit-Limit-User",
+                  "value": "8565"
+                },
+                {
+                  "disabled": false,
+                  "description": "Number of requests remaining for the user",
+                  "key": "X-Ratelimit-Limit-User-Remaining",
+                  "value": "8565"
+                },
+                {
+                  "disabled": false,
+                  "description": "Time in seconds before the limit resets for the user",
+                  "key": "X-Ratelimit-Limit-User-Reset",
+                  "value": "8565"
+                },
+                {
+                  "disabled": false,
+                  "description": "Number of requests allowed per month for the account",
+                  "key": "X-Ratelimit-Limit-Org",
+                  "value": "8565"
+                },
+                {
+                  "disabled": false,
+                  "description": "Number of requests remaining for the account",
+                  "key": "X-Ratelimit-Limit-Org-Remaining",
+                  "value": "8565"
+                },
+                {
+                  "disabled": false,
+                  "description": "Time in seconds before the limit resets for the account",
+                  "key": "X-Ratelimit-Limit-Org-Reset",
+                  "value": "8565"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": \"authentication\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"authentication\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "be925c82-864e-49d4-a8e0-d007bfad6ca0",
+          "name": "Get Notes for a Company",
+          "request": {
+            "name": "Get Notes for a Company",
+            "description": {
+              "content": "| ⚠️  This endpoint is currently in BETA |\n|--|\n\nReturns relevant notes for a given company which includes directly attached notes and notes attached to persons on this company.\n\nYou can filter notes using the `filter` query parameter. The filter parameter is a string that you can specify conditions based on the following properties.\n| **Property Name**           | **Description**                                                 | **Type**   | **Allowed Operators**                | **Examples**                    |\n|-----------------------------|-----------------------------------------------------------------|------------|--------------------------------------|---------------------------------|\n| `creator.id`                | Filter notes by the creator of the note                         | `int32`    | `=`                                  | `creator.id=1`                  |\n| `createdAt`                 | Filter notes by when it was created                             | `datetime` | `>`, `<`, `>=`, `<=`                 | `createdAt<2025-02-04T10:48:24Z` |\n| `updatedAt`                 | Filter notes by when it was updated                             | `datetime` | `>`, `<`, `>=`, `<=`                 | `updatedAt>=2025-02-03T10:48:24Z`|\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v2",
+                "companies",
+                ":companyId",
+                "notes"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "filter",
+                  "value": "<string>",
+                  "description": "Filter options"
+                },
+                {
+                  "disabled": false,
+                  "key": "cursor",
+                  "value": "<string>",
+                  "description": "Cursor for the next or previous page"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "20",
+                  "description": "Number of items to include in the page"
+                },
+                {
+                  "disabled": false,
+                  "key": "totalCount",
+                  "value": "false",
+                  "description": "Include total count of the collection in the pagination response"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<long>",
+                  "key": "companyId",
+                  "description": "(Required) Company's ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "f31c612b-b591-47e3-a212-4f4277a093d0",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "companies",
+                    ":companyId",
+                    "notes"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "filter",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "20"
+                    },
+                    {
+                      "key": "totalCount",
+                      "value": "false"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "companyId",
+                      "description": "(Required) Company's ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Number of requests allowed per minute for the user",
+                  "key": "X-Ratelimit-Limit-User",
+                  "value": "8565"
+                },
+                {
+                  "disabled": false,
+                  "description": "Number of requests remaining for the user",
+                  "key": "X-Ratelimit-Limit-User-Remaining",
+                  "value": "8565"
+                },
+                {
+                  "disabled": false,
+                  "description": "Time in seconds before the limit resets for the user",
+                  "key": "X-Ratelimit-Limit-User-Reset",
+                  "value": "8565"
+                },
+                {
+                  "disabled": false,
+                  "description": "Number of requests allowed per month for the account",
+                  "key": "X-Ratelimit-Limit-Org",
+                  "value": "8565"
+                },
+                {
+                  "disabled": false,
+                  "description": "Number of requests remaining for the account",
+                  "key": "X-Ratelimit-Limit-Org-Remaining",
+                  "value": "8565"
+                },
+                {
+                  "disabled": false,
+                  "description": "Time in seconds before the limit resets for the account",
+                  "key": "X-Ratelimit-Limit-Org-Reset",
+                  "value": "8565"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"content\": {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      },\n      \"createdAt\": {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      },\n      \"creator\": {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      },\n      \"id\": {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      },\n      \"mentions\": {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      },\n      \"type\": \"entities\",\n      \"updatedAt\": {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      },\n      \"repliesCount\": 73618530,\n      \"permissions\": {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      },\n      \"opportunitiesPreview\": {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      },\n      \"personsPreview\": {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      },\n      \"companiesPreview\": {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      }\n    },\n    {\n      \"content\": {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      },\n      \"createdAt\": {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      },\n      \"creator\": {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      },\n      \"id\": {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      },\n      \"mentions\": {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      },\n      \"type\": \"entities\",\n      \"updatedAt\": {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      },\n      \"repliesCount\": 229851991,\n      \"permissions\": {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      },\n      \"opportunitiesPreview\": {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      },\n      \"personsPreview\": {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      },\n      \"companiesPreview\": {\n        \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n      }\n    }\n  ],\n  \"pagination\": {\n    \"totalCount\": 760719326116922,\n    \"prevUrl\": \"http://RXkAfrbGjdMpwqsf.www6Zglb1BCBK4\",\n    \"nextUrl\": \"http://iEDFdAIHI.lucwABvBBgZa766xRx,dVcL5B,E.mJ67GZ-.FvoMtKs-6jP.NlrmWGsnf9JH2PXg+vAvG\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e65ad7b5-7dc4-474f-8a36-51e4d8f16084",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "companies",
+                    ":companyId",
+                    "notes"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "filter",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "20"
+                    },
+                    {
+                      "key": "totalCount",
+                      "value": "false"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "companyId",
+                      "description": "(Required) Company's ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Number of requests allowed per minute for the user",
+                  "key": "X-Ratelimit-Limit-User",
+                  "value": "8565"
+                },
+                {
+                  "disabled": false,
+                  "description": "Number of requests remaining for the user",
+                  "key": "X-Ratelimit-Limit-User-Remaining",
+                  "value": "8565"
+                },
+                {
+                  "disabled": false,
+                  "description": "Time in seconds before the limit resets for the user",
+                  "key": "X-Ratelimit-Limit-User-Reset",
+                  "value": "8565"
+                },
+                {
+                  "disabled": false,
+                  "description": "Number of requests allowed per month for the account",
+                  "key": "X-Ratelimit-Limit-Org",
+                  "value": "8565"
+                },
+                {
+                  "disabled": false,
+                  "description": "Number of requests remaining for the account",
+                  "key": "X-Ratelimit-Limit-Org-Remaining",
+                  "value": "8565"
+                },
+                {
+                  "disabled": false,
+                  "description": "Time in seconds before the limit resets for the account",
+                  "key": "X-Ratelimit-Limit-Org-Reset",
+                  "value": "8565"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": \"bad-request\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"bad-request\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5ae7b07c-dd05-4d5a-965e-77fc28bf6968",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "companies",
+                    ":companyId",
+                    "notes"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "filter",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "20"
+                    },
+                    {
+                      "key": "totalCount",
+                      "value": "false"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "companyId",
+                      "description": "(Required) Company's ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Number of requests allowed per minute for the user",
+                  "key": "X-Ratelimit-Limit-User",
+                  "value": "8565"
+                },
+                {
+                  "disabled": false,
+                  "description": "Number of requests remaining for the user",
+                  "key": "X-Ratelimit-Limit-User-Remaining",
+                  "value": "8565"
+                },
+                {
+                  "disabled": false,
+                  "description": "Time in seconds before the limit resets for the user",
+                  "key": "X-Ratelimit-Limit-User-Reset",
+                  "value": "8565"
+                },
+                {
+                  "disabled": false,
+                  "description": "Number of requests allowed per month for the account",
+                  "key": "X-Ratelimit-Limit-Org",
+                  "value": "8565"
+                },
+                {
+                  "disabled": false,
+                  "description": "Number of requests remaining for the account",
+                  "key": "X-Ratelimit-Limit-Org-Remaining",
+                  "value": "8565"
+                },
+                {
+                  "disabled": false,
+                  "description": "Time in seconds before the limit resets for the account",
+                  "key": "X-Ratelimit-Limit-Org-Reset",
+                  "value": "8565"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": \"not-found\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"not-found\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "df4a6685-a7b3-40e1-afdb-a334af9e1900",
+              "name": "Errors",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "companies",
+                    ":companyId",
+                    "notes"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "filter",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "20"
+                    },
+                    {
+                      "key": "totalCount",
+                      "value": "false"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "companyId",
+                      "description": "(Required) Company's ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Number of requests allowed per minute for the user",
+                  "key": "X-Ratelimit-Limit-User",
+                  "value": "8565"
+                },
+                {
+                  "disabled": false,
+                  "description": "Number of requests remaining for the user",
+                  "key": "X-Ratelimit-Limit-User-Remaining",
+                  "value": "8565"
+                },
+                {
+                  "disabled": false,
+                  "description": "Time in seconds before the limit resets for the user",
+                  "key": "X-Ratelimit-Limit-User-Reset",
+                  "value": "8565"
+                },
+                {
+                  "disabled": false,
+                  "description": "Number of requests allowed per month for the account",
+                  "key": "X-Ratelimit-Limit-Org",
+                  "value": "8565"
+                },
+                {
+                  "disabled": false,
+                  "description": "Number of requests remaining for the account",
+                  "key": "X-Ratelimit-Limit-Org-Remaining",
+                  "value": "8565"
+                },
+                {
+                  "disabled": false,
+                  "description": "Time in seconds before the limit resets for the account",
+                  "key": "X-Ratelimit-Limit-Org-Reset",
+                  "value": "8565"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": \"authentication\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"authentication\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.affinity.co",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "1bc65423-caac-407c-9b77-4b7c17b5dc3e",
+    "name": "Affinity API v2 auth companies API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "# Introduction\n\nWelcome to Affinity API v2! This API provides a RESTful interface for building internal apps,\nautomated workflows, 3rd party integrations, and for connecting Affinity to the rest of your tech\nstack.\n\nThe legacy Affinity v1 API can be found [here](https://api-docs.affinity.co/). The v2 API is not at\nfeature parity with v1 - we are continuing to develop new v2 APIs to support all v1 functionality\nover time.\n\n**The Affinity APIs are only available on select license types.** See\n[this Help Center article](https://support.affinity.co/hc/en-us/articles/5563700459533-Getting-started-with-the-Affinity-API-FAQs)\nor contact your Customer Success Manager for more information.\n\n# Getting Started\n\nAll Affinity API endpoints use the base URL `https://api.affinity.co`. All v2 endpoint paths start\nwith `/v2`. Requests must be sent over HTTPS.\n\nThe first few sections of these docs cover general information on the API. Each subsequent section\ncovers a set of API endpoints.\n\nEach endpoint is documented with its accepted request parameters, expected response shapes, and a\nsample request and response. The shape of a given response can vary depending on what \"type\" of\nobject or data is being returned. When this is the case, the response documentation will include a\ndropdown that can be used to select the \"type\" for which to display the response shape.\n\n## Authentication\n\nAffinity API v2 uses API keys and **bearer authentication** (this is an important difference from\nAffinity API v1's use of basic authentication).\n\nTo generate an API key, navigate to the Settings page in the Affinity web app. You will need the\n\"Generate an API key\" role-based permission controlled by your Affinity admin. See\n[this Help Center article](https://support.affinity.co/hc/en-us/articles/360032633992-How-to-obtain-your-API-Key)\nfor full instructions on API key generation, and\n[this article](https://support.affinity.co/hc/en-us/articles/360015976732-Account-Level-Permissions)\nfor more information on role-based permissions in Affinity.\n\nProvide your API key as your bearer authentication token to start making calls to Affinity API v2.\n\nWe support one API key per user in your Affinity account. Your API key is able to read data and\nperform actions in Affinity on your behalf, so keep it safe as you would a password.\n\n## Permissions\n\n### Overall Requirements\n\nYou must have the \"Generate an API key\" permission to be able to work with the Affinity API. Most\nusers in Affinity have this by default — Contact your Affinity admin if you are not able to generate\nan API key, and see\n[this article](https://support.affinity.co/hc/en-us/articles/360015976732-Account-Level-Permissions)\nfor more information on role-based permissions in Affinity.\n\n### Resource-Level Permissions\n\nThe Affinity API respects sharing permissions that are set in-product. For example, if a given user\ndoes not have access to a list, note, or interaction in-product, they will not be able to see or\nmodify it via API.\n\n### Endpoint-Level Permissions\n\nMany API endpoints require endpoint-specific permissions in-product. These permissions, along with\nthe \"Generate an API key\" permission, are managed by your Affinity admin in the Settings page. In\nthe description of each endpoint you will see the required permissions needed.\n\n## Rate Limits\n\nThe Affinity API sets a limit on the number of calls that a user can make per minute, and that all\nthe users on an account can make per month. It also sets a reasonable limit on the number of\nconcurrent requests it will support from an account at one time.\n\nRequests to **both** Affinity API versions will count toward the one pool of requests allowed for a\nuser or account. Once a per-minute, monthly, or concurrent rate limit is hit, subsequent requests\nwill return an error code of 429. **We highly recommend designing your application to handle 429\nerrors.**\n\n### Per-Minute Limits (User-Level)\n\nTo help protect our systems, API requests will be halted at **900 per user, per minute.** We may\nalso lower this limit on a temporary basis to manage API availability.\n\n### Concurrent Request Limits (Account-Level)\n\nTo protect our systems and manage availability across customers, we set a reasonable limit on\nconcurrent requests at the account level. Customers should not expect to hit this limit unless they\nare hitting the API with heavy operations from many concurrent threads at once.\n\n### Monthly Plan Tier Limits (Account-Level)\n\nThe overall number of requests you can make per month will depend on your account's plan tier.\n**This monthly account-level limit resets at the end of each calendar month.** Current rate limits\nby plan tier are:\n\n| Plan Tier  | Calls Per Month |\n| ---------- | --------------- |\n| Essentials | None            |\n| Scale      | 100k            |\n| Advanced   | 100k            |\n| Enterprise | Unlimited\\*     |\n\n\\*Per-Minute and Concurrent Request Limits still apply.\n\n### Rate Limit Headers\n\nAll API calls will return the following response headers with information about per-minute and\nmonthly limits:\n\n| Header                           | Description                                             |\n| -------------------------------- | ------------------------------------------------------- |\n| X-Ratelimit-Limit-User           | Number of requests allowed per minute for the user      |\n| X-Ratelimit-Limit-User-Remaining | Number of requests remaining for the user               |\n| X-Ratelimit-Limit-User-Reset     | Time in seconds before the limit resets for the user    |\n| X-Ratelimit-Limit-Org            | Number of requests allowed per month for the account    |\n| X-Ratelimit-Limit-Org-Remaining  | Number of requests remaining for the account            |\n| X-Ratelimit-Limit-Org-Reset      | Time in seconds before the limit resets for the account |\n\n## Pagination\n\nWhen an endpoint is expected to return multiple results, we break the results into pages to make\nthem easier to handle. To cycle forward through multiple pages of data, look for the `nextUrl`\nproperty in the `pagination` portion of an API response, and use it for your next request. See\nendpoint documentation for more information.\n\n## Filtering\n\nSome endpoints support a filtering language for flexible and powerful queries. This allows for the\ncreation of complex filter expressions using different operators and boolean logic in a single\nfilter string. The description of each endpoint will contain information on which filter properties\nand operators are supported.\n\n### Rules\n\n- Spaces are insignificant by default. For example, `field = hello` and `field=hello` are both\n  valid.\n- If spaces are significant, they need to be inside double quotes, for example,\n  `field = \"hello world\"`\n- Special characters need to be escaped with a backslash: `field=\"hello\\\" world\"` <br> Full list of\n  special characters: `\\ * ~ ! & = > < $ ^ | \" ' ( ) ] [ /`\n- Use `&` and `|` for boolean operations: `foo = 1 | baz = 2 & bar = 3`. Boolean Algebra Logic is\n  assumed: `&` takes precedence over `|`. When evaluating the condition above, `baz = 2 & bar = 3`\n  will be computed first, and then the result will be `or`'ed with `foo=1`\n- Parentheses can be used to specify the order of operations. In the example above, to make sure\n  that `foo = 1 | baz = 2` is evaluated first, parentheses must be placed\n  `(foo = 1 | baz = 2) & bar = 3`\n\n### Grammar\n\n#### Simple Types\n\n| Definition               | Property Type                                        | Operator | Example                                                                                   |\n| ------------------------ | ---------------------------------------------------- | -------- | ----------------------------------------------------------------------------------------- |\n| exact match              | all                                                  | =        | content = “hello world” <br> content=hello                                                |\n| starts with              | text                                                 | =^       | content =^ he                                                                             |\n| ends with                | text                                                 | =$       | content =$ llo                                                                            |\n| contains                 | text                                                 | =~       | content =~ lo                                                                             |\n| greater than             | int32, int64, float, double, decimal, date, datetime | \\>       | count > 1                                                                                 |\n| greater than or equal to | int32, int64, float, double, decimal, date, datetime | \\>=      | content >= 1                                                                              |\n| less than                | int32, int64, float, double, decimal, date, datetime | \\<       | count < 1                                                                                 |\n| less than or equal to    | int32, int64, float, double, decimal, date, datetime | \\<=      | content <= 1                                                                              |\n| is NULL                  | all                                                  | != \\*    | content != \\*                                                                             |\n| is not NULL              | all                                                  | =\\*      | content = \\*                                                                              |\n| is empty                 | text                                                 | =\"\"      | content = \"\"                                                                              |\n| negation                 | all                                                  | !        | content != ”hello world” <br> !(content = ”hello world”) <br> !(content =^ “hello world”) |\n\n#### Collections (all types)\n\n| Definition                | Operator | Example                              |\n| ------------------------- | -------- | ------------------------------------ |\n| exact match with ordering | =        | industries = [Healthcare,Fintech]    |\n| contains all              | =~       | industries =~ [Healthcare,Fintech]   |\n| empty                     | =[]      | industries =[]                       |\n| negation                  | !        | !(industries = [Healthcare,Fintech]) |\n\n## Error Codes\n\nHere is a list of the error codes the API will return if something goes wrong (see endpoint\ndocumentation for endpoint-specific errors):\n\n| Error Code | Meaning                                                                                                                                                                                                     |\n| ---------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |\n| 400        | Bad Request — See endpoint documentation for more information.                                                                                                                                              |\n| 401        | Unauthorized — Your API key is invalid.                                                                                                                                                                     |\n| 403        | Forbidden — Insufficient rights to a resource.                                                                                                                                                              |\n| 404        | Not Found — Requested resource does not exist. See endpoint documentation for more information.                                                                                                             |\n| 405        | Method Not Allowed — The method being used is not supported for this resource.                                                                                                                              |\n| 422        | Unprocessable Entity — Malformed parameters supplied. This can also happen in cases the parameters supplied logically cannot complete the request. In this case, an appropriate error message is delivered. |\n| 429        | Too Many Requests — You have exceeded the rate limit.                                                                                                                                                       |\n| 500        | Internal Server Error — We had a problem with our server. Try again later.                                                                                                                                  |\n| 503        | Service Unavailable — This shouldn't generally happen. Contact us if you encounter this error.                                                                                                              |\n\n## Beta Endpoints\n\nYou’ll notice in our documentation that some endpoints will be marked as BETA. These endpoints are\nnewly released and will eventually progress to General Availability (GA). While an endpoint is in\nBETA there are some important things to consider:\n\n- The development of this endpoint may still be in progress. This means new capabilities, request\n  parameters, response data, and performance improvements may be adjusted over time. Because of\n  this, breaking changes may occur to the endpoint WITHOUT notice or versioning.\n- As this is an early release, bug fixes may still be ongoing as well, and we encourage you to\n  report bugs to [support@affinity.co](mailto:support@affinity.co).\n- In addition, your feedback around the capabilities of the endpoint are highly valuable, please\n  reach out to your CSM to provide feedback to our product team.\n\n# Data Model\n\n## The Basics\n\nThe three top-level objects in Affinity are **Persons, Companies, and Opportunities**. (Note:\nCompanies are called Organizations in the Affinity web app.) These have profiles in the Affinity web\napp and can be added to Lists.\n\nA **List** is a spreadsheet-like collection of rows tied to Persons, Companies, or Opportunities.\n\n- Each row on a List is a **List Entry**. A List Entry contains data and metadata about a given\n  Person, Company, or Opportunity in the context of a List. This includes list-specific field data,\n  and information about who added the row to the List and when.\n- A given entity can be added to a List more than once. These List Entries can have different\n  List-specific field data and List Entry-level metadata.\n\nEach column on a List maps to a **Field**. Fields show up within Affinity profile pages, extensions,\nand integrations. There are two categories of fields:\n\n- **List-specific fields** are scoped to a single List. In the API, their data can only be accessed\n  through the List Entry resource.\n- **Global fields** belong to entities directly. These can include default fields, fields created by\n  you, enrichment fields, or relationship intelligence fields. They can be accessed through the\n  Person/Company/Opportunity resources and the List Entry resource.\n\n## Working with Field Data\n\n### Field Types and IDs\n\nHere is a deeper look at the types of Fields in Affinity, differentiated by the scope and source of\ntheir data:\n\n| Field&nbsp;Type             | Description                                                                                                                                                  | Example Fields                                                                                                                                              | Field ID Pattern                                                                                                                             |\n| --------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- |\n| `enriched`                  | Firmographic, funding, and people Fields populated by Affinity. These can be \"Affinity Data\" Fields or come from distinct data partners.                     | \"Affinity Data: Description\", \"Dealroom: Number of Employees\"                                                                                               | A string representing the enrichment source, followed by the field name, e.g. `affinity-data-description` or `dealroom-number-of-employees`. |\n| `list`                      | Fields that are specific to the context of a given list. These can only be accessed through `*/list-entries` endpoints in this version of the API.           | Default \"Status\" and \"Amount\" columns, custom columns that pertain to a given List of deals or founders                                                     | `field-`, followed by a unique integer, e.g. `field-1234`                                                                                    |\n| `global`                    | Fields that persist across an Affinity account and are not list-specific.                                                                                    | \"My Firm's Founder Scoring Column\"                                                                                                                          | `field-`, followed by a unique integer, e.g. `field-1234`                                                                                    |\n| `relationship-intelligence` | Fields populated by Affinity from users' email and calendar data that provide insight into your firm's relationship with a given Person/Company/Opportunity. | \"Source of Introduction\", \"First Email\", \"Last Email\", \"First Event\", \"Last Event\", \"Next Event\", \"First Chat Message\", \"Last Chat Message\", \"Last Contact\" | A string similar to the field's name in-product, e.g. `source-of-introduction`                                                               |\n\n### Field Value Types\n\nField data can take a variety of shapes. These value types are described in the Affinity Help Center\n[here](https://support.affinity.co/hc/en-us/articles/115001608232-How-to-create-a-new-column-in-a-list).\nHere is a list of the same value types, as represented in this API. Notice how array types end with\n`-multi`:\n\n| Single Type         | Array Type                |\n| ------------------- | ------------------------- |\n| `text`              | Not supported in Affinity |\n| `number`            | `number-multi`            |\n| `datetime`          | Not supported in Affinity |\n| `location`          | `location-multi`          |\n| `dropdown`          | `dropdown-multi`          |\n| `ranked-dropdown`   | Not supported in Affinity |\n| `person`            | `person-multi`            |\n| `company`           | `company-multi`           |\n| `filterable-text`\\* | `filterable-text-multi`\\* |\n\n\\*Note that `filterable-text` and `filterable-text-multi` are special types that operate similarly\nto `dropdown` and `dropdown-multi`. They are reserved for Affinity-populated Fields, and users\ncannot create Fields with these types.\n\nWhen an array-typed value has no data in it, the API will return `null` (rather than an empty\narray).\n\n### Retrieving Field Data\n\nTo retrieve field data on companies, persons, or opportunities, call GET `/v2/companies`, GET\n`/v2/persons`, or one of our GET `*/list-entries` endpoints. (Note that Opportunities only have\nlist-specific Fields, so all their field data will live on the `*/list-entries` endpoints.) For most\nof these endpoints, you will need to specify the Fields for which you want data returned via the\n`fieldIds` or `fieldTypes` parameter — Otherwise, entities will be returned without any field data\nattached.\n\nThe GET `/v2/companies` and `/v2/persons` endpoints can return entities with enriched, global, and\nrelationship intelligence field data attached, but do not support list-specific field data. **To get\ncomprehensive field data including list-specific field data on Companies and Persons, use the GET\n`*/list-entries` endpoints.**\n\n### Specifying Desired Fields (Field Selection)\n\nAs mentioned above, you will need to specify the Fields (either by ID or by Type) for which you want\ndata returned when using the following endpoints:\n\n- GET `/v2/companies`\n- GET `/v2/companies/{id}`\n- GET `/v2/persons`\n- GET `/v2/persons/{id}`\n- GET `/v2/lists/{listId}/list-entries`\n\nEach of these endpoints has a `fieldIds` parameter that accepts an array of Field IDs, and a\n`fieldTypes` parameter that accepts an array of Field Types. Use the GET `*/fields` endpoints to get\nField IDs, Field Types, and other Field-level metadata:\n\n- Call GET `/v2/companies/fields` and `/v2/persons/fields` to get a list of the enriched, global,\n  and relationship intelligence (AKA non-list-specific) Fields that exist on Companies and Persons,\n  respectively. These are the Fields whose values are available to pull via GET `/v2/companies`, GET\n  `/v2/companies/{id}`, GET `/v2/persons`, and `/v2/persons/{id}`.\n- Call GET `/v2/lists/{listId}/fields` to get a list of the enriched, global, relationship\n  intelligence, **and list-specific** Fields for a given List. These are the Fields whose values are\n  available to pull via GET `/v2/lists/{listId}/list-entries`.\n\nThe following endpoints don't require field selection:\n\n- GET `/v2/lists/{listId}/saved-views/{viewId}/list-entries` — See below. This endpoint returns just\n  the field data that has been pulled into the given Saved View via UI.\n- GET `/v2/companies/{id}/list-entries` and GET `/v2/persons/{id}/list-entries` — These endpoints\n  return comprehensive field data for the given person or company in the context of each List Entry.\n\n### Saved Views\n\nA Saved View allows a user to configure the Fields they want to see in the UI for a given List, and\nset filters and sorts on the rows on that List. A List can have multiple Saved Views. In the context\nof this API, Saved Views can be useful for specifying the exact Fields for which data is needed. The\n`*/saved-views/{viewId}/list-entries` endpoint also respects the filters that have been set on the\ngiven Saved View in the Affinity web app. (It does not, however, respect sorts just yet.)\n\n### Partner Data Restrictions\n\nThis API supports pulling data from\n[Affinity Data](https://support.affinity.co/hc/en-us/articles/360058255052-Affinity-Data) fields and\nselect\n[Dealroom fields](https://support.affinity.co/hc/en-us/articles/6106558518797-Dealroom-co-data-in-Affinity#h_01G2N22SVH7TJR3DJV3NQDE9HQ).\nDue the agreements we have with some of our data partners, the API does not expose data from the\nfollowing sources:\n\n- Crunchbase, including Crunchbase UUID\n- Pitchbook\n- [Dealroom \"exclusive\" fields](https://support.affinity.co/hc/en-us/articles/6106558518797-Dealroom-co-data-in-Affinity#h_01G2N22YEAZJ5TC1X9ENKZFWF5)\n\n## Nested Associations\n\nSome GET endpoints return \"association\" data under `fields`. For example, the Persons GET endpoints\nreturn data about which Companies a Person is associated with in Affinity. The Opportunities GET\nendpoints return similar data about associated Companies and Persons. The List Entries GET endpoints\nalso return this data for Person and Opportunity List Entries.\n\nThe API truncates these nested arrays of Persons or Companies **at 100 entries**. For example, if an\nOpportunity is associated with 200 Persons in Affinity, only 100 of those Persons will be returned\nby the GET `/opportunities` or `/opportunities/{id}` endpoint.\n\n# User Guides\n\n## A Tour of Our GET Endpoints\n\n| Desired Data                                                | Relevant Endpoints                                                                                                                                                                                                                                                                                                                                    | Notes                                                                                     |\n| ----------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- |\n| Company/Person/Opportunity rows from a List                 | Grab the List’s ID from its URL in the Affinity web app, then hit GET `/v2/lists/{listId}/list-entries`                                                                                                                                                                                                                                               | Data returned will be restricted to the rows on the requested List                        |\n| Company/Person/Opportunity rows from a Saved View           | In the Affinity web app, navigate to a List and [create a Saved View](https://support.affinity.co/hc/en-us/articles/115001508572-How-to-leverage-saved-views-within-a-list) with the desired field data and filters on it. Grab the List and Saved View IDs from the web app URL, then hit GET `/v2/lists/{listId}/saved-views/{viewId}/list-entries` | Data returned will be restricted to the rows and columns on the requested Saved View      |\n| Full rolodex of Companies or Persons in Affinity            | GET `/v2/companies`, GET `/v2/persons`                                                                                                                                                                                                                                                                                                                | Data from list-specific Fields will not be returned                                       |\n| All the rows for a given Company or Person across all Lists | GET `/v2/companies/{id}/list-entries`, GET `/v2/persons/{id}/list-entries`                                                                                                                                                                                                                                                                            |                                                                                           |\n| Metadata on Fields, including Field IDs                     | GET `/v2/companies/fields`, GET `/v2/persons/fields`, GET `/v2/lists/{listId}/fields`                                                                                                                                                                                                                                                                 | Metadata on list-specific Fields will only be returned by GET `/v2/lists/{listId}/fields` |\n| Metadata on Lists or Saved Views                            | GET `/v2/lists`, GET `/v2/lists/{listId}/saved-views`                                                                                                                                                                                                                                                                                                 |                                                                                           |\n| Opportunity data                                            | GET `/v2/opportunities` will only return Opportunity names and List IDs. For comprehensive Opportunity data, hit GET `/v2/lists/{listId}/list-entries` for an Opportunity List                                                                                                                                                                        |                                                                                           |\n\nTip: The ID for a List, Saved View, Person, Company, or Opportunity can always be found in its\nAffinity web app URL.\n\n# Changelog\n\n## May 14th, 2025\n\n- Renamed all path parameters named simply \"id\" to a more descriptive name (eg. \"personId\"). This\n  will not have any effect on the API at runtime, but may impact code relying on the OpenAPI spec\n  doing type generation.\n\n## April 9th, 2025\n\n- The following endpoints are no longer in BETA:\n\n| Method | URL                                                              | Summary                                           |\n| ------ | ---------------------------------------------------------------- | ------------------------------------------------- |\n| GET    | `/v2/lists/{listId}/list-entries/{listEntryId}`                  | Get a single List Entry on a List                 |\n| GET    | `/v2/lists/{listId}/list-entries/{listEntryId}/fields`           | Get field values on a single List Entry           |\n| PATCH  | `/v2/lists/{listId}/list-entries/{listEntryId}/fields`           | Perform batch operations on a list entry's fields |\n| GET    | `/v2/lists/{listId}/list-entries/{listEntryId}/fields/{fieldId}` | Get a single field value                          |\n| POST   | `/v2/lists/{listId}/list-entries/{listEntryId}/fields/{fieldId}` | Update a single field value on a List Entry       |\n\n## March 31st, 2025\n\n- The following beta endpoints now support updating association fields.\n\n| Method | URL                                                              | Summary                                           |\n| ------ | ---------------------------------------------------------------- | ------------------------------------------------- |\n| PATCH  | `/v2/lists/{listId}/list-entries/{listEntryId}/fields`           | Perform batch operations on a list entry's fields |\n| POST   | `/v2/lists/{listId}/list-entries/{listEntryId}/fields/{fieldId}` | Update a single field value on a List Entry       |\n\n## February 28th, 2025\n\n- Added the following endpoints in BETA:\n\n| Method | URL                                                              | Summary                                           |\n| ------ | ---------------------------------------------------------------- | ------------------------------------------------- |\n| GET    | `/v2/lists/{listId}/list-entries/{listEntryId}`                  | Get a single List Entry on a List                 |\n| GET    | `/v2/lists/{listId}/list-entries/{listEntryId}/fields`           | Get field values on a single List Entry           |\n| PATCH  | `/v2/lists/{listId}/list-entries/{listEntryId}/fields`           | Perform batch operations on a list entry's fields |\n| GET    | `/v2/lists/{listId}/list-entries/{listEntryId}/fields/{fieldId}` | Get a single field value                          |\n| POST   | `/v2/lists/{listId}/list-entries/{listEntryId}/fields/{fieldId}` | Update a single field value on a List Entry       |\n\n## January 17th, 2025\n\n- Document `X-Ratelimit` headers in the schema for all endpoints.\n\n## January 15th, 2025\n\n- Add default responses to all endpoints to document all possible error codes that can be returned\n  by the API.\n- Updated 400 error responses to correctly include the `bad-request` error code as a possible error.\n\n## December 3rd, 2024\n\n- Properly document `listId` property on `CompanyListEntry`, `PersonListEntry`, and\n  `OpportunityListEntry` schemas.\n\n## September 25th, 2024\n\n- Upgrade schema to OpenAPI 3.1\n\n## August 5, 2024\n\n- Correct `opp` to `opportunity` to match documentation for the `List` `type` property.\n\n## July 24, 2024\n\n- More accurate documentation for response properties that are enums — Enums with `null` as a\n  possible value will have it listed as one.\n\n## March 25, 2024\n\n- Added the ability to retrieve the date and other details of your firm's \"First Email\", \"Last\n  Email\", \"First Event\", \"Last Event\", \"Next Event\", \"First Chat Message\", \"Last Chat Message\", and\n  \"Last Contact\" with a given entity. Use these timestamps to add relationship context to your\n  applications, and to identify founders and companies that need investors' attention.\n- Endpoints that previously required a `fieldIds` parameter to return field data, now accept either\n  `fieldIds` or `fieldTypes`, and will return field data accordingly. See the\n  [Specifying Desired Fields (Field Selection)](#section/Data-Model/Working-with-Field-Data) section\n  of these docs for more information. The new `fieldTypes` parameter should make field data\n  retrieval easier for users looking to pull data from many similar Fields at a time.\n\n## January 4, 2023\n\n- Most endpoints that return field data now require the user to use the `fieldIds` parameter to\n  specify which Fields they want data for. Without `fieldIds` specified, these endpoints will return\n  basic entity data but not field data.\n\n## December 12, 2023\n\n- Added the ability to retrieve metadata (e.g. ID, name, type, enrichment source, and data type) on\n  Fields. See the [Retrieving Field Metadata](#section/Data-Model/Working-with-Field-Data) section\n  of these docs for more information.\n\n\nContact Support:\n Name: Affinity Support\n Email: support@affinity.co",
+      "type": "text/plain"
+    }
+  }
+}

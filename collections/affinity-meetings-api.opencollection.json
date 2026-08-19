@@ -1,0 +1,55 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Affinity API v2 auth meetings API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "meetings",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get metadata on all Meetings [COMING SOON]",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.affinity.co/v2/meetings",
+            "params": [
+              {
+                "name": "cursor",
+                "value": "ICAgICAgYmVmb3JlOjo6Nw",
+                "type": "query",
+                "description": "Cursor for the next or previous page"
+              },
+              {
+                "name": "limit",
+                "value": "100",
+                "type": "query",
+                "description": "Number of items to include in the page"
+              },
+              {
+                "name": "filter",
+                "value": "id=1234",
+                "type": "query",
+                "description": "Filter options"
+              }
+            ]
+          },
+          "docs": "| ⚠️  This endpoint is currently in BETA |\n|--|\n\nPaginate through all Meetings you have access to view in your organization. Returns information\nabout meetings including title, start/end times, organizer, and attendee previews.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

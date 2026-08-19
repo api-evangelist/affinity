@@ -1,0 +1,117 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Affinity API v2 auth opportunities API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "opportunities",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get all Opportunities",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.affinity.co/v2/opportunities",
+            "params": [
+              {
+                "name": "cursor",
+                "value": "ICAgICAgYmVmb3JlOjo6Nw",
+                "type": "query",
+                "description": "Cursor for the next or previous page"
+              },
+              {
+                "name": "limit",
+                "value": "100",
+                "type": "query",
+                "description": "Number of items to include in the page"
+              },
+              {
+                "name": "ids",
+                "value": "1,2",
+                "type": "query",
+                "description": "Opportunity IDs"
+              }
+            ]
+          },
+          "docs": "Paginate through Opportunities in Affinity.\nReturns basic information but **not** field data on each Opportunity.\n\nTo access field data on Opportunities, use the `/lists/{list_id}/list-entries`\nor the `/v2/lists/{list_id}/saved-views/{view_id}/list-entries` GET endpoint.\n\nRequires the \"Export data from Lists\" [permission](#section/Getting-Started/Permissions)."
+        },
+        {
+          "info": {
+            "name": "Get a single Opportunity",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.affinity.co/v2/opportunities/:opportunityId",
+            "params": [
+              {
+                "name": "opportunityId",
+                "value": "",
+                "type": "path",
+                "description": "Opportunity ID"
+              }
+            ]
+          },
+          "docs": "Returns basic information but **not** field data on the requested Opportunity.\n\nTo access field data on Opportunities, use the `/lists/{list_id}/list-entries`\nor the `/v2/lists/{list_id}/saved-views/{view_id}/list-entries` GET endpoint.\n\nRequires the \"Export data from Lists\" [permission](#section/Getting-Started/Permissions)."
+        },
+        {
+          "info": {
+            "name": "Get Notes for an Opportunity",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.affinity.co/v2/opportunities/:opportunityId/notes",
+            "params": [
+              {
+                "name": "opportunityId",
+                "value": "",
+                "type": "path",
+                "description": "Opportunity ID"
+              },
+              {
+                "name": "filter",
+                "value": "",
+                "type": "query",
+                "description": "Filter options"
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Cursor for the next or previous page"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of items to include in the page"
+              },
+              {
+                "name": "totalCount",
+                "value": "",
+                "type": "query",
+                "description": "Include total count of the collection in the pagination response"
+              }
+            ]
+          },
+          "docs": "| ⚠️  This endpoint is currently in BETA |\n|--|\n\nReturns Notes for a given Opportunity which includes directly attached notes and those attached to persons on this Opportunity.\n\nYou can filter notes using the `filter` query parameter. The filter parameter is a string that you can specify conditions based on the following properties.\n| **Property Name**           | **Description**                                                 | **Type**   | **Allowed Operators**                | **Examples**   "
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,246 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Affinity API v2 auth notes API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "notes",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get all Notes",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.affinity.co/v2/notes",
+            "params": [
+              {
+                "name": "totalCount",
+                "value": "",
+                "type": "query",
+                "description": "Include total count of the collection in the pagination response"
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Cursor for the next or previous page"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of items to include in the page"
+              },
+              {
+                "name": "filter",
+                "value": "",
+                "type": "query",
+                "description": "Filter options"
+              },
+              {
+                "name": "includes",
+                "value": "",
+                "type": "query",
+                "description": "Additional properties to include in the response"
+              }
+            ]
+          },
+          "docs": "| ⚠️  This endpoint is currently in BETA |\n|--|\n\nReturns all notes, with the exception of replies.\nYou can filter notes using the `filter` query parameter. The filter parameter is a string that you can specify conditions based on the following properties.\n| **Property Name**           | **Description**                                                 | **Type**   | **Allowed Operators**                | **Examples**                    |\n|-----------------------------|-----------------------------"
+        },
+        {
+          "info": {
+            "name": "Get a single Note",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.affinity.co/v2/notes/:noteId",
+            "params": [
+              {
+                "name": "noteId",
+                "value": "",
+                "type": "path",
+                "description": "The id of the Note"
+              },
+              {
+                "name": "includes",
+                "value": "",
+                "type": "query",
+                "description": "Additional properties to include in the response"
+              }
+            ]
+          },
+          "docs": "| ⚠️  This endpoint is currently in BETA |\n|--|\n\nGet a Note with a given id\n"
+        },
+        {
+          "info": {
+            "name": "Get Companies attached to a Note",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.affinity.co/v2/notes/:noteId/attached-companies",
+            "params": [
+              {
+                "name": "noteId",
+                "value": "",
+                "type": "path",
+                "description": "The id of the Note to get attached Companies"
+              },
+              {
+                "name": "totalCount",
+                "value": "",
+                "type": "query",
+                "description": "Include total count of the collection in the pagination response"
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Cursor for the next or previous page"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of items to include in the page"
+              }
+            ]
+          },
+          "docs": "| ⚠️  This endpoint is currently in BETA |\n|--|\n\nReturns directly attached companies for a given Note.\n"
+        },
+        {
+          "info": {
+            "name": "Get Opportunities attached to a Note",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.affinity.co/v2/notes/:noteId/attached-opportunities",
+            "params": [
+              {
+                "name": "noteId",
+                "value": "",
+                "type": "path",
+                "description": "The id of the Note to get attached Opportunities"
+              },
+              {
+                "name": "totalCount",
+                "value": "",
+                "type": "query",
+                "description": "Include total count of the collection in the pagination response"
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Cursor for the next or previous page"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of items to include in the page"
+              }
+            ]
+          },
+          "docs": "| ⚠️  This endpoint is currently in BETA |\n|--|\n\nReturns directly attached opportunities for a given Note.\n"
+        },
+        {
+          "info": {
+            "name": "Get Persons attached to a Note",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.affinity.co/v2/notes/:noteId/attached-persons",
+            "params": [
+              {
+                "name": "noteId",
+                "value": "",
+                "type": "path",
+                "description": "The id of the Note to get attached Persons"
+              },
+              {
+                "name": "totalCount",
+                "value": "",
+                "type": "query",
+                "description": "Include total count of the collection in the pagination response"
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Cursor for the next or previous page"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of items to include in the page"
+              }
+            ]
+          },
+          "docs": "| ⚠️  This endpoint is currently in BETA |\n|--|\n\nReturns directly attached persons for a given Note.\n"
+        },
+        {
+          "info": {
+            "name": "Get replies for a Note",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.affinity.co/v2/notes/:noteId/replies",
+            "params": [
+              {
+                "name": "noteId",
+                "value": "",
+                "type": "path",
+                "description": "Note ID"
+              },
+              {
+                "name": "filter",
+                "value": "",
+                "type": "query",
+                "description": "Filter options"
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Cursor for the next or previous page"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of items to include in the page"
+              },
+              {
+                "name": "totalCount",
+                "value": "",
+                "type": "query",
+                "description": "Include total count of the collection in the pagination response"
+              }
+            ]
+          },
+          "docs": "| ⚠️  This endpoint is currently in BETA |\n|--|\n\nThis endpoint returns reply notes for a given note id.\nYou can filter replies using the `filter` query parameter. The filter parameter is a string that you can specify conditions based on the following properties.\n| **Property Name**           | **Description**                                                 | **Type**   | **Allowed Operators**                | **Examples**                    |\n|-----------------------------|----------------------"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

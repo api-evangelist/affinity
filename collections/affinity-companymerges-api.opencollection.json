@@ -1,0 +1,139 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Affinity API v2 auth companyMerges API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "companyMerges",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get All Company Merges",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.affinity.co/v2/company-merges",
+            "params": [
+              {
+                "name": "cursor",
+                "value": "ICAgICAgYmVmb3JlOjo6Nw",
+                "type": "query",
+                "description": "Cursor for the next or previous page"
+              },
+              {
+                "name": "limit",
+                "value": "100",
+                "type": "query",
+                "description": "Number of items to include in the page"
+              },
+              {
+                "name": "filter",
+                "value": "status=failed | taskId=789e0123-e45b-67c8-d901-234567890123",
+                "type": "query",
+                "description": "Filter company merges using Affinity Filtering Language"
+              }
+            ]
+          },
+          "docs": "| ⚠️ This endpoint is currently in BETA |\n|--|\n\n\nRetrieve paginated company merges for the organization.\n\n\nReturns all company merges initiated by users in your organization, including their current\nstatus, the companies involved, and merge details. You can filter company merges using the `filter` query parameter. The filter parameter is a string that you can specify conditions based on the following properties:\n\n\n| Property | Type | Operators | Values | Examples |\n|----------|------|-----------"
+        },
+        {
+          "info": {
+            "name": "Initiate Company Merge",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.affinity.co/v2/company-merges",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "| ⚠️ This endpoint is currently in BETA |\n|--|\n\nInitiate a company merge to combine a duplicate company profile into a primary company profile.\n\nThis is an asynchronous process that will merge all data from the duplicate company into the primary company. Once the merge is initiated, you can track its progress using the returned [task URL](#tag/companyMerges/operation/v2_tasks_company-merges_taskId__GET).\n\nRequires the \"Manage duplicates\" [permission](#section/Getting-Started/Permissions) and org"
+        },
+        {
+          "info": {
+            "name": "Get Company Merge",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.affinity.co/v2/company-merges/:mergeId",
+            "params": [
+              {
+                "name": "mergeId",
+                "value": "",
+                "type": "path",
+                "description": "Company merge ID"
+              }
+            ]
+          },
+          "docs": "| ⚠️ This endpoint is currently in BETA |\n|--|\n\nRetrieve the status and details of a specific company merge.\n\nReturns information about the company merge including its current status, the companies involved, timestamps, and any error information if the merge failed.\n\nThe `mergeId` can be obtained from the response of the [Get All Company Merges](#tag/companyMerges/operation/v2_company-merges__GET) endpoint, or by filtering company merges by task ID using `/v2/company-merges?filter=taskId={taskId"
+        },
+        {
+          "info": {
+            "name": "Get All Company Merge Tasks",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.affinity.co/v2/tasks/company-merges",
+            "params": [
+              {
+                "name": "cursor",
+                "value": "ICAgICAgYmVmb3JlOjo6Nw",
+                "type": "query",
+                "description": "Cursor for the next or previous page"
+              },
+              {
+                "name": "limit",
+                "value": "100",
+                "type": "query",
+                "description": "Number of items to include in the page"
+              },
+              {
+                "name": "filter",
+                "value": "status=failed",
+                "type": "query",
+                "description": "Filter tasks using Affinity Filtering Language"
+              }
+            ]
+          },
+          "docs": "| ⚠️ This endpoint is currently in BETA |\n|--|\n\n\nRetrieve paginated company merge tasks for the organization.\n\n\nReturns all merge tasks initiated by users in your organization, including their current status,\nthe companies involved, and task details.\n\n\nYou can filter tasks using the `filter` query parameter. The filter parameter is a string that you can specify conditions based on the following properties:\n\n| Property | Type | Operators | Values | Examples |\n|----------|------|-----------|------"
+        },
+        {
+          "info": {
+            "name": "Get Company Merge Task",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.affinity.co/v2/tasks/company-merges/:taskId",
+            "params": [
+              {
+                "name": "taskId",
+                "value": "",
+                "type": "path",
+                "description": "Company merge task ID"
+              }
+            ]
+          },
+          "docs": "| ⚠️ This endpoint is currently in BETA |\n|--|\n\n\nRetrieve the status and details of a specific task for company merges.\n\n\nReturns information about the company merges for a specific task including its overall status,\nnumber of merges in-progress, completed, and failed.\n\n\nDetailed information about individual merges for this task can be found by querying:\n`/v2/company-merges?filter=taskId={taskId}` See [Company\nMerges](#tag/companyMerges/operation/v2_company-merges__GET) for more details.\n\n\nTask "
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

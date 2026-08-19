@@ -1,0 +1,228 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Affinity API v2 auth persons API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "persons",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get all Persons",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.affinity.co/v2/persons",
+            "params": [
+              {
+                "name": "cursor",
+                "value": "ICAgICAgYmVmb3JlOjo6Nw",
+                "type": "query",
+                "description": "Cursor for the next or previous page"
+              },
+              {
+                "name": "limit",
+                "value": "100",
+                "type": "query",
+                "description": "Number of items to include in the page"
+              },
+              {
+                "name": "ids",
+                "value": "1,2",
+                "type": "query",
+                "description": "People IDs"
+              },
+              {
+                "name": "fieldIds",
+                "value": "field-1,field-2",
+                "type": "query",
+                "description": "Field IDs for which to return field data"
+              },
+              {
+                "name": "fieldTypes",
+                "value": "enriched,global",
+                "type": "query",
+                "description": "Field Types for which to return field data"
+              }
+            ]
+          },
+          "docs": "Paginate through Persons in Affinity.\nReturns basic information and non-list-specific field data on each Person.\n\nTo retrieve field data, you must use either the `fieldIds` or the `fieldTypes` parameter\nto specify the Fields for which you want data returned.\nThese Field IDs and Types can be found using the GET `/v2/persons/fields` endpoint.\nWhen no `fieldIds` or `fieldTypes` are provided, Persons will be returned without any field data attached.\nTo supply multiple `fieldIds` or `fieldTypes` para"
+        },
+        {
+          "info": {
+            "name": "Get a single Person",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.affinity.co/v2/persons/:personId",
+            "params": [
+              {
+                "name": "personId",
+                "value": "",
+                "type": "path",
+                "description": "Person ID"
+              },
+              {
+                "name": "fieldIds",
+                "value": "field-1,field-2",
+                "type": "query",
+                "description": "Field IDs for which to return field data"
+              },
+              {
+                "name": "fieldTypes",
+                "value": "enriched,global",
+                "type": "query",
+                "description": "Field Types for which to return field data"
+              }
+            ]
+          },
+          "docs": "Returns basic information and non-list-specific field data on the requested Person.\n\nTo retrieve field data, you must use either the `fieldIds` or the `fieldTypes` parameter\nto specify the Fields for which you want data returned.\nThese Field IDs and Types can be found using the GET `/v2/persons/fields` endpoint.\nWhen no `fieldIds` or `fieldTypes` are provided, Persons will be returned without any field data attached.\nTo supply multiple `fieldIds` or `fieldTypes` parameters, generate a query stri"
+        },
+        {
+          "info": {
+            "name": "Get Notes for a Person",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.affinity.co/v2/persons/:personId/notes",
+            "params": [
+              {
+                "name": "personId",
+                "value": "",
+                "type": "path",
+                "description": "Persons ID"
+              },
+              {
+                "name": "filter",
+                "value": "",
+                "type": "query",
+                "description": "Filter options"
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Cursor for the next or previous page"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of items to include in the page"
+              },
+              {
+                "name": "totalCount",
+                "value": "",
+                "type": "query",
+                "description": "Include total count of the collection in the pagination response"
+              }
+            ]
+          },
+          "docs": "| ⚠️  This endpoint is currently in BETA |\n|--|\n\nReturns notes for a given person id which includes directly attached notes, notes on meetings this person attended, and notes where this person is mentioned.\n\nYou can filter notes using the `filter` query parameter. The filter parameter is a string that you can specify conditions based on the following properties.\n| **Property Name**           | **Description**                                                 | **Type**   | **Allowed Operators**   "
+        },
+        {
+          "info": {
+            "name": "Get metadata on Person Fields",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.affinity.co/v2/persons/fields",
+            "params": [
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Cursor for the next or previous page"
+              },
+              {
+                "name": "limit",
+                "value": "100",
+                "type": "query",
+                "description": "Number of items to include in the page"
+              }
+            ]
+          },
+          "docs": "Returns metadata on non-list-specific Person Fields.\n\nUse the returned Field IDs to request field data from the GET `/v2/persons` and GET `/v2/persons/{id}` endpoints."
+        },
+        {
+          "info": {
+            "name": "Get a Person's Lists",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.affinity.co/v2/persons/:personId/lists",
+            "params": [
+              {
+                "name": "personId",
+                "value": "",
+                "type": "path",
+                "description": "Persons ID"
+              },
+              {
+                "name": "cursor",
+                "value": "ICAgICAgYmVmb3JlOjo6Nw",
+                "type": "query",
+                "description": "Cursor for the next or previous page"
+              },
+              {
+                "name": "limit",
+                "value": "100",
+                "type": "query",
+                "description": "Number of items to include in the page"
+              }
+            ]
+          },
+          "docs": "Paginate through all Lists where the given Person appears as an entry and that you have access to view.\nReturns basic List information for each List that contains this Person."
+        },
+        {
+          "info": {
+            "name": "Get a Person's List Entries",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.affinity.co/v2/persons/:personId/list-entries",
+            "params": [
+              {
+                "name": "personId",
+                "value": "",
+                "type": "path",
+                "description": "Persons ID"
+              },
+              {
+                "name": "cursor",
+                "value": "ICAgICAgYmVmb3JlOjo6Nw",
+                "type": "query",
+                "description": "Cursor for the next or previous page"
+              },
+              {
+                "name": "limit",
+                "value": "100",
+                "type": "query",
+                "description": "Number of items to include in the page"
+              }
+            ]
+          },
+          "docs": "Paginate through the List Entries (AKA rows) for the given Person across all Lists.\nEach List Entry includes field data for the Person, including list-specific field data.\nEach List Entry also includes metadata about its creation, i.e., when it was added to the List and by whom.\n\nRequires the \"Export data from Lists\" [permission](#section/Getting-Started/Permissions)."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

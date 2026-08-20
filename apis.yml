@@ -35,6 +35,15 @@ tags:
   - Private Equity
   - Venture Capital
   - Contacts
+  - Organization
+  - Opportunities
+  - Deal Management
+tags_raw:
+  - CRM
+  - Relationship Intelligence
+  - Private Equity
+  - Venture Capital
+  - Contacts
   - Organizations
   - Opportunities
   - Deal Management
@@ -50,6 +59,13 @@ apis:
   tags:
   - CRM
   - Contacts
+  - Organization
+  - Opportunities
+  - Notes
+  - Webhook
+  tags_raw:
+  - CRM
+  - Contacts
   - Organizations
   - Opportunities
   - Notes
@@ -63,6 +79,8 @@ apis:
   humanURL: https://api-docs.affinity.co/
   baseURL: https://api.affinity.co
   tags:
+  - Authentication
+  tags_raw:
   - auth
   properties:
   - type: OpenAPI
@@ -75,6 +93,8 @@ apis:
   humanURL: https://api-docs.affinity.co/
   baseURL: https://api.affinity.co
   tags:
+  - Companies
+  tags_raw:
   - companies
   properties:
   - type: OpenAPI
@@ -86,7 +106,8 @@ apis:
   description: Operations about company merges
   humanURL: https://api-docs.affinity.co/
   baseURL: https://api.affinity.co
-  tags:
+  tags: []
+  tags_raw:
   - companyMerges
   properties:
   - type: OpenAPI
@@ -99,6 +120,8 @@ apis:
   humanURL: https://api-docs.affinity.co/
   baseURL: https://api.affinity.co
   tags:
+  - Emails
+  tags_raw:
   - emails
   properties:
   - type: OpenAPI
@@ -111,6 +134,8 @@ apis:
   humanURL: https://api-docs.affinity.co/
   baseURL: https://api.affinity.co
   tags:
+  - List
+  tags_raw:
   - lists
   properties:
   - type: OpenAPI
@@ -123,6 +148,8 @@ apis:
   humanURL: https://api-docs.affinity.co/
   baseURL: https://api.affinity.co
   tags:
+  - Meetings
+  tags_raw:
   - meetings
   properties:
   - type: OpenAPI
@@ -135,6 +162,8 @@ apis:
   humanURL: https://api-docs.affinity.co/
   baseURL: https://api.affinity.co
   tags:
+  - Notes
+  tags_raw:
   - notes
   properties:
   - type: OpenAPI
@@ -147,6 +176,8 @@ apis:
   humanURL: https://api-docs.affinity.co/
   baseURL: https://api.affinity.co
   tags:
+  - Opportunities
+  tags_raw:
   - opportunities
   properties:
   - type: OpenAPI
@@ -158,7 +189,8 @@ apis:
   description: Operations about person merges
   humanURL: https://api-docs.affinity.co/
   baseURL: https://api.affinity.co
-  tags:
+  tags: []
+  tags_raw:
   - personMerges
   properties:
   - type: OpenAPI
@@ -171,6 +203,8 @@ apis:
   humanURL: https://api-docs.affinity.co/
   baseURL: https://api.affinity.co
   tags:
+  - Persons
+  tags_raw:
   - persons
   properties:
   - type: OpenAPI

@@ -10,6 +10,18 @@ description: >-
   workflows, and third-party integrations. API access is included in the Scale,
   Advanced, and Enterprise subscription tiers, with monthly call limits ranging
   from 100,000 to unlimited depending on the plan.
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: true
+  label: Hosted service · you call their endpoint
+  confidence: high
+  source:
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: paid
   onboarding: self-serve

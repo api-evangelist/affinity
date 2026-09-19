@@ -42,6 +42,9 @@ created: '2026-06-12'
 modified: '2026-06-12'
 specificationVersion: '0.23'
 type: Index
+x-docs-platform: mintlify
+x-docs-platform-confidence: medium
+x-docs-platform-checked: 2026-09-17
 tags:
   - CRM
   - Relationship Intelligence
@@ -133,7 +136,7 @@ apis:
   humanURL: https://api-docs.affinity.co/
   baseURL: https://api.affinity.co
   tags:
-  - Emails
+  - Email
   tags_raw:
   - emails
   properties:

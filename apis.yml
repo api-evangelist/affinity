@@ -90,7 +90,7 @@ apis:
   - type: Documentation
     url: https://api-docs.affinity.co/
 - aid: affinity:affinity-auth-api
-  name: Affinity auth API
+  name: Affinity Auth API
   description: Operations about auths
   humanURL: https://api-docs.affinity.co/
   baseURL: https://api.affinity.co
@@ -104,7 +104,7 @@ apis:
   - type: Documentation
     url: https://developer.affinity.co/
 - aid: affinity:affinity-companies-api
-  name: Affinity companies API
+  name: Affinity Companies API
   description: Operations about companies
   humanURL: https://api-docs.affinity.co/
   baseURL: https://api.affinity.co
@@ -118,7 +118,7 @@ apis:
   - type: Documentation
     url: https://developer.affinity.co/
 - aid: affinity:affinity-companymerges-api
-  name: Affinity companyMerges API
+  name: Affinity Company Merges API
   description: Operations about company merges
   humanURL: https://api-docs.affinity.co/
   baseURL: https://api.affinity.co
@@ -131,7 +131,7 @@ apis:
   - type: Documentation
     url: https://developer.affinity.co/
 - aid: affinity:affinity-emails-api
-  name: Affinity emails API
+  name: Affinity Emails API
   description: Operations about emails
   humanURL: https://api-docs.affinity.co/
   baseURL: https://api.affinity.co
@@ -145,7 +145,7 @@ apis:
   - type: Documentation
     url: https://developer.affinity.co/
 - aid: affinity:affinity-lists-api
-  name: Affinity lists API
+  name: Affinity Lists API
   description: Operations about lists
   humanURL: https://api-docs.affinity.co/
   baseURL: https://api.affinity.co
@@ -159,7 +159,7 @@ apis:
   - type: Documentation
     url: https://developer.affinity.co/
 - aid: affinity:affinity-meetings-api
-  name: Affinity meetings API
+  name: Affinity Meetings API
   description: Operations about meetings
   humanURL: https://api-docs.affinity.co/
   baseURL: https://api.affinity.co
@@ -173,7 +173,7 @@ apis:
   - type: Documentation
     url: https://developer.affinity.co/
 - aid: affinity:affinity-notes-api
-  name: Affinity notes API
+  name: Affinity Notes API
   description: Operations about notes
   humanURL: https://api-docs.affinity.co/
   baseURL: https://api.affinity.co
@@ -187,7 +187,7 @@ apis:
   - type: Documentation
     url: https://developer.affinity.co/
 - aid: affinity:affinity-opportunities-api
-  name: Affinity opportunities API
+  name: Affinity Opportunities API
   description: Operations about opportunities
   humanURL: https://api-docs.affinity.co/
   baseURL: https://api.affinity.co
@@ -201,7 +201,7 @@ apis:
   - type: Documentation
     url: https://developer.affinity.co/
 - aid: affinity:affinity-personmerges-api
-  name: Affinity personMerges API
+  name: Affinity Person Merges API
   description: Operations about person merges
   humanURL: https://api-docs.affinity.co/
   baseURL: https://api.affinity.co
@@ -214,7 +214,7 @@ apis:
   - type: Documentation
     url: https://developer.affinity.co/
 - aid: affinity:affinity-persons-api
-  name: Affinity persons API
+  name: Affinity Persons API
   description: Operations about persons
   humanURL: https://api-docs.affinity.co/
   baseURL: https://api.affinity.co

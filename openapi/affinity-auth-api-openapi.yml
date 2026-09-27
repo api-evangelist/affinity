@@ -60,42 +60,71 @@ paths:
         default:
           $ref: '#/components/responses/default'
 components:
+  responses:
+    '404':
+      description: Not Found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/NotFoundErrors'
+      headers:
+        X-Ratelimit-Limit-User:
+          $ref: '#/components/headers/X-Ratelimit-Limit-User'
+        X-Ratelimit-Limit-User-Remaining:
+          $ref: '#/components/headers/X-Ratelimit-Limit-User-Remaining'
+        X-Ratelimit-Limit-User-Reset:
+          $ref: '#/components/headers/X-Ratelimit-Limit-User-Reset'
+        X-Ratelimit-Limit-Org:
+          $ref: '#/components/headers/X-Ratelimit-Limit-Org'
+        X-Ratelimit-Limit-Org-Remaining:
+          $ref: '#/components/headers/X-Ratelimit-Limit-Org-Remaining'
+        X-Ratelimit-Limit-Org-Reset:
+          $ref: '#/components/headers/X-Ratelimit-Limit-Org-Reset'
+    default:
+      description: Errors
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Errors'
+      headers:
+        X-Ratelimit-Limit-User:
+          $ref: '#/components/headers/X-Ratelimit-Limit-User'
+        X-Ratelimit-Limit-User-Remaining:
+          $ref: '#/components/headers/X-Ratelimit-Limit-User-Remaining'
+        X-Ratelimit-Limit-User-Reset:
+          $ref: '#/components/headers/X-Ratelimit-Limit-User-Reset'
+        X-Ratelimit-Limit-Org:
+          $ref: '#/components/headers/X-Ratelimit-Limit-Org'
+        X-Ratelimit-Limit-Org-Remaining:
+          $ref: '#/components/headers/X-Ratelimit-Limit-Org-Remaining'
+        X-Ratelimit-Limit-Org-Reset:
+          $ref: '#/components/headers/X-Ratelimit-Limit-Org-Reset'
+  headers:
+    X-Ratelimit-Limit-User-Reset:
+      description: Time in seconds before the limit resets for the user
+      schema:
+        type: integer
+    X-Ratelimit-Limit-User-Remaining:
+      description: Number of requests remaining for the user
+      schema:
+        type: integer
+    X-Ratelimit-Limit-Org-Remaining:
+      description: Number of requests remaining for the account
+      schema:
+        type: integer
+    X-Ratelimit-Limit-Org-Reset:
+      description: Time in seconds before the limit resets for the account
+      schema:
+        type: integer
+    X-Ratelimit-Limit-Org:
+      description: Number of requests allowed per month for the account
+      schema:
+        type: integer
+    X-Ratelimit-Limit-User:
+      description: Number of requests allowed per minute for the user
+      schema:
+        type: integer
   schemas:
-    Grant:
-      title: Grant
-      type: object
-      properties:
-        type:
-          description: The type of grant used to authenticate
-          type: string
-          enum:
-          - api-key
-          - access-token
-          examples:
-          - api-key
-        scopes:
-          description: The scopes available to the current grant
-          type: array
-          items:
-            type: string
-          examples:
-          - - api
-        createdAt:
-          description: When the grant was created
-          type: string
-          format: date-time
-          examples:
-          - '2023-01-01T00:00:00Z'
-      required:
-      - createdAt
-      - scopes
-      - type
-      additionalProperties: false
-      examples:
-      - createdAt: '2023-01-01T00:00:00Z'
-        scopes:
-        - api
-        type: api-key
     NotFoundError:
       title: NotFoundError
       type: object
@@ -114,87 +143,6 @@ components:
       additionalProperties: false
       examples:
       - code: not-found
-        message: 🚨 Error! Sound the alarm! 🚨
-    ValidationError:
-      title: ValidationError
-      type: object
-      properties:
-        code:
-          description: Error code
-          type: string
-          enum:
-          - validation
-        message:
-          description: Error message
-          type: string
-        param:
-          description: Param the error refers to
-          type: string
-      required:
-      - code
-      - message
-      - param
-      additionalProperties: false
-      examples:
-      - code: validation
-        param: limit
-        message: 🚨 Error! Sound the alarm! 🚨
-    UnsupportedMediaTypeError:
-      title: UnsupportedMediaTypeError
-      type: object
-      properties:
-        code:
-          description: Error code
-          type: string
-          enum:
-          - unsupported-media-type
-        message:
-          description: Error message
-          type: string
-      required:
-      - code
-      - message
-      additionalProperties: false
-      examples:
-      - code: unsupported-media-type
-        message: 🚨 Error! Sound the alarm! 🚨
-    NotAcceptableError:
-      title: NotAcceptableError
-      type: object
-      properties:
-        code:
-          description: Error code
-          type: string
-          enum:
-          - not-acceptable
-        message:
-          description: Error message
-          type: string
-      required:
-      - code
-      - message
-      additionalProperties: false
-      examples:
-      - code: not-acceptable
-        message: 🚨 Error! Sound the alarm! 🚨
-    NotImplementedError:
-      title: NotImplementedError
-      type: object
-      properties:
-        code:
-          description: Error code
-          type: string
-          enum:
-          - not-implemented
-        message:
-          description: Error message
-          type: string
-      required:
-      - code
-      - message
-      additionalProperties: false
-      examples:
-      - code: not-implemented
         message: 🚨 Error! Sound the alarm! 🚨
     NotFoundErrors:
       title: NotFoundErrors
@@ -215,6 +163,94 @@ components:
           message: 🚨 Error! Sound the alarm! 🚨
         - code: not-found
           message: 🚨 Error! Sound the alarm! 🚨
+    NotAcceptableError:
+      title: NotAcceptableError
+      type: object
+      properties:
+        code:
+          description: Error code
+          type: string
+          enum:
+          - not-acceptable
+        message:
+          description: Error message
+          type: string
+      required:
+      - code
+      - message
+      additionalProperties: false
+      examples:
+      - code: not-acceptable
+        message: 🚨 Error! Sound the alarm! 🚨
+    ConflictError:
+      title: ConflictError
+      type: object
+      properties:
+        code:
+          description: Error code
+          type: string
+          enum:
+          - conflict
+        message:
+          description: Error message
+          type: string
+      required:
+      - code
+      - message
+      additionalProperties: false
+      examples:
+      - code: conflict
+        message: 🚨 Error! Sound the alarm! 🚨
+    Errors:
+      title: Errors
+      type: object
+      properties:
+        errors:
+          description: Errors
+          type: array
+          items:
+            $ref: '#/components/schemas/Error'
+      required:
+      - errors
+      additionalProperties: false
+    ServerError:
+      title: ServerError
+      type: object
+      properties:
+        code:
+          description: Error code
+          type: string
+          enum:
+          - server
+        message:
+          description: Error message
+          type: string
+      required:
+      - code
+      - message
+      additionalProperties: false
+      examples:
+      - code: server
+        message: 🚨 Error! Sound the alarm! 🚨
+    UnsupportedMediaTypeError:
+      title: UnsupportedMediaTypeError
+      type: object
+      properties:
+        code:
+          description: Error code
+          type: string
+          enum:
+          - unsupported-media-type
+        message:
+          description: Error message
+          type: string
+      required:
+      - code
+      - message
+      additionalProperties: false
+      examples:
+      - code: unsupported-media-type
+        message: 🚨 Error! Sound the alarm! 🚨
     MethodNotAllowedError:
       title: MethodNotAllowedError
       type: object
@@ -234,15 +270,15 @@ components:
       examples:
       - code: method-not-allowed
         message: 🚨 Error! Sound the alarm! 🚨
-    AuthenticationError:
-      title: AuthenticationError
+    NotImplementedError:
+      title: NotImplementedError
       type: object
       properties:
         code:
           description: Error code
           type: string
           enum:
-          - authentication
+          - not-implemented
         message:
           description: Error message
           type: string
@@ -251,20 +287,77 @@ components:
       - message
       additionalProperties: false
       examples:
-      - code: authentication
+      - code: not-implemented
         message: 🚨 Error! Sound the alarm! 🚨
-    Errors:
-      title: Errors
+    AuthorizationError:
+      title: AuthorizationError
       type: object
       properties:
-        errors:
-          description: Errors
-          type: array
-          items:
-            $ref: '#/components/schemas/Error'
+        code:
+          description: Error code
+          type: string
+          enum:
+          - authorization
+        message:
+          description: Error message
+          type: string
       required:
-      - errors
+      - code
+      - message
       additionalProperties: false
+      examples:
+      - code: authorization
+        message: 🚨 Error! Sound the alarm! 🚨
+    UnprocessableEntityError:
+      title: UnprocessableEntityError
+      type: object
+      properties:
+        code:
+          description: Error code
+          type: string
+          enum:
+          - unprocessable-entity
+        message:
+          description: Error message
+          type: string
+      required:
+      - code
+      - message
+      additionalProperties: false
+      examples:
+      - code: unprocessable-entity
+        message: 🚨 Error! Sound the alarm! 🚨
+    WhoAmI:
+      title: WhoAmI
+      description: WhoAmI model
+      type: object
+      properties:
+        tenant:
+          $ref: '#/components/schemas/Tenant'
+        user:
+          $ref: '#/components/schemas/User'
+        grant:
+          $ref: '#/components/schemas/Grant'
+      required:
+      - grant
+      - tenant
+      - user
+      additionalProperties: false
+      examples:
+      - grant:
+          createdAt: '2023-01-01T00:00:00Z'
+          scopes:
+          - api
+          type: api-key
+        user:
+          firstName: John
+          lastName: Smith
+          emailAddress: john.smith@contoso.com
+          id: 1
+        tenant:
+          name: Contoso Ltd.
+          subdomain: contoso
+          id: 1
     User:
       title: User
       type: object
@@ -306,107 +399,6 @@ components:
         lastName: Smith
         emailAddress: john.smith@contoso.com
         id: 1
-    WhoAmI:
-      title: WhoAmI
-      description: WhoAmI model
-      type: object
-      properties:
-        tenant:
-          $ref: '#/components/schemas/Tenant'
-        user:
-          $ref: '#/components/schemas/User'
-        grant:
-          $ref: '#/components/schemas/Grant'
-      required:
-      - grant
-      - tenant
-      - user
-      additionalProperties: false
-      examples:
-      - grant:
-          createdAt: '2023-01-01T00:00:00Z'
-          scopes:
-          - api
-          type: api-key
-        user:
-          firstName: John
-          lastName: Smith
-          emailAddress: john.smith@contoso.com
-          id: 1
-        tenant:
-          name: Contoso Ltd.
-          subdomain: contoso
-          id: 1
-    BadRequestError:
-      title: BadRequestError
-      type: object
-      properties:
-        code:
-          description: Error code
-          type: string
-          enum:
-          - bad-request
-        message:
-          description: Error message
-          type: string
-      required:
-      - code
-      - message
-      additionalProperties: false
-      examples:
-      - code: bad-request
-        message: 🚨 Error! Sound the alarm! 🚨
-    Tenant:
-      title: Tenant
-      type: object
-      properties:
-        id:
-          description: The tenant's unique identifier
-          type: integer
-          format: int64
-          minimum: 1
-          maximum: 9007199254740991
-          examples:
-          - 1
-        name:
-          description: The name of the tenant
-          type: string
-          examples:
-          - Contoso Ltd.
-        subdomain:
-          description: The tenant's subdomain under affinity.co
-          type: string
-          format: hostname
-          examples:
-          - contoso
-      required:
-      - id
-      - name
-      - subdomain
-      additionalProperties: false
-      examples:
-      - name: Contoso Ltd.
-        subdomain: contoso
-        id: 1
-    ConflictError:
-      title: ConflictError
-      type: object
-      properties:
-        code:
-          description: Error code
-          type: string
-          enum:
-          - conflict
-        message:
-          description: Error message
-          type: string
-      required:
-      - code
-      - message
-      additionalProperties: false
-      examples:
-      - code: conflict
-        message: 🚨 Error! Sound the alarm! 🚨
     RateLimitError:
       title: RateLimitError
       type: object
@@ -426,15 +418,50 @@ components:
       examples:
       - code: rate-limit
         message: 🚨 Error! Sound the alarm! 🚨
-    ServerError:
-      title: ServerError
+    Grant:
+      title: Grant
+      type: object
+      properties:
+        type:
+          description: The type of grant used to authenticate
+          type: string
+          enum:
+          - api-key
+          - access-token
+          examples:
+          - api-key
+        scopes:
+          description: The scopes available to the current grant
+          type: array
+          items:
+            type: string
+          examples:
+          - - api
+        createdAt:
+          description: When the grant was created
+          type: string
+          format: date-time
+          examples:
+          - '2023-01-01T00:00:00Z'
+      required:
+      - createdAt
+      - scopes
+      - type
+      additionalProperties: false
+      examples:
+      - createdAt: '2023-01-01T00:00:00Z'
+        scopes:
+        - api
+        type: api-key
+    BadRequestError:
+      title: BadRequestError
       type: object
       properties:
         code:
           description: Error code
           type: string
           enum:
-          - server
+          - bad-request
         message:
           description: Error message
           type: string
@@ -443,45 +470,7 @@ components:
       - message
       additionalProperties: false
       examples:
-      - code: server
-        message: 🚨 Error! Sound the alarm! 🚨
-    AuthorizationError:
-      title: AuthorizationError
-      type: object
-      properties:
-        code:
-          description: Error code
-          type: string
-          enum:
-          - authorization
-        message:
-          description: Error message
-          type: string
-      required:
-      - code
-      - message
-      additionalProperties: false
-      examples:
-      - code: authorization
-        message: 🚨 Error! Sound the alarm! 🚨
-    UnprocessableEntityError:
-      title: UnprocessableEntityError
-      type: object
-      properties:
-        code:
-          description: Error code
-          type: string
-          enum:
-          - unprocessable-entity
-        message:
-          description: Error message
-          type: string
-      required:
-      - code
-      - message
-      additionalProperties: false
-      examples:
-      - code: unprocessable-entity
+      - code: bad-request
         message: 🚨 Error! Sound the alarm! 🚨
     Error:
       title: Error
@@ -515,70 +504,81 @@ components:
           unprocessable-entity: '#/components/schemas/UnprocessableEntityError'
           unsupported-media-type: '#/components/schemas/UnsupportedMediaTypeError'
           validation: '#/components/schemas/ValidationError'
-  headers:
-    X-Ratelimit-Limit-Org:
-      description: Number of requests allowed per month for the account
-      schema:
-        type: integer
-    X-Ratelimit-Limit-Org-Remaining:
-      description: Number of requests remaining for the account
-      schema:
-        type: integer
-    X-Ratelimit-Limit-User-Remaining:
-      description: Number of requests remaining for the user
-      schema:
-        type: integer
-    X-Ratelimit-Limit-User:
-      description: Number of requests allowed per minute for the user
-      schema:
-        type: integer
-    X-Ratelimit-Limit-Org-Reset:
-      description: Time in seconds before the limit resets for the account
-      schema:
-        type: integer
-    X-Ratelimit-Limit-User-Reset:
-      description: Time in seconds before the limit resets for the user
-      schema:
-        type: integer
-  responses:
-    '404':
-      description: Not Found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/NotFoundErrors'
-      headers:
-        X-Ratelimit-Limit-User:
-          $ref: '#/components/headers/X-Ratelimit-Limit-User'
-        X-Ratelimit-Limit-User-Remaining:
-          $ref: '#/components/headers/X-Ratelimit-Limit-User-Remaining'
-        X-Ratelimit-Limit-User-Reset:
-          $ref: '#/components/headers/X-Ratelimit-Limit-User-Reset'
-        X-Ratelimit-Limit-Org:
-          $ref: '#/components/headers/X-Ratelimit-Limit-Org'
-        X-Ratelimit-Limit-Org-Remaining:
-          $ref: '#/components/headers/X-Ratelimit-Limit-Org-Remaining'
-        X-Ratelimit-Limit-Org-Reset:
-          $ref: '#/components/headers/X-Ratelimit-Limit-Org-Reset'
-    default:
-      description: Errors
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Errors'
-      headers:
-        X-Ratelimit-Limit-User:
-          $ref: '#/components/headers/X-Ratelimit-Limit-User'
-        X-Ratelimit-Limit-User-Remaining:
-          $ref: '#/components/headers/X-Ratelimit-Limit-User-Remaining'
-        X-Ratelimit-Limit-User-Reset:
-          $ref: '#/components/headers/X-Ratelimit-Limit-User-Reset'
-        X-Ratelimit-Limit-Org:
-          $ref: '#/components/headers/X-Ratelimit-Limit-Org'
-        X-Ratelimit-Limit-Org-Remaining:
-          $ref: '#/components/headers/X-Ratelimit-Limit-Org-Remaining'
-        X-Ratelimit-Limit-Org-Reset:
-          $ref: '#/components/headers/X-Ratelimit-Limit-Org-Reset'
+    Tenant:
+      title: Tenant
+      type: object
+      properties:
+        id:
+          description: The tenant's unique identifier
+          type: integer
+          format: int64
+          minimum: 1
+          maximum: 9007199254740991
+          examples:
+          - 1
+        name:
+          description: The name of the tenant
+          type: string
+          examples:
+          - Contoso Ltd.
+        subdomain:
+          description: The tenant's subdomain under affinity.co
+          type: string
+          format: hostname
+          examples:
+          - contoso
+      required:
+      - id
+      - name
+      - subdomain
+      additionalProperties: false
+      examples:
+      - name: Contoso Ltd.
+        subdomain: contoso
+        id: 1
+    AuthenticationError:
+      title: AuthenticationError
+      type: object
+      properties:
+        code:
+          description: Error code
+          type: string
+          enum:
+          - authentication
+        message:
+          description: Error message
+          type: string
+      required:
+      - code
+      - message
+      additionalProperties: false
+      examples:
+      - code: authentication
+        message: 🚨 Error! Sound the alarm! 🚨
+    ValidationError:
+      title: ValidationError
+      type: object
+      properties:
+        code:
+          description: Error code
+          type: string
+          enum:
+          - validation
+        message:
+          description: Error message
+          type: string
+        param:
+          description: Param the error refers to
+          type: string
+      required:
+      - code
+      - message
+      - param
+      additionalProperties: false
+      examples:
+      - code: validation
+        param: limit
+        message: 🚨 Error! Sound the alarm! 🚨
   securitySchemes:
     bearerAuth:
       type: http

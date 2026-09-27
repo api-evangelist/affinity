@@ -99,31 +99,70 @@ paths:
           $ref: '#/components/responses/default'
 components:
   headers:
-    X-Ratelimit-Limit-Org:
-      description: Number of requests allowed per month for the account
-      schema:
-        type: integer
-    X-Ratelimit-Limit-Org-Remaining:
-      description: Number of requests remaining for the account
+    X-Ratelimit-Limit-User-Reset:
+      description: Time in seconds before the limit resets for the user
       schema:
         type: integer
     X-Ratelimit-Limit-User-Remaining:
       description: Number of requests remaining for the user
       schema:
         type: integer
-    X-Ratelimit-Limit-User:
-      description: Number of requests allowed per minute for the user
+    X-Ratelimit-Limit-Org-Remaining:
+      description: Number of requests remaining for the account
       schema:
         type: integer
     X-Ratelimit-Limit-Org-Reset:
       description: Time in seconds before the limit resets for the account
       schema:
         type: integer
-    X-Ratelimit-Limit-User-Reset:
-      description: Time in seconds before the limit resets for the user
+    X-Ratelimit-Limit-Org:
+      description: Number of requests allowed per month for the account
+      schema:
+        type: integer
+    X-Ratelimit-Limit-User:
+      description: Number of requests allowed per minute for the user
       schema:
         type: integer
   schemas:
+    Attendee:
+      title: Attendee
+      type: object
+      properties:
+        emailAddress:
+          description: The email addresses of the attendee
+          type:
+          - string
+          - 'null'
+          format: email
+          examples:
+          - john.smith@contoso.com
+        person:
+          oneOf:
+          - $ref: '#/components/schemas/PersonData'
+          - type: 'null'
+      required:
+      - emailAddress
+      - person
+      additionalProperties: false
+    NotFoundError:
+      title: NotFoundError
+      type: object
+      properties:
+        code:
+          description: Error code
+          type: string
+          enum:
+          - not-found
+        message:
+          description: Error message
+          type: string
+      required:
+      - code
+      - message
+      additionalProperties: false
+      examples:
+      - code: not-found
+        message: 🚨 Error! Sound the alarm! 🚨
     Pagination:
       title: Pagination
       type: object
@@ -147,15 +186,56 @@ components:
       examples:
       - prevUrl: https://api.affinity.co/v2/foo?cursor=ICAgICAgYmVmb3JlOjo6Nw
         nextUrl: https://api.affinity.co/v2/foo?cursor=ICAgICAgIGFmdGVyOjo6NA
-    NotFoundError:
-      title: NotFoundError
+    AttendeesPreview:
+      x-stability-level: beta
+      title: interactions.AttendeesPreview
+      type: object
+      properties:
+        data:
+          description: A preview of Attendees
+          type: array
+          items:
+            $ref: '#/components/schemas/Attendee'
+          maxItems: 100
+        totalCount:
+          description: The total count of Attendees
+          type: integer
+          format: int64
+          minimum: 0
+          maximum: 9007199254740991
+          examples:
+          - 200
+      required:
+      - data
+      - totalCount
+      additionalProperties: false
+    interactions.EmailPaged:
+      x-stability-level: beta
+      title: interactions.EmailPaged
+      description: EmailPaged model
+      type: object
+      properties:
+        data:
+          description: A page of Email results
+          type: array
+          items:
+            $ref: '#/components/schemas/interactions.Email'
+          maxItems: 100
+        pagination:
+          $ref: '#/components/schemas/PaginationWithTotalCount'
+      required:
+      - data
+      - pagination
+      additionalProperties: false
+    NotAcceptableError:
+      title: NotAcceptableError
       type: object
       properties:
         code:
           description: Error code
           type: string
           enum:
-          - not-found
+          - not-acceptable
         message:
           description: Error message
           type: string
@@ -164,31 +244,126 @@ components:
       - message
       additionalProperties: false
       examples:
-      - code: not-found
+      - code: not-acceptable
         message: 🚨 Error! Sound the alarm! 🚨
-    ValidationError:
-      title: ValidationError
+    ConflictError:
+      title: ConflictError
       type: object
       properties:
         code:
           description: Error code
           type: string
           enum:
-          - validation
+          - conflict
         message:
           description: Error message
-          type: string
-        param:
-          description: Param the error refers to
           type: string
       required:
       - code
       - message
-      - param
       additionalProperties: false
       examples:
-      - code: validation
-        param: limit
+      - code: conflict
+        message: 🚨 Error! Sound the alarm! 🚨
+    Errors:
+      title: Errors
+      type: object
+      properties:
+        errors:
+          description: Errors
+          type: array
+          items:
+            $ref: '#/components/schemas/Error'
+      required:
+      - errors
+      additionalProperties: false
+    PersonData:
+      title: PersonData
+      type: object
+      properties:
+        id:
+          description: The persons's unique identifier
+          type: integer
+          format: int64
+          minimum: 1
+          maximum: 9007199254740991
+          examples:
+          - 1
+        firstName:
+          description: The person's first name
+          type:
+          - string
+          - 'null'
+          examples:
+          - Jane
+        lastName:
+          description: The person's last name
+          type:
+          - string
+          - 'null'
+          examples:
+          - Doe
+        primaryEmailAddress:
+          description: The person's primary email address
+          type:
+          - string
+          - 'null'
+          format: email
+          examples:
+          - jane.doe@acme.co
+        type:
+          description: The person's type
+          type: string
+          enum:
+          - internal
+          - external
+          - collaborator
+          examples:
+          - internal
+      required:
+      - firstName
+      - id
+      - lastName
+      - primaryEmailAddress
+      - type
+      additionalProperties: false
+    ServerError:
+      title: ServerError
+      type: object
+      properties:
+        code:
+          description: Error code
+          type: string
+          enum:
+          - server
+        message:
+          description: Error message
+          type: string
+      required:
+      - code
+      - message
+      additionalProperties: false
+      examples:
+      - code: server
+        message: 🚨 Error! Sound the alarm! 🚨
+    UnsupportedMediaTypeError:
+      title: UnsupportedMediaTypeError
+      type: object
+      properties:
+        code:
+          description: Error code
+          type: string
+          enum:
+          - unsupported-media-type
+        message:
+          description: Error message
+          type: string
+      required:
+      - code
+      - message
+      additionalProperties: false
+      examples:
+      - code: unsupported-media-type
         message: 🚨 Error! Sound the alarm! 🚨
     interactions.Email:
       x-stability-level: beta
@@ -266,15 +441,15 @@ components:
       - toParticipantsPreview
       - ccParticipantsPreview
       additionalProperties: false
-    UnsupportedMediaTypeError:
-      title: UnsupportedMediaTypeError
+    MethodNotAllowedError:
+      title: MethodNotAllowedError
       type: object
       properties:
         code:
           description: Error code
           type: string
           enum:
-          - unsupported-media-type
+          - method-not-allowed
         message:
           description: Error message
           type: string
@@ -283,65 +458,7 @@ components:
       - message
       additionalProperties: false
       examples:
-      - code: unsupported-media-type
-        message: 🚨 Error! Sound the alarm! 🚨
-    Attendee:
-      title: Attendee
-      type: object
-      properties:
-        emailAddress:
-          description: The email addresses of the attendee
-          type:
-          - string
-          - 'null'
-          format: email
-          examples:
-          - john.smith@contoso.com
-        person:
-          oneOf:
-          - $ref: '#/components/schemas/PersonData'
-          - type: 'null'
-      required:
-      - emailAddress
-      - person
-      additionalProperties: false
-    NotAcceptableError:
-      title: NotAcceptableError
-      type: object
-      properties:
-        code:
-          description: Error code
-          type: string
-          enum:
-          - not-acceptable
-        message:
-          description: Error message
-          type: string
-      required:
-      - code
-      - message
-      additionalProperties: false
-      examples:
-      - code: not-acceptable
-        message: 🚨 Error! Sound the alarm! 🚨
-    UnprocessableEntityError:
-      title: UnprocessableEntityError
-      type: object
-      properties:
-        code:
-          description: Error code
-          type: string
-          enum:
-          - unprocessable-entity
-        message:
-          description: Error message
-          type: string
-      required:
-      - code
-      - message
-      additionalProperties: false
-      examples:
-      - code: unprocessable-entity
+      - code: method-not-allowed
         message: 🚨 Error! Sound the alarm! 🚨
     NotImplementedError:
       title: NotImplementedError
@@ -362,15 +479,15 @@ components:
       examples:
       - code: not-implemented
         message: 🚨 Error! Sound the alarm! 🚨
-    MethodNotAllowedError:
-      title: MethodNotAllowedError
+    AuthorizationError:
+      title: AuthorizationError
       type: object
       properties:
         code:
           description: Error code
           type: string
           enum:
-          - method-not-allowed
+          - authorization
         message:
           description: Error message
           type: string
@@ -379,17 +496,17 @@ components:
       - message
       additionalProperties: false
       examples:
-      - code: method-not-allowed
+      - code: authorization
         message: 🚨 Error! Sound the alarm! 🚨
-    AuthenticationError:
-      title: AuthenticationError
+    UnprocessableEntityError:
+      title: UnprocessableEntityError
       type: object
       properties:
         code:
           description: Error code
           type: string
           enum:
-          - authentication
+          - unprocessable-entity
         message:
           description: Error message
           type: string
@@ -398,148 +515,7 @@ components:
       - message
       additionalProperties: false
       examples:
-      - code: authentication
-        message: 🚨 Error! Sound the alarm! 🚨
-    Errors:
-      title: Errors
-      type: object
-      properties:
-        errors:
-          description: Errors
-          type: array
-          items:
-            $ref: '#/components/schemas/Error'
-      required:
-      - errors
-      additionalProperties: false
-    PersonData:
-      title: PersonData
-      type: object
-      properties:
-        id:
-          description: The persons's unique identifier
-          type: integer
-          format: int64
-          minimum: 1
-          maximum: 9007199254740991
-          examples:
-          - 1
-        firstName:
-          description: The person's first name
-          type:
-          - string
-          - 'null'
-          examples:
-          - Jane
-        lastName:
-          description: The person's last name
-          type:
-          - string
-          - 'null'
-          examples:
-          - Doe
-        primaryEmailAddress:
-          description: The person's primary email address
-          type:
-          - string
-          - 'null'
-          format: email
-          examples:
-          - jane.doe@acme.co
-        type:
-          description: The person's type
-          type: string
-          enum:
-          - internal
-          - external
-          - collaborator
-          examples:
-          - internal
-      required:
-      - firstName
-      - id
-      - lastName
-      - primaryEmailAddress
-      - type
-      additionalProperties: false
-    interactions.EmailPaged:
-      x-stability-level: beta
-      title: interactions.EmailPaged
-      description: EmailPaged model
-      type: object
-      properties:
-        data:
-          description: A page of Email results
-          type: array
-          items:
-            $ref: '#/components/schemas/interactions.Email'
-          maxItems: 100
-        pagination:
-          $ref: '#/components/schemas/PaginationWithTotalCount'
-      required:
-      - data
-      - pagination
-      additionalProperties: false
-    AttendeesPreview:
-      x-stability-level: beta
-      title: interactions.AttendeesPreview
-      type: object
-      properties:
-        data:
-          description: A preview of Attendees
-          type: array
-          items:
-            $ref: '#/components/schemas/Attendee'
-          maxItems: 100
-        totalCount:
-          description: The total count of Attendees
-          type: integer
-          format: int64
-          minimum: 0
-          maximum: 9007199254740991
-          examples:
-          - 200
-      required:
-      - data
-      - totalCount
-      additionalProperties: false
-    ServerError:
-      title: ServerError
-      type: object
-      properties:
-        code:
-          description: Error code
-          type: string
-          enum:
-          - server
-        message:
-          description: Error message
-          type: string
-      required:
-      - code
-      - message
-      additionalProperties: false
-      examples:
-      - code: server
-        message: 🚨 Error! Sound the alarm! 🚨
-    ConflictError:
-      title: ConflictError
-      type: object
-      properties:
-        code:
-          description: Error code
-          type: string
-          enum:
-          - conflict
-        message:
-          description: Error message
-          type: string
-      required:
-      - code
-      - message
-      additionalProperties: false
-      examples:
-      - code: conflict
+      - code: unprocessable-entity
         message: 🚨 Error! Sound the alarm! 🚨
     RateLimitError:
       title: RateLimitError
@@ -559,37 +535,6 @@ components:
       additionalProperties: false
       examples:
       - code: rate-limit
-        message: 🚨 Error! Sound the alarm! 🚨
-    PaginationWithTotalCount:
-      title: PaginationWithTotalCount
-      type: object
-      allOf:
-      - $ref: '#/components/schemas/Pagination'
-      properties:
-        totalCount:
-          description: The total count of the collection. Only included if requested via the totalCount query string parameter.
-          type: integer
-          format: int64
-          minimum: 0
-          maximum: 9007199254740991
-    AuthorizationError:
-      title: AuthorizationError
-      type: object
-      properties:
-        code:
-          description: Error code
-          type: string
-          enum:
-          - authorization
-        message:
-          description: Error message
-          type: string
-      required:
-      - code
-      - message
-      additionalProperties: false
-      examples:
-      - code: authorization
         message: 🚨 Error! Sound the alarm! 🚨
     BadRequestError:
       title: BadRequestError
@@ -642,26 +587,62 @@ components:
           unprocessable-entity: '#/components/schemas/UnprocessableEntityError'
           unsupported-media-type: '#/components/schemas/UnsupportedMediaTypeError'
           validation: '#/components/schemas/ValidationError'
+    PaginationWithTotalCount:
+      title: PaginationWithTotalCount
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/Pagination'
+      properties:
+        totalCount:
+          description: The total count of the collection. Only included if requested via the totalCount query string parameter.
+          type: integer
+          format: int64
+          minimum: 0
+          maximum: 9007199254740991
+    AuthenticationError:
+      title: AuthenticationError
+      type: object
+      properties:
+        code:
+          description: Error code
+          type: string
+          enum:
+          - authentication
+        message:
+          description: Error message
+          type: string
+      required:
+      - code
+      - message
+      additionalProperties: false
+      examples:
+      - code: authentication
+        message: 🚨 Error! Sound the alarm! 🚨
+    ValidationError:
+      title: ValidationError
+      type: object
+      properties:
+        code:
+          description: Error code
+          type: string
+          enum:
+          - validation
+        message:
+          description: Error message
+          type: string
+        param:
+          description: Param the error refers to
+          type: string
+      required:
+      - code
+      - message
+      - param
+      additionalProperties: false
+      examples:
+      - code: validation
+        param: limit
+        message: 🚨 Error! Sound the alarm! 🚨
   responses:
-    default:
-      description: Errors
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Errors'
-      headers:
-        X-Ratelimit-Limit-User:
-          $ref: '#/components/headers/X-Ratelimit-Limit-User'
-        X-Ratelimit-Limit-User-Remaining:
-          $ref: '#/components/headers/X-Ratelimit-Limit-User-Remaining'
-        X-Ratelimit-Limit-User-Reset:
-          $ref: '#/components/headers/X-Ratelimit-Limit-User-Reset'
-        X-Ratelimit-Limit-Org:
-          $ref: '#/components/headers/X-Ratelimit-Limit-Org'
-        X-Ratelimit-Limit-Org-Remaining:
-          $ref: '#/components/headers/X-Ratelimit-Limit-Org-Remaining'
-        X-Ratelimit-Limit-Org-Reset:
-          $ref: '#/components/headers/X-Ratelimit-Limit-Org-Reset'
     '400':
       description: Bad Request
       content:
@@ -684,6 +665,25 @@ components:
             required:
             - errors
             additionalProperties: false
+      headers:
+        X-Ratelimit-Limit-User:
+          $ref: '#/components/headers/X-Ratelimit-Limit-User'
+        X-Ratelimit-Limit-User-Remaining:
+          $ref: '#/components/headers/X-Ratelimit-Limit-User-Remaining'
+        X-Ratelimit-Limit-User-Reset:
+          $ref: '#/components/headers/X-Ratelimit-Limit-User-Reset'
+        X-Ratelimit-Limit-Org:
+          $ref: '#/components/headers/X-Ratelimit-Limit-Org'
+        X-Ratelimit-Limit-Org-Remaining:
+          $ref: '#/components/headers/X-Ratelimit-Limit-Org-Remaining'
+        X-Ratelimit-Limit-Org-Reset:
+          $ref: '#/components/headers/X-Ratelimit-Limit-Org-Reset'
+    default:
+      description: Errors
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Errors'
       headers:
         X-Ratelimit-Limit-User:
           $ref: '#/components/headers/X-Ratelimit-Limit-User'

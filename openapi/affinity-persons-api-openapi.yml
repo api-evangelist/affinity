@@ -516,151 +516,123 @@ paths:
         default:
           $ref: '#/components/responses/default'
 components:
-  headers:
-    X-Ratelimit-Limit-Org:
-      description: Number of requests allowed per month for the account
-      schema:
-        type: integer
-    X-Ratelimit-Limit-User-Remaining:
-      description: Number of requests remaining for the user
-      schema:
-        type: integer
-    X-Ratelimit-Limit-User:
-      description: Number of requests allowed per minute for the user
-      schema:
-        type: integer
-    X-Ratelimit-Limit-Org-Reset:
-      description: Time in seconds before the limit resets for the account
-      schema:
-        type: integer
-    X-Ratelimit-Limit-User-Reset:
-      description: Time in seconds before the limit resets for the user
-      schema:
-        type: integer
-    X-Ratelimit-Limit-Org-Remaining:
-      description: Number of requests remaining for the account
-      schema:
-        type: integer
+  responses:
+    '404':
+      description: Not Found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/NotFoundErrors'
+      headers:
+        X-Ratelimit-Limit-User:
+          $ref: '#/components/headers/X-Ratelimit-Limit-User'
+        X-Ratelimit-Limit-User-Remaining:
+          $ref: '#/components/headers/X-Ratelimit-Limit-User-Remaining'
+        X-Ratelimit-Limit-User-Reset:
+          $ref: '#/components/headers/X-Ratelimit-Limit-User-Reset'
+        X-Ratelimit-Limit-Org:
+          $ref: '#/components/headers/X-Ratelimit-Limit-Org'
+        X-Ratelimit-Limit-Org-Remaining:
+          $ref: '#/components/headers/X-Ratelimit-Limit-Org-Remaining'
+        X-Ratelimit-Limit-Org-Reset:
+          $ref: '#/components/headers/X-Ratelimit-Limit-Org-Reset'
+    '403':
+      description: Forbidden
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/AuthorizationErrors'
+      headers:
+        X-Ratelimit-Limit-User:
+          $ref: '#/components/headers/X-Ratelimit-Limit-User'
+        X-Ratelimit-Limit-User-Remaining:
+          $ref: '#/components/headers/X-Ratelimit-Limit-User-Remaining'
+        X-Ratelimit-Limit-User-Reset:
+          $ref: '#/components/headers/X-Ratelimit-Limit-User-Reset'
+        X-Ratelimit-Limit-Org:
+          $ref: '#/components/headers/X-Ratelimit-Limit-Org'
+        X-Ratelimit-Limit-Org-Remaining:
+          $ref: '#/components/headers/X-Ratelimit-Limit-Org-Remaining'
+        X-Ratelimit-Limit-Org-Reset:
+          $ref: '#/components/headers/X-Ratelimit-Limit-Org-Reset'
+    '400':
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            title: responses.400
+            type: object
+            properties:
+              errors:
+                type: array
+                items:
+                  oneOf:
+                  - $ref: '#/components/schemas/BadRequestError'
+                  - $ref: '#/components/schemas/ValidationError'
+                  discriminator:
+                    propertyName: code
+                    mapping:
+                      bad-request: '#/components/schemas/BadRequestError'
+                      validation: '#/components/schemas/ValidationError'
+            required:
+            - errors
+            additionalProperties: false
+      headers:
+        X-Ratelimit-Limit-User:
+          $ref: '#/components/headers/X-Ratelimit-Limit-User'
+        X-Ratelimit-Limit-User-Remaining:
+          $ref: '#/components/headers/X-Ratelimit-Limit-User-Remaining'
+        X-Ratelimit-Limit-User-Reset:
+          $ref: '#/components/headers/X-Ratelimit-Limit-User-Reset'
+        X-Ratelimit-Limit-Org:
+          $ref: '#/components/headers/X-Ratelimit-Limit-Org'
+        X-Ratelimit-Limit-Org-Remaining:
+          $ref: '#/components/headers/X-Ratelimit-Limit-Org-Remaining'
+        X-Ratelimit-Limit-Org-Reset:
+          $ref: '#/components/headers/X-Ratelimit-Limit-Org-Reset'
+    default:
+      description: Errors
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Errors'
+      headers:
+        X-Ratelimit-Limit-User:
+          $ref: '#/components/headers/X-Ratelimit-Limit-User'
+        X-Ratelimit-Limit-User-Remaining:
+          $ref: '#/components/headers/X-Ratelimit-Limit-User-Remaining'
+        X-Ratelimit-Limit-User-Reset:
+          $ref: '#/components/headers/X-Ratelimit-Limit-User-Reset'
+        X-Ratelimit-Limit-Org:
+          $ref: '#/components/headers/X-Ratelimit-Limit-Org'
+        X-Ratelimit-Limit-Org-Remaining:
+          $ref: '#/components/headers/X-Ratelimit-Limit-Org-Remaining'
+        X-Ratelimit-Limit-Org-Reset:
+          $ref: '#/components/headers/X-Ratelimit-Limit-Org-Reset'
   schemas:
-    DropdownsValue:
-      title: DropdownsValue
-      type: object
-      properties:
-        type:
-          description: The type of value
-          type: string
-          enum:
-          - dropdown-multi
-        data:
-          description: The value for many dropdown items
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/Dropdown'
-      required:
-      - data
-      - type
-      additionalProperties: false
-    NotFoundError:
-      title: NotFoundError
-      type: object
-      properties:
-        code:
-          description: Error code
-          type: string
-          enum:
-          - not-found
-        message:
-          description: Error message
-          type: string
-      required:
-      - code
-      - message
-      additionalProperties: false
-      examples:
-      - code: not-found
-        message: 🚨 Error! Sound the alarm! 🚨
-    ValidationError:
-      title: ValidationError
-      type: object
-      properties:
-        code:
-          description: Error code
-          type: string
-          enum:
-          - validation
-        message:
-          description: Error message
-          type: string
-        param:
-          description: Param the error refers to
-          type: string
-      required:
-      - code
-      - message
-      - param
-      additionalProperties: false
-      examples:
-      - code: validation
-        param: limit
-        message: 🚨 Error! Sound the alarm! 🚨
-    InteractionValue:
-      title: InteractionValue
-      type: object
-      properties:
-        type:
-          description: The type of value
-          type: string
-          enum:
-          - interaction
-        data:
-          oneOf:
-          - $ref: '#/components/schemas/Interaction'
-          - type: 'null'
-      required:
-      - data
-      - type
-      additionalProperties: false
-    PersonsValue:
-      title: PersonsValue
-      type: object
-      properties:
-        type:
-          description: The type of value
-          type: string
-          enum:
-          - person-multi
-        data:
-          description: The values for many persons
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/PersonData'
-          maxItems: 100
-      required:
-      - data
-      - type
-      additionalProperties: false
-    notes.OpportunitiesPreview:
+    notes.PersonMention:
       x-stability-level: beta
-      title: notes.OpportunitiesPreview
-      description: A preview for attached Opportunities on a Note
+      title: notes.PersonMention
+      description: A person mentioned in a note.
       type: object
       properties:
-        data:
-          description: Preview of attached Opportunities for a Note
-          type: array
-          items:
-            $ref: '#/components/schemas/Opportunity'
-          maxItems: 100
-        totalCount:
-          description: The total count of the collection parameter.
+        id:
+          description: The id of the mention
           type: integer
-          format: int64
-          minimum: 0
-          maximum: 9007199254740991
+          format: int32
+          minimum: 1
+          maximum: 2147483647
+        type:
+          description: The type of mention
+          type: string
+          enum:
+          - person
+        person:
+          $ref: '#/components/schemas/PersonData'
+      required:
+      - id
+      - type
+      - person
     Attendee:
       title: Attendee
       type: object
@@ -680,1678 +652,6 @@ components:
       required:
       - emailAddress
       - person
-      additionalProperties: false
-    NotImplementedError:
-      title: NotImplementedError
-      type: object
-      properties:
-        code:
-          description: Error code
-          type: string
-          enum:
-          - not-implemented
-        message:
-          description: Error message
-          type: string
-      required:
-      - code
-      - message
-      additionalProperties: false
-      examples:
-      - code: not-implemented
-        message: 🚨 Error! Sound the alarm! 🚨
-    CompanyData:
-      title: CompanyData
-      type: object
-      properties:
-        id:
-          description: The company's unique identifier
-          type: integer
-          format: int64
-          minimum: 1
-          maximum: 9007199254740991
-          examples:
-          - 1
-        name:
-          description: The company's name
-          type: string
-          examples:
-          - Acme
-        domain:
-          description: The company's primary domain
-          type:
-          - string
-          - 'null'
-          format: hostname
-          examples:
-          - acme.co
-      required:
-      - domain
-      - id
-      - name
-      additionalProperties: false
-    RankedDropdown:
-      title: RankedDropdown
-      type: object
-      properties:
-        dropdownOptionId:
-          description: Dropdown item's unique identifier
-          type: integer
-          format: int64
-          minimum: 1
-          maximum: 9007199254740991
-          examples:
-          - 1
-        text:
-          description: Dropdown item text
-          type: string
-          examples:
-          - first
-        rank:
-          description: Dropdown item rank
-          type: integer
-          format: int64
-          minimum: 0
-          maximum: 9007199254740991
-          examples:
-          - 0
-        color:
-          description: Dropdown item color
-          type:
-          - string
-          - 'null'
-          examples:
-          - white
-      required:
-      - color
-      - dropdownOptionId
-      - rank
-      - text
-      additionalProperties: false
-    FieldMetadata:
-      title: FieldMetadata
-      type: object
-      properties:
-        id:
-          description: The field's unique identifier
-          type: string
-          examples:
-          - affinity-data-location
-          - field-1234
-        name:
-          description: The field's name
-          type: string
-          examples:
-          - Location
-        type:
-          description: The field's type
-          type: string
-          enum:
-          - enriched
-          - global
-          - list
-          - relationship-intelligence
-          examples:
-          - enriched
-        enrichmentSource:
-          description: The source of the data in this Field (if it is enriched)
-          type:
-          - string
-          - 'null'
-          enum:
-          - affinity-data
-          - dealroom
-          - null
-          examples:
-          - affinity-data
-        valueType:
-          description: The type of the data in this Field
-          type: string
-          enum:
-          - person
-          - person-multi
-          - company
-          - company-multi
-          - filterable-text
-          - filterable-text-multi
-          - number
-          - number-multi
-          - datetime
-          - location
-          - location-multi
-          - text
-          - ranked-dropdown
-          - dropdown
-          - dropdown-multi
-          - formula-number
-          - interaction
-          examples:
-          - location
-      required:
-      - enrichmentSource
-      - id
-      - name
-      - type
-      - valueType
-      additionalProperties: false
-      examples:
-      - enrichmentSource: affinity-data
-        valueType: location
-        name: Location
-        id: affinity-data-location
-        type: enriched
-    FieldMetadataPaged:
-      title: FieldMetadataPaged
-      description: FieldMetadataPaged model
-      type: object
-      properties:
-        data:
-          description: A page of FieldMetadata results
-          type: array
-          items:
-            $ref: '#/components/schemas/FieldMetadata'
-          maxItems: 100
-        pagination:
-          $ref: '#/components/schemas/Pagination'
-      required:
-      - data
-      - pagination
-      additionalProperties: false
-    AuthorizationErrors:
-      title: AuthorizationErrors
-      description: AuthorizationErrors model
-      type: object
-      properties:
-        errors:
-          description: AuthorizationError errors
-          type: array
-          items:
-            $ref: '#/components/schemas/AuthorizationError'
-      required:
-      - errors
-      additionalProperties: false
-      examples:
-      - errors:
-        - code: authorization
-          message: 🚨 Error! Sound the alarm! 🚨
-        - code: authorization
-          message: 🚨 Error! Sound the alarm! 🚨
-    notes.BaseReply:
-      x-stability-level: beta
-      title: notes.BaseReply
-      description: An abstract base class for note replies, either of a UserNoteReply or AiNotetakerNoteReply
-      type: object
-      allOf:
-      - $ref: '#/components/schemas/notes.BaseNote'
-      properties:
-        parent:
-          type: object
-          properties:
-            id:
-              description: The id of the parent note
-              type: integer
-              format: int32
-              minimum: 1
-              maximum: 2147483647
-          required:
-          - id
-      required:
-      - parent
-    CompaniesValue:
-      title: CompaniesValue
-      type: object
-      properties:
-        type:
-          description: The type of value
-          type: string
-          enum:
-          - company-multi
-        data:
-          description: The values for many companies
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/CompanyData'
-          maxItems: 100
-      required:
-      - data
-      - type
-      additionalProperties: false
-    notes.BaseNote:
-      x-stability-level: beta
-      title: notes.BaseNote
-      description: An abstract base class for notes
-      type: object
-      properties:
-        id:
-          description: The id of the note
-          type: integer
-          format: int32
-          minimum: 1
-          maximum: 2147483647
-        content:
-          $ref: '#/components/schemas/notes.Content'
-        creator:
-          $ref: '#/components/schemas/PersonData'
-        mentions:
-          description: The mentions in the note
-          type: array
-          items:
-            $ref: '#/components/schemas/notes.Mention'
-          maxItems: 100
-        createdAt:
-          description: The date and time the note was created
-          type: string
-          format: date-time
-        updatedAt:
-          description: The date and time the note was last updated
-          type:
-          - string
-          - 'null'
-          format: date-time
-      required:
-      - id
-      - content
-      - creator
-      - mentions
-      - createdAt
-      - updatedAt
-    AuthorizationError:
-      title: AuthorizationError
-      type: object
-      properties:
-        code:
-          description: Error code
-          type: string
-          enum:
-          - authorization
-        message:
-          description: Error message
-          type: string
-      required:
-      - code
-      - message
-      additionalProperties: false
-      examples:
-      - code: authorization
-        message: 🚨 Error! Sound the alarm! 🚨
-    Field:
-      title: Field
-      type: object
-      properties:
-        id:
-          description: The field's unique identifier
-          type: string
-          examples:
-          - affinity-data-location
-          - field-1234
-        name:
-          description: The field's name
-          type: string
-          examples:
-          - Location
-        type:
-          description: The field's type
-          type: string
-          enum:
-          - enriched
-          - global
-          - list
-          - relationship-intelligence
-          examples:
-          - enriched
-        enrichmentSource:
-          description: The source of the data in this Field (if it is enriched)
-          type:
-          - string
-          - 'null'
-          enum:
-          - affinity-data
-          - dealroom
-          - null
-          examples:
-          - affinity-data
-        value:
-          $ref: '#/components/schemas/FieldValue'
-      required:
-      - enrichmentSource
-      - id
-      - name
-      - type
-      - value
-      additionalProperties: false
-      examples:
-      - enrichmentSource: affinity-data
-        name: Location
-        id: affinity-data-location
-        type: enriched
-        value:
-          data:
-            continent: North America
-            country: United States
-            streetAddress: 1 Main Street
-            city: San Francisco
-            state: California
-          type: location
-    BadRequestError:
-      title: BadRequestError
-      type: object
-      properties:
-        code:
-          description: Error code
-          type: string
-          enum:
-          - bad-request
-        message:
-          description: Error message
-          type: string
-      required:
-      - code
-      - message
-      additionalProperties: false
-      examples:
-      - code: bad-request
-        message: 🚨 Error! Sound the alarm! 🚨
-    UnprocessableEntityError:
-      title: UnprocessableEntityError
-      type: object
-      properties:
-        code:
-          description: Error code
-          type: string
-          enum:
-          - unprocessable-entity
-        message:
-          description: Error message
-          type: string
-      required:
-      - code
-      - message
-      additionalProperties: false
-      examples:
-      - code: unprocessable-entity
-        message: 🚨 Error! Sound the alarm! 🚨
-    notes.AiNotetakerRootNote:
-      x-stability-level: beta
-      title: notes.AiNotetakerRootNote
-      description: A Root Note object created by the AI Notetaker
-      allOf:
-      - $ref: '#/components/schemas/notes.BaseRootNote'
-      properties:
-        type:
-          description: The type of the note
-          type: string
-          enum:
-          - ai-notetaker
-        interaction:
-          description: The meeting this AI Notetaker was invited to.
-          $ref: '#/components/schemas/notes.MeetingInteraction'
-      required:
-      - type
-    Pagination:
-      title: Pagination
-      type: object
-      properties:
-        prevUrl:
-          description: URL for the previous page
-          type:
-          - string
-          - 'null'
-          format: uri
-          examples:
-          - https://api.affinity.co/v2/foo?cursor=ICAgICAgYmVmb3JlOjo6Nw
-        nextUrl:
-          description: URL for the next page
-          type:
-          - string
-          - 'null'
-          format: uri
-          examples:
-          - https://api.affinity.co/v2/foo?cursor=ICAgICAgIGFmdGVyOjo6NA
-      examples:
-      - prevUrl: https://api.affinity.co/v2/foo?cursor=ICAgICAgYmVmb3JlOjo6Nw
-        nextUrl: https://api.affinity.co/v2/foo?cursor=ICAgICAgIGFmdGVyOjo6NA
-    notes.Mention:
-      x-stability-level: beta
-      title: notes.Mention
-      description: A mention in a note.
-      oneOf:
-      - $ref: '#/components/schemas/notes.PersonMention'
-      discriminator:
-        propertyName: type
-        mapping:
-          person: '#/components/schemas/notes.PersonMention'
-    Meeting:
-      title: Meeting
-      type: object
-      properties:
-        type:
-          description: The type of interaction
-          type: string
-          examples:
-          - meeting
-          enum:
-          - meeting
-        id:
-          description: The meeting's unique identifier
-          type: integer
-          format: int64
-          minimum: 1
-          maximum: 9007199254740991
-          examples:
-          - 1
-        title:
-          description: The meeting's title
-          type:
-          - string
-          - 'null'
-          examples:
-          - Acme Upsell $10k
-        allDay:
-          description: Whether the meeting is an all-day event
-          type: boolean
-          examples:
-          - false
-        startTime:
-          description: The meeting start time
-          type: string
-          format: date-time
-          examples:
-          - '2023-02-03T04:00:00Z'
-        endTime:
-          description: The meeting end time
-          type:
-          - string
-          - 'null'
-          format: date-time
-          examples:
-          - '2023-02-03T05:00:00Z'
-        attendees:
-          description: People attending the meeting
-          type: array
-          items:
-            $ref: '#/components/schemas/Attendee'
-      required:
-      - allDay
-      - attendees
-      - endTime
-      - id
-      - startTime
-      - title
-      - type
-      additionalProperties: false
-    PersonValue:
-      title: PersonValue
-      type: object
-      properties:
-        type:
-          description: The type of value
-          type: string
-          enum:
-          - person
-        data:
-          oneOf:
-          - $ref: '#/components/schemas/PersonData'
-          - type: 'null'
-      required:
-      - data
-      - type
-      additionalProperties: false
-    NotAcceptableError:
-      title: NotAcceptableError
-      type: object
-      properties:
-        code:
-          description: Error code
-          type: string
-          enum:
-          - not-acceptable
-        message:
-          description: Error message
-          type: string
-      required:
-      - code
-      - message
-      additionalProperties: false
-      examples:
-      - code: not-acceptable
-        message: 🚨 Error! Sound the alarm! 🚨
-    ListEntryPaged:
-      title: ListEntryPaged
-      description: ListEntryPaged model
-      type: object
-      properties:
-        data:
-          description: A page of ListEntry results
-          type: array
-          items:
-            $ref: '#/components/schemas/ListEntry'
-          maxItems: 100
-        pagination:
-          $ref: '#/components/schemas/Pagination'
-      required:
-      - data
-      - pagination
-      additionalProperties: false
-      examples:
-      - pagination:
-          prevUrl: https://api.affinity.co/v2/foo?cursor=ICAgICAgYmVmb3JlOjo6Nw
-          nextUrl: https://api.affinity.co/v2/foo?cursor=ICAgICAgIGFmdGVyOjo6NA
-        data:
-        - listId: 1
-          createdAt: '2023-01-01T00:00:00Z'
-          creatorId: 1
-          id: 1
-          fields:
-          - enrichmentSource: affinity-data
-            name: Location
-            id: affinity-data-location
-            type: enriched
-            value:
-              data:
-                continent: North America
-                country: United States
-                streetAddress: 1 Main Street
-                city: San Francisco
-                state: California
-              type: location
-          - enrichmentSource: affinity-data
-            name: Location
-            id: affinity-data-location
-            type: enriched
-            value:
-              data:
-                continent: North America
-                country: United States
-                streetAddress: 1 Main Street
-                city: San Francisco
-                state: California
-              type: location
-        - listId: 1
-          createdAt: '2023-01-01T00:00:00Z'
-          creatorId: 1
-          id: 1
-          fields:
-          - enrichmentSource: affinity-data
-            name: Location
-            id: affinity-data-location
-            type: enriched
-            value:
-              data:
-                continent: North America
-                country: United States
-                streetAddress: 1 Main Street
-                city: San Francisco
-                state: California
-              type: location
-          - enrichmentSource: affinity-data
-            name: Location
-            id: affinity-data-location
-            type: enriched
-            value:
-              data:
-                continent: North America
-                country: United States
-                streetAddress: 1 Main Street
-                city: San Francisco
-                state: California
-              type: location
-    notes.InteractionNote:
-      x-stability-level: beta
-      title: notes.InteractionNote
-      description: A Note object attached to an interaction (Email, Meeting, Call, ChatMessage)
-      allOf:
-      - $ref: '#/components/schemas/notes.BaseRootNote'
-      properties:
-        type:
-          description: The type of the note
-          type: string
-          enum:
-          - interaction
-        interaction:
-          $ref: '#/components/schemas/notes.Interaction'
-      required:
-      - type
-      - interaction
-    AuthenticationError:
-      title: AuthenticationError
-      type: object
-      properties:
-        code:
-          description: Error code
-          type: string
-          enum:
-          - authentication
-        message:
-          description: Error message
-          type: string
-      required:
-      - code
-      - message
-      additionalProperties: false
-      examples:
-      - code: authentication
-        message: 🚨 Error! Sound the alarm! 🚨
-    Errors:
-      title: Errors
-      type: object
-      properties:
-        errors:
-          description: Errors
-          type: array
-          items:
-            $ref: '#/components/schemas/Error'
-      required:
-      - errors
-      additionalProperties: false
-    PhoneCall:
-      title: PhoneCall
-      type: object
-      properties:
-        type:
-          description: The type of interaction
-          type: string
-          examples:
-          - call
-          enum:
-          - call
-        id:
-          description: The phon_call's unique identifier
-          type: integer
-          format: int64
-          minimum: 1
-          maximum: 9007199254740991
-          examples:
-          - 1
-        startTime:
-          description: The call start time
-          type: string
-          format: date-time
-          examples:
-          - '2023-02-03T04:00:00Z'
-        attendees:
-          description: People attending the call
-          type: array
-          items:
-            $ref: '#/components/schemas/Attendee'
-      required:
-      - attendees
-      - id
-      - startTime
-      - type
-      additionalProperties: false
-    TextsValue:
-      title: TextsValue
-      type: object
-      properties:
-        type:
-          description: The type of value
-          type: string
-          enum:
-          - filterable-text-multi
-        data:
-          description: The value for many strings
-          type:
-          - array
-          - 'null'
-          items:
-            type: string
-      required:
-      - data
-      - type
-      additionalProperties: false
-    notes.CompaniesPreview:
-      x-stability-level: beta
-      title: notes.CompaniesPreview
-      description: A preview for attached Companies on a Note
-      type: object
-      properties:
-        data:
-          description: Preview of attached Companies for a Note
-          type: array
-          items:
-            $ref: '#/components/schemas/CompanyData'
-          maxItems: 100
-        totalCount:
-          description: The total count of the collection parameter.
-          type: integer
-          format: int64
-          minimum: 0
-          maximum: 9007199254740991
-    ConflictError:
-      title: ConflictError
-      type: object
-      properties:
-        code:
-          description: Error code
-          type: string
-          enum:
-          - conflict
-        message:
-          description: Error message
-          type: string
-      required:
-      - code
-      - message
-      additionalProperties: false
-      examples:
-      - code: conflict
-        message: 🚨 Error! Sound the alarm! 🚨
-    notes.Note:
-      x-stability-level: beta
-      title: notes.Note
-      description: Note model
-      oneOf:
-      - $ref: '#/components/schemas/notes.EntitiesNote'
-      - $ref: '#/components/schemas/notes.InteractionNote'
-      - $ref: '#/components/schemas/notes.AiNotetakerRootNote'
-      - $ref: '#/components/schemas/notes.UserReplyNote'
-      - $ref: '#/components/schemas/notes.AiNotetakerReplyNote'
-      discriminator:
-        propertyName: type
-        mapping:
-          entities: '#/components/schemas/notes.EntitiesNote'
-          interaction: '#/components/schemas/notes.InteractionNote'
-          ai-notetaker: '#/components/schemas/notes.AiNotetakerRootNote'
-          user-reply: '#/components/schemas/notes.UserReplyNote'
-          ai-notetaker-reply: '#/components/schemas/notes.AiNotetakerReplyNote'
-    Dropdown:
-      title: Dropdown
-      type: object
-      properties:
-        dropdownOptionId:
-          description: Dropdown item's unique identifier
-          type: integer
-          format: int64
-          minimum: 1
-          maximum: 9007199254740991
-          examples:
-          - 1
-        text:
-          description: Dropdown item text
-          type: string
-          examples:
-          - first
-      required:
-      - dropdownOptionId
-      - text
-      additionalProperties: false
-    ListEntry:
-      title: ListEntry
-      type: object
-      properties:
-        id:
-          description: The list entry's unique identifier
-          type: integer
-          format: int64
-          minimum: 1
-          maximum: 9007199254740991
-          examples:
-          - 1
-        listId:
-          description: The ID of the list that this list entry belongs to
-          type: integer
-          format: int64
-          minimum: 1
-          maximum: 9007199254740991
-          examples:
-          - 1
-        createdAt:
-          description: The date that the list entry was created
-          type: string
-          format: date-time
-          examples:
-          - '2023-01-01T00:00:00Z'
-        creatorId:
-          description: The ID of the user that created this list entry
-          type:
-          - integer
-          - 'null'
-          format: int64
-          minimum: 1
-          maximum: 9007199254740991
-          examples:
-          - 1
-        fields:
-          description: The fields associated with the list entry
-          type: array
-          items:
-            $ref: '#/components/schemas/Field'
-      required:
-      - createdAt
-      - creatorId
-      - fields
-      - id
-      - listId
-      additionalProperties: false
-      examples:
-      - listId: 1
-        createdAt: '2023-01-01T00:00:00Z'
-        creatorId: 1
-        id: 1
-        fields:
-        - enrichmentSource: affinity-data
-          name: Location
-          id: affinity-data-location
-          type: enriched
-          value:
-            data:
-              continent: North America
-              country: United States
-              streetAddress: 1 Main Street
-              city: San Francisco
-              state: California
-            type: location
-        - enrichmentSource: affinity-data
-          name: Location
-          id: affinity-data-location
-          type: enriched
-          value:
-            data:
-              continent: North America
-              country: United States
-              streetAddress: 1 Main Street
-              city: San Francisco
-              state: California
-            type: location
-    notes.PermissionSettings:
-      x-stability-level: beta
-      title: notes.PermissionSettings
-      description: The permission settings of a note
-      type: object
-      properties:
-        sharingType:
-          description: The sharing type of the note
-          type: string
-          enum:
-          - private
-          - public
-          - custom
-        owner:
-          $ref: '#/components/schemas/PersonData'
-      required:
-      - sharingType
-      - owner
-    ListPaged:
-      title: ListPaged
-      description: ListPaged model
-      type: object
-      properties:
-        data:
-          description: A page of List results
-          type: array
-          items:
-            $ref: '#/components/schemas/List'
-          maxItems: 100
-        pagination:
-          $ref: '#/components/schemas/Pagination'
-      required:
-      - data
-      - pagination
-      additionalProperties: false
-      examples:
-      - pagination:
-          prevUrl: https://api.affinity.co/v2/foo?cursor=ICAgICAgYmVmb3JlOjo6Nw
-          nextUrl: https://api.affinity.co/v2/foo?cursor=ICAgICAgIGFmdGVyOjo6NA
-        data:
-        - name: All companies
-          creatorId: 1
-          isPublic: false
-          id: 1
-          ownerId: 1
-        - name: All companies
-          creatorId: 1
-          isPublic: false
-          id: 1
-          ownerId: 1
-    FieldValue:
-      title: FieldValue
-      oneOf:
-      - $ref: '#/components/schemas/CompaniesValue'
-      - $ref: '#/components/schemas/CompanyValue'
-      - $ref: '#/components/schemas/DateValue'
-      - $ref: '#/components/schemas/DropdownsValue'
-      - $ref: '#/components/schemas/DropdownValue'
-      - $ref: '#/components/schemas/FloatsValue'
-      - $ref: '#/components/schemas/FloatValue'
-      - $ref: '#/components/schemas/FormulaValue'
-      - $ref: '#/components/schemas/InteractionValue'
-      - $ref: '#/components/schemas/LocationsValue'
-      - $ref: '#/components/schemas/LocationValue'
-      - $ref: '#/components/schemas/PersonsValue'
-      - $ref: '#/components/schemas/PersonValue'
-      - $ref: '#/components/schemas/RankedDropdownValue'
-      - $ref: '#/components/schemas/TextsValue'
-      - $ref: '#/components/schemas/TextValue'
-      discriminator:
-        propertyName: type
-        mapping:
-          company: '#/components/schemas/CompanyValue'
-          company-multi: '#/components/schemas/CompaniesValue'
-          datetime: '#/components/schemas/DateValue'
-          dropdown: '#/components/schemas/DropdownValue'
-          dropdown-multi: '#/components/schemas/DropdownsValue'
-          number: '#/components/schemas/FloatValue'
-          number-multi: '#/components/schemas/FloatsValue'
-          filterable-text: '#/components/schemas/TextValue'
-          filterable-text-multi: '#/components/schemas/TextsValue'
-          formula-number: '#/components/schemas/FormulaValue'
-          interaction: '#/components/schemas/InteractionValue'
-          location: '#/components/schemas/LocationValue'
-          location-multi: '#/components/schemas/LocationsValue'
-          person: '#/components/schemas/PersonValue'
-          person-multi: '#/components/schemas/PersonsValue'
-          ranked-dropdown: '#/components/schemas/RankedDropdownValue'
-          text: '#/components/schemas/TextValue'
-      examples:
-      - data:
-          continent: North America
-          country: United States
-          streetAddress: 1 Main Street
-          city: San Francisco
-          state: California
-        type: location
-    notes.EmailInteraction:
-      x-stability-level: beta
-      title: notes.EmailInteraction
-      description: This is an Email object attached to a note
-      type: object
-      properties:
-        id:
-          description: The id of the Email
-          type: integer
-          format: int64
-          minimum: 1
-          maximum: 9007199254740991
-        type:
-          description: The type of the Interaction
-          type: string
-          enum:
-          - email
-      required:
-      - id
-      - type
-    UnsupportedMediaTypeError:
-      title: UnsupportedMediaTypeError
-      type: object
-      properties:
-        code:
-          description: Error code
-          type: string
-          enum:
-          - unsupported-media-type
-        message:
-          description: Error message
-          type: string
-      required:
-      - code
-      - message
-      additionalProperties: false
-      examples:
-      - code: unsupported-media-type
-        message: 🚨 Error! Sound the alarm! 🚨
-    FloatValue:
-      title: FloatValue
-      type: object
-      properties:
-        type:
-          description: The type of value
-          type: string
-          enum:
-          - number
-        data:
-          description: The value for a number
-          type:
-          - number
-          - 'null'
-      required:
-      - data
-      - type
-      additionalProperties: false
-    FormulaValue:
-      title: FormulaValue
-      type: object
-      properties:
-        type:
-          description: The type of value
-          type: string
-          enum:
-          - formula-number
-        data:
-          oneOf:
-          - $ref: '#/components/schemas/FormulaNumber'
-          - type: 'null'
-      required:
-      - data
-      - type
-      additionalProperties: false
-    NotFoundErrors:
-      title: NotFoundErrors
-      description: NotFoundErrors model
-      type: object
-      properties:
-        errors:
-          description: NotFoundError errors
-          type: array
-          items:
-            $ref: '#/components/schemas/NotFoundError'
-      required:
-      - errors
-      additionalProperties: false
-      examples:
-      - errors:
-        - code: not-found
-          message: 🚨 Error! Sound the alarm! 🚨
-        - code: not-found
-          message: 🚨 Error! Sound the alarm! 🚨
-    notes.ChatMessageInteraction:
-      x-stability-level: beta
-      title: notes.ChatMessageInteraction
-      description: A ChatMessage object attached to a note
-      type: object
-      properties:
-        id:
-          description: The id of the ChatMessage
-          type: integer
-          format: int64
-          minimum: 1
-          maximum: 9007199254740991
-        type:
-          description: The type of the Interaction
-          type: string
-          enum:
-          - chat-message
-      required:
-      - id
-      - type
-    notes.AiNotetakerReplyNote:
-      x-stability-level: beta
-      title: notes.AiNotetakerReplyNote
-      description: A reply to a Note, created by an AI Notetaker
-      type: object
-      allOf:
-      - $ref: '#/components/schemas/notes.BaseReply'
-      properties:
-        type:
-          description: The type of the note
-          type: string
-          enum:
-          - ai-notetaker-reply
-        interaction:
-          description: The meeting this AI Notetaker was invited to.
-          $ref: '#/components/schemas/notes.MeetingInteraction'
-      required:
-      - type
-    FormulaNumber:
-      title: FormulaNumber
-      type: object
-      properties:
-        calculatedValue:
-          description: Calculated value
-          type:
-          - number
-          - 'null'
-      additionalProperties: false
-    RankedDropdownValue:
-      title: RankedDropdownValue
-      type: object
-      properties:
-        type:
-          description: The type of value
-          type: string
-          enum:
-          - ranked-dropdown
-        data:
-          oneOf:
-          - $ref: '#/components/schemas/RankedDropdown'
-          - type: 'null'
-      required:
-      - data
-      - type
-      additionalProperties: false
-    PersonPaged:
-      title: PersonPaged
-      description: PersonPaged model
-      type: object
-      properties:
-        data:
-          description: A page of Person results
-          type: array
-          items:
-            $ref: '#/components/schemas/Person'
-          maxItems: 100
-        pagination:
-          $ref: '#/components/schemas/Pagination'
-      required:
-      - data
-      - pagination
-      additionalProperties: false
-      examples:
-      - pagination:
-          prevUrl: https://api.affinity.co/v2/foo?cursor=ICAgICAgYmVmb3JlOjo6Nw
-          nextUrl: https://api.affinity.co/v2/foo?cursor=ICAgICAgIGFmdGVyOjo6NA
-        data:
-        - firstName: Jane
-          lastName: Doe
-          emailAddresses:
-          - jane.doe@acme.co
-          - janedoe@gmail.com
-          id: 1
-          type: internal
-          fields:
-          - enrichmentSource: affinity-data
-            name: Location
-            id: affinity-data-location
-            type: enriched
-            value:
-              data:
-                continent: North America
-                country: United States
-                streetAddress: 1 Main Street
-                city: San Francisco
-                state: California
-              type: location
-          - enrichmentSource: affinity-data
-            name: Location
-            id: affinity-data-location
-            type: enriched
-            value:
-              data:
-                continent: North America
-                country: United States
-                streetAddress: 1 Main Street
-                city: San Francisco
-                state: California
-              type: location
-          primaryEmailAddress: jane.doe@acme.co
-        - firstName: Jane
-          lastName: Doe
-          emailAddresses:
-          - jane.doe@acme.co
-          - janedoe@gmail.com
-          id: 1
-          type: internal
-          fields:
-          - enrichmentSource: affinity-data
-            name: Location
-            id: affinity-data-location
-            type: enriched
-            value:
-              data:
-                continent: North America
-                country: United States
-                streetAddress: 1 Main Street
-                city: San Francisco
-                state: California
-              type: location
-          - enrichmentSource: affinity-data
-            name: Location
-            id: affinity-data-location
-            type: enriched
-            value:
-              data:
-                continent: North America
-                country: United States
-                streetAddress: 1 Main Street
-                city: San Francisco
-                state: California
-              type: location
-          primaryEmailAddress: jane.doe@acme.co
-    notes.EntitiesNote:
-      x-stability-level: beta
-      title: notes.EntitiesNote
-      description: A Note object attached to an entity (Person, Company, Opportunity)
-      allOf:
-      - $ref: '#/components/schemas/notes.BaseRootNote'
-      properties:
-        type:
-          description: The type of the note
-          type: string
-          enum:
-          - entities
-      required:
-      - type
-    notes.CallInteraction:
-      x-stability-level: beta
-      title: notes.CallInteraction
-      description: This is a Call (Event) object attached to a note
-      type: object
-      properties:
-        id:
-          description: The id of the Call (Event)
-          type: integer
-          format: int64
-          minimum: 1
-          maximum: 9007199254740991
-        type:
-          description: The type of the Interaction
-          type: string
-          enum:
-          - call
-      required:
-      - id
-      - type
-    DateValue:
-      title: DateValue
-      type: object
-      properties:
-        type:
-          description: The type of value
-          type: string
-          enum:
-          - datetime
-        data:
-          description: The value for a date
-          type:
-          - string
-          - 'null'
-          format: date-time
-      required:
-      - data
-      - type
-      additionalProperties: false
-    notes.UserReplyNote:
-      x-stability-level: beta
-      title: notes.UserReplyNote
-      description: A reply to a note created by a user
-      type: object
-      allOf:
-      - $ref: '#/components/schemas/notes.BaseReply'
-      properties:
-        type:
-          description: The type of the note
-          type: string
-          enum:
-          - user-reply
-      required:
-      - type
-    notes.PersonsPreview:
-      x-stability-level: beta
-      title: notes.PersonsPreview
-      description: A preview for attached Persons on a Note
-      type: object
-      properties:
-        data:
-          description: Preview of attached Persons for a Note
-          type: array
-          items:
-            $ref: '#/components/schemas/PersonData'
-          maxItems: 100
-        totalCount:
-          description: The total count of the collection parameter.
-          type: integer
-          format: int64
-          minimum: 0
-          maximum: 9007199254740991
-    TextValue:
-      title: TextValue
-      type: object
-      properties:
-        type:
-          description: The type of value
-          type: string
-          enum:
-          - filterable-text
-          - text
-          examples:
-          - filterable-text
-        data:
-          description: The value for a string
-          type:
-          - string
-          - 'null'
-      required:
-      - data
-      - type
-      additionalProperties: false
-    RateLimitError:
-      title: RateLimitError
-      type: object
-      properties:
-        code:
-          description: Error code
-          type: string
-          enum:
-          - rate-limit
-        message:
-          description: Error message
-          type: string
-      required:
-      - code
-      - message
-      additionalProperties: false
-      examples:
-      - code: rate-limit
-        message: 🚨 Error! Sound the alarm! 🚨
-    notes.MeetingInteraction:
-      x-stability-level: beta
-      title: notes.MeetingInteraction
-      description: This is a Meeting (Event) object attached to a note
-      type: object
-      properties:
-        id:
-          description: The id of the Meeting (Event)
-          type: integer
-          format: int64
-          minimum: 1
-          maximum: 9007199254740991
-        type:
-          description: The type of the Interaction
-          type: string
-          enum:
-          - meeting
-      required:
-      - id
-      - type
-    Location:
-      title: Location
-      type: object
-      properties:
-        streetAddress:
-          description: Street address
-          type:
-          - string
-          - 'null'
-          examples:
-          - 1 Main Street
-        city:
-          description: City
-          type:
-          - string
-          - 'null'
-          examples:
-          - San Francisco
-        state:
-          description: State
-          type:
-          - string
-          - 'null'
-          examples:
-          - California
-        country:
-          description: Country
-          type:
-          - string
-          - 'null'
-          examples:
-          - United States
-        continent:
-          description: Continent
-          type:
-          - string
-          - 'null'
-          examples:
-          - North America
-      required:
-      - city
-      - continent
-      - country
-      - state
-      - streetAddress
-      additionalProperties: false
-      examples:
-      - continent: North America
-        country: United States
-        streetAddress: 1 Main Street
-        city: San Francisco
-        state: California
-    notes.Interaction:
-      x-stability-level: beta
-      title: notes.NoteInteraction
-      description: An interaction attached to a Note. It can be a Meeting, a Call or an ChatMessage.
-      oneOf:
-      - $ref: '#/components/schemas/notes.MeetingInteraction'
-      - $ref: '#/components/schemas/notes.CallInteraction'
-      - $ref: '#/components/schemas/notes.ChatMessageInteraction'
-      - $ref: '#/components/schemas/notes.EmailInteraction'
-      discriminator:
-        propertyName: type
-        mapping:
-          meeting: '#/components/schemas/notes.MeetingInteraction'
-          call: '#/components/schemas/notes.CallInteraction'
-          chat-message: '#/components/schemas/notes.ChatMessageInteraction'
-          email: '#/components/schemas/notes.EmailInteraction'
-    ChatMessage:
-      title: ChatMessage
-      type: object
-      properties:
-        type:
-          description: The type of interaction
-          type: string
-          examples:
-          - chat-message
-          enum:
-          - chat-message
-        id:
-          description: The chat message's unique identifier
-          type: integer
-          format: int64
-          minimum: 1
-          maximum: 9007199254740991
-          examples:
-          - 1
-        direction:
-          description: The direction of the chat message
-          type: string
-          enum:
-          - received
-          - sent
-          examples:
-          - sent
-        sentAt:
-          description: The time the chat message was sent
-          type: string
-          format: date-time
-          examples:
-          - '2023-01-01T00:00:00Z'
-        manualCreator:
-          $ref: '#/components/schemas/PersonData'
-        participants:
-          description: The participants of the chat
-          type: array
-          items:
-            $ref: '#/components/schemas/PersonData'
-      required:
-      - direction
-      - id
-      - manualCreator
-      - participants
-      - sentAt
-      - type
-      additionalProperties: false
-    FloatsValue:
-      title: FloatsValue
-      type: object
-      properties:
-        type:
-          description: The type of value
-          type: string
-          enum:
-          - number-multi
-        data:
-          description: The value for many numbers
-          type:
-          - array
-          - 'null'
-          items:
-            type: number
-      required:
-      - data
-      - type
-      additionalProperties: false
-    Email:
-      title: Email
-      type: object
-      properties:
-        type:
-          description: The type of interaction
-          type: string
-          examples:
-          - email
-          enum:
-          - email
-        id:
-          description: The email's unique identifier
-          type: integer
-          format: int64
-          minimum: 1
-          maximum: 9007199254740991
-          examples:
-          - 1
-        subject:
-          description: The subject of the email
-          type:
-          - string
-          - 'null'
-          examples:
-          - Acme Upsell $10k
-        sentAt:
-          description: The time the email was sent
-          type: string
-          format: date-time
-          examples:
-          - '2023-01-01T00:00:00Z'
-        from:
-          $ref: '#/components/schemas/Attendee'
-        to:
-          description: The recipients of the email
-          type: array
-          items:
-            $ref: '#/components/schemas/Attendee'
-        cc:
-          description: The cc recipients of the email
-          type: array
-          items:
-            $ref: '#/components/schemas/Attendee'
-      required:
-      - cc
-      - from
-      - id
-      - sentAt
-      - subject
-      - to
-      - type
-      additionalProperties: false
-    List:
-      title: List
-      type: object
-      properties:
-        id:
-          description: The unique identifier for the list
-          type: integer
-          format: int64
-          minimum: 1
-          maximum: 9007199254740991
-          examples:
-          - 1
-        name:
-          description: The name of the list
-          type: string
-          examples:
-          - All companies
-        creatorId:
-          description: The ID of the user that created this list
-          type: integer
-          format: int64
-          minimum: 1
-          maximum: 9007199254740991
-          examples:
-          - 1
-        ownerId:
-          description: The ID of the user that owns this list
-          type: integer
-          format: int64
-          minimum: 1
-          maximum: 9007199254740991
-          examples:
-          - 1
-        isPublic:
-          description: Whether or not the list is public
-          type: boolean
-          examples:
-          - false
-      required:
-      - creatorId
-      - id
-      - isPublic
-      - name
-      - ownerId
-      additionalProperties: false
-      examples:
-      - name: All companies
-        creatorId: 1
-        isPublic: false
-        id: 1
-        ownerId: 1
-    Opportunity:
-      title: Opportunity
-      description: Opportunity model
-      type: object
-      properties:
-        id:
-          description: The unique identifier for the opportunity
-          type: integer
-          format: int64
-          minimum: 1
-          maximum: 9007199254740991
-          examples:
-          - 1
-        name:
-          description: The name of the opportunity
-          type: string
-          examples:
-          - Acme Upsell $10k
-        listId:
-          description: The ID of the list that the opportunity belongs to
-          type: integer
-          format: int64
-          minimum: 1
-          maximum: 9007199254740991
-          examples:
-          - 1
-      required:
-      - id
-      - listId
-      - name
-      additionalProperties: false
-      examples:
-      - listId: 1
-        name: Acme Upsell $10k
-        id: 1
-    CompanyValue:
-      title: CompanyValue
-      type: object
-      properties:
-        type:
-          description: The type of value
-          type: string
-          enum:
-          - company
-        data:
-          oneOf:
-          - $ref: '#/components/schemas/CompanyData'
-          - type: 'null'
-      required:
-      - data
-      - type
-      additionalProperties: false
-    DropdownValue:
-      title: DropdownValue
-      type: object
-      properties:
-        type:
-          description: The type of value
-          type: string
-          enum:
-          - dropdown
-        data:
-          oneOf:
-          - $ref: '#/components/schemas/Dropdown'
-          - type: 'null'
-      required:
-      - data
-      - type
       additionalProperties: false
     Person:
       title: Person
@@ -2450,6 +750,787 @@ components:
               state: California
             type: location
         primaryEmailAddress: jane.doe@acme.co
+    FieldMetadata:
+      title: FieldMetadata
+      type: object
+      properties:
+        id:
+          description: The field's unique identifier
+          type: string
+          examples:
+          - affinity-data-location
+          - field-1234
+        name:
+          description: The field's name
+          type: string
+          examples:
+          - Location
+        type:
+          description: The field's type
+          type: string
+          enum:
+          - enriched
+          - global
+          - list
+          - relationship-intelligence
+          examples:
+          - enriched
+        enrichmentSource:
+          description: The source of the data in this Field (if it is enriched)
+          type:
+          - string
+          - 'null'
+          enum:
+          - affinity-data
+          - dealroom
+          - null
+          examples:
+          - affinity-data
+        valueType:
+          description: The type of the data in this Field
+          type: string
+          enum:
+          - person
+          - person-multi
+          - company
+          - company-multi
+          - filterable-text
+          - filterable-text-multi
+          - number
+          - number-multi
+          - datetime
+          - location
+          - location-multi
+          - text
+          - ranked-dropdown
+          - dropdown
+          - dropdown-multi
+          - formula-number
+          - interaction
+          examples:
+          - location
+      required:
+      - enrichmentSource
+      - id
+      - name
+      - type
+      - valueType
+      additionalProperties: false
+      examples:
+      - enrichmentSource: affinity-data
+        valueType: location
+        name: Location
+        id: affinity-data-location
+        type: enriched
+    NotFoundErrors:
+      title: NotFoundErrors
+      description: NotFoundErrors model
+      type: object
+      properties:
+        errors:
+          description: NotFoundError errors
+          type: array
+          items:
+            $ref: '#/components/schemas/NotFoundError'
+      required:
+      - errors
+      additionalProperties: false
+      examples:
+      - errors:
+        - code: not-found
+          message: 🚨 Error! Sound the alarm! 🚨
+        - code: not-found
+          message: 🚨 Error! Sound the alarm! 🚨
+    notes.CallInteraction:
+      x-stability-level: beta
+      title: notes.CallInteraction
+      description: This is a Call (Event) object attached to a note
+      type: object
+      properties:
+        id:
+          description: The id of the Call (Event)
+          type: integer
+          format: int64
+          minimum: 1
+          maximum: 9007199254740991
+        type:
+          description: The type of the Interaction
+          type: string
+          enum:
+          - call
+      required:
+      - id
+      - type
+    notes.MeetingInteraction:
+      x-stability-level: beta
+      title: notes.MeetingInteraction
+      description: This is a Meeting (Event) object attached to a note
+      type: object
+      properties:
+        id:
+          description: The id of the Meeting (Event)
+          type: integer
+          format: int64
+          minimum: 1
+          maximum: 9007199254740991
+        type:
+          description: The type of the Interaction
+          type: string
+          enum:
+          - meeting
+      required:
+      - id
+      - type
+    DropdownValue:
+      title: DropdownValue
+      type: object
+      properties:
+        type:
+          description: The type of value
+          type: string
+          enum:
+          - dropdown
+        data:
+          oneOf:
+          - $ref: '#/components/schemas/Dropdown'
+          - type: 'null'
+      required:
+      - data
+      - type
+      additionalProperties: false
+    UnsupportedMediaTypeError:
+      title: UnsupportedMediaTypeError
+      type: object
+      properties:
+        code:
+          description: Error code
+          type: string
+          enum:
+          - unsupported-media-type
+        message:
+          description: Error message
+          type: string
+      required:
+      - code
+      - message
+      additionalProperties: false
+      examples:
+      - code: unsupported-media-type
+        message: 🚨 Error! Sound the alarm! 🚨
+    InteractionValue:
+      title: InteractionValue
+      type: object
+      properties:
+        type:
+          description: The type of value
+          type: string
+          enum:
+          - interaction
+        data:
+          oneOf:
+          - $ref: '#/components/schemas/Interaction'
+          - type: 'null'
+      required:
+      - data
+      - type
+      additionalProperties: false
+    AuthorizationError:
+      title: AuthorizationError
+      type: object
+      properties:
+        code:
+          description: Error code
+          type: string
+          enum:
+          - authorization
+        message:
+          description: Error message
+          type: string
+      required:
+      - code
+      - message
+      additionalProperties: false
+      examples:
+      - code: authorization
+        message: 🚨 Error! Sound the alarm! 🚨
+    LocationValue:
+      title: LocationValue
+      type: object
+      properties:
+        type:
+          description: The type of value
+          type: string
+          enum:
+          - location
+        data:
+          oneOf:
+          - $ref: '#/components/schemas/Location'
+          - type: 'null'
+      required:
+      - data
+      - type
+      additionalProperties: false
+    RateLimitError:
+      title: RateLimitError
+      type: object
+      properties:
+        code:
+          description: Error code
+          type: string
+          enum:
+          - rate-limit
+        message:
+          description: Error message
+          type: string
+      required:
+      - code
+      - message
+      additionalProperties: false
+      examples:
+      - code: rate-limit
+        message: 🚨 Error! Sound the alarm! 🚨
+    AuthorizationErrors:
+      title: AuthorizationErrors
+      description: AuthorizationErrors model
+      type: object
+      properties:
+        errors:
+          description: AuthorizationError errors
+          type: array
+          items:
+            $ref: '#/components/schemas/AuthorizationError'
+      required:
+      - errors
+      additionalProperties: false
+      examples:
+      - errors:
+        - code: authorization
+          message: 🚨 Error! Sound the alarm! 🚨
+        - code: authorization
+          message: 🚨 Error! Sound the alarm! 🚨
+    BadRequestError:
+      title: BadRequestError
+      type: object
+      properties:
+        code:
+          description: Error code
+          type: string
+          enum:
+          - bad-request
+        message:
+          description: Error message
+          type: string
+      required:
+      - code
+      - message
+      additionalProperties: false
+      examples:
+      - code: bad-request
+        message: 🚨 Error! Sound the alarm! 🚨
+    notes.BaseNote:
+      x-stability-level: beta
+      title: notes.BaseNote
+      description: An abstract base class for notes
+      type: object
+      properties:
+        id:
+          description: The id of the note
+          type: integer
+          format: int32
+          minimum: 1
+          maximum: 2147483647
+        content:
+          $ref: '#/components/schemas/notes.Content'
+        creator:
+          $ref: '#/components/schemas/PersonData'
+        mentions:
+          description: The mentions in the note
+          type: array
+          items:
+            $ref: '#/components/schemas/notes.Mention'
+          maxItems: 100
+        createdAt:
+          description: The date and time the note was created
+          type: string
+          format: date-time
+        updatedAt:
+          description: The date and time the note was last updated
+          type:
+          - string
+          - 'null'
+          format: date-time
+      required:
+      - id
+      - content
+      - creator
+      - mentions
+      - createdAt
+      - updatedAt
+    DropdownsValue:
+      title: DropdownsValue
+      type: object
+      properties:
+        type:
+          description: The type of value
+          type: string
+          enum:
+          - dropdown-multi
+        data:
+          description: The value for many dropdown items
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Dropdown'
+      required:
+      - data
+      - type
+      additionalProperties: false
+    PersonPaged:
+      title: PersonPaged
+      description: PersonPaged model
+      type: object
+      properties:
+        data:
+          description: A page of Person results
+          type: array
+          items:
+            $ref: '#/components/schemas/Person'
+          maxItems: 100
+        pagination:
+          $ref: '#/components/schemas/Pagination'
+      required:
+      - data
+      - pagination
+      additionalProperties: false
+      examples:
+      - pagination:
+          prevUrl: https://api.affinity.co/v2/foo?cursor=ICAgICAgYmVmb3JlOjo6Nw
+          nextUrl: https://api.affinity.co/v2/foo?cursor=ICAgICAgIGFmdGVyOjo6NA
+        data:
+        - firstName: Jane
+          lastName: Doe
+          emailAddresses:
+          - jane.doe@acme.co
+          - janedoe@gmail.com
+          id: 1
+          type: internal
+          fields:
+          - enrichmentSource: affinity-data
+            name: Location
+            id: affinity-data-location
+            type: enriched
+            value:
+              data:
+                continent: North America
+                country: United States
+                streetAddress: 1 Main Street
+                city: San Francisco
+                state: California
+              type: location
+          - enrichmentSource: affinity-data
+            name: Location
+            id: affinity-data-location
+            type: enriched
+            value:
+              data:
+                continent: North America
+                country: United States
+                streetAddress: 1 Main Street
+                city: San Francisco
+                state: California
+              type: location
+          primaryEmailAddress: jane.doe@acme.co
+        - firstName: Jane
+          lastName: Doe
+          emailAddresses:
+          - jane.doe@acme.co
+          - janedoe@gmail.com
+          id: 1
+          type: internal
+          fields:
+          - enrichmentSource: affinity-data
+            name: Location
+            id: affinity-data-location
+            type: enriched
+            value:
+              data:
+                continent: North America
+                country: United States
+                streetAddress: 1 Main Street
+                city: San Francisco
+                state: California
+              type: location
+          - enrichmentSource: affinity-data
+            name: Location
+            id: affinity-data-location
+            type: enriched
+            value:
+              data:
+                continent: North America
+                country: United States
+                streetAddress: 1 Main Street
+                city: San Francisco
+                state: California
+              type: location
+          primaryEmailAddress: jane.doe@acme.co
+    RankedDropdownValue:
+      title: RankedDropdownValue
+      type: object
+      properties:
+        type:
+          description: The type of value
+          type: string
+          enum:
+          - ranked-dropdown
+        data:
+          oneOf:
+          - $ref: '#/components/schemas/RankedDropdown'
+          - type: 'null'
+      required:
+      - data
+      - type
+      additionalProperties: false
+    notes.AiNotetakerRootNote:
+      x-stability-level: beta
+      title: notes.AiNotetakerRootNote
+      description: A Root Note object created by the AI Notetaker
+      allOf:
+      - $ref: '#/components/schemas/notes.BaseRootNote'
+      properties:
+        type:
+          description: The type of the note
+          type: string
+          enum:
+          - ai-notetaker
+        interaction:
+          description: The meeting this AI Notetaker was invited to.
+          $ref: '#/components/schemas/notes.MeetingInteraction'
+      required:
+      - type
+    Dropdown:
+      title: Dropdown
+      type: object
+      properties:
+        dropdownOptionId:
+          description: Dropdown item's unique identifier
+          type: integer
+          format: int64
+          minimum: 1
+          maximum: 9007199254740991
+          examples:
+          - 1
+        text:
+          description: Dropdown item text
+          type: string
+          examples:
+          - first
+      required:
+      - dropdownOptionId
+      - text
+      additionalProperties: false
+    NotFoundError:
+      title: NotFoundError
+      type: object
+      properties:
+        code:
+          description: Error code
+          type: string
+          enum:
+          - not-found
+        message:
+          description: Error message
+          type: string
+      required:
+      - code
+      - message
+      additionalProperties: false
+      examples:
+      - code: not-found
+        message: 🚨 Error! Sound the alarm! 🚨
+    Pagination:
+      title: Pagination
+      type: object
+      properties:
+        prevUrl:
+          description: URL for the previous page
+          type:
+          - string
+          - 'null'
+          format: uri
+          examples:
+          - https://api.affinity.co/v2/foo?cursor=ICAgICAgYmVmb3JlOjo6Nw
+        nextUrl:
+          description: URL for the next page
+          type:
+          - string
+          - 'null'
+          format: uri
+          examples:
+          - https://api.affinity.co/v2/foo?cursor=ICAgICAgIGFmdGVyOjo6NA
+      examples:
+      - prevUrl: https://api.affinity.co/v2/foo?cursor=ICAgICAgYmVmb3JlOjo6Nw
+        nextUrl: https://api.affinity.co/v2/foo?cursor=ICAgICAgIGFmdGVyOjo6NA
+    notes.BaseRootNote:
+      x-stability-level: beta
+      title: notes.BaseRootNote
+      description: A root note
+      allOf:
+      - $ref: '#/components/schemas/notes.BaseNote'
+      properties:
+        repliesCount:
+          description: The number of replies to this note. This is only included if the `repliesCount` parameter is passed in the `includes` in the request and the note is not a reply itself.
+          type: integer
+          format: int32
+          minimum: 0
+          maximum: 2147483647
+        permissions:
+          $ref: '#/components/schemas/notes.PermissionSettings'
+        opportunitiesPreview:
+          $ref: '#/components/schemas/notes.OpportunitiesPreview'
+        personsPreview:
+          $ref: '#/components/schemas/notes.PersonsPreview'
+        companiesPreview:
+          $ref: '#/components/schemas/notes.CompaniesPreview'
+    List:
+      title: List
+      type: object
+      properties:
+        id:
+          description: The unique identifier for the list
+          type: integer
+          format: int64
+          minimum: 1
+          maximum: 9007199254740991
+          examples:
+          - 1
+        name:
+          description: The name of the list
+          type: string
+          examples:
+          - All companies
+        creatorId:
+          description: The ID of the user that created this list
+          type: integer
+          format: int64
+          minimum: 1
+          maximum: 9007199254740991
+          examples:
+          - 1
+        ownerId:
+          description: The ID of the user that owns this list
+          type: integer
+          format: int64
+          minimum: 1
+          maximum: 9007199254740991
+          examples:
+          - 1
+        isPublic:
+          description: Whether or not the list is public
+          type: boolean
+          examples:
+          - false
+      required:
+      - creatorId
+      - id
+      - isPublic
+      - name
+      - ownerId
+      additionalProperties: false
+      examples:
+      - name: All companies
+        creatorId: 1
+        isPublic: false
+        id: 1
+        ownerId: 1
+    ListEntryPaged:
+      title: ListEntryPaged
+      description: ListEntryPaged model
+      type: object
+      properties:
+        data:
+          description: A page of ListEntry results
+          type: array
+          items:
+            $ref: '#/components/schemas/ListEntry'
+          maxItems: 100
+        pagination:
+          $ref: '#/components/schemas/Pagination'
+      required:
+      - data
+      - pagination
+      additionalProperties: false
+      examples:
+      - pagination:
+          prevUrl: https://api.affinity.co/v2/foo?cursor=ICAgICAgYmVmb3JlOjo6Nw
+          nextUrl: https://api.affinity.co/v2/foo?cursor=ICAgICAgIGFmdGVyOjo6NA
+        data:
+        - listId: 1
+          createdAt: '2023-01-01T00:00:00Z'
+          creatorId: 1
+          id: 1
+          fields:
+          - enrichmentSource: affinity-data
+            name: Location
+            id: affinity-data-location
+            type: enriched
+            value:
+              data:
+                continent: North America
+                country: United States
+                streetAddress: 1 Main Street
+                city: San Francisco
+                state: California
+              type: location
+          - enrichmentSource: affinity-data
+            name: Location
+            id: affinity-data-location
+            type: enriched
+            value:
+              data:
+                continent: North America
+                country: United States
+                streetAddress: 1 Main Street
+                city: San Francisco
+                state: California
+              type: location
+        - listId: 1
+          createdAt: '2023-01-01T00:00:00Z'
+          creatorId: 1
+          id: 1
+          fields:
+          - enrichmentSource: affinity-data
+            name: Location
+            id: affinity-data-location
+            type: enriched
+            value:
+              data:
+                continent: North America
+                country: United States
+                streetAddress: 1 Main Street
+                city: San Francisco
+                state: California
+              type: location
+          - enrichmentSource: affinity-data
+            name: Location
+            id: affinity-data-location
+            type: enriched
+            value:
+              data:
+                continent: North America
+                country: United States
+                streetAddress: 1 Main Street
+                city: San Francisco
+                state: California
+              type: location
+    RankedDropdown:
+      title: RankedDropdown
+      type: object
+      properties:
+        dropdownOptionId:
+          description: Dropdown item's unique identifier
+          type: integer
+          format: int64
+          minimum: 1
+          maximum: 9007199254740991
+          examples:
+          - 1
+        text:
+          description: Dropdown item text
+          type: string
+          examples:
+          - first
+        rank:
+          description: Dropdown item rank
+          type: integer
+          format: int64
+          minimum: 0
+          maximum: 9007199254740991
+          examples:
+          - 0
+        color:
+          description: Dropdown item color
+          type:
+          - string
+          - 'null'
+          examples:
+          - white
+      required:
+      - color
+      - dropdownOptionId
+      - rank
+      - text
+      additionalProperties: false
+    Errors:
+      title: Errors
+      type: object
+      properties:
+        errors:
+          description: Errors
+          type: array
+          items:
+            $ref: '#/components/schemas/Error'
+      required:
+      - errors
+      additionalProperties: false
+    FieldMetadataPaged:
+      title: FieldMetadataPaged
+      description: FieldMetadataPaged model
+      type: object
+      properties:
+        data:
+          description: A page of FieldMetadata results
+          type: array
+          items:
+            $ref: '#/components/schemas/FieldMetadata'
+          maxItems: 100
+        pagination:
+          $ref: '#/components/schemas/Pagination'
+      required:
+      - data
+      - pagination
+      additionalProperties: false
+    notes.Content:
+      x-stability-level: beta
+      title: notes.Content
+      description: A note content
+      type: object
+      properties:
+        html:
+          description: The HTML content of the note
+          type:
+          - string
+          - 'null'
+      required:
+      - html
+    notes.Note:
+      x-stability-level: beta
+      title: notes.Note
+      description: Note model
+      oneOf:
+      - $ref: '#/components/schemas/notes.EntitiesNote'
+      - $ref: '#/components/schemas/notes.InteractionNote'
+      - $ref: '#/components/schemas/notes.AiNotetakerRootNote'
+      - $ref: '#/components/schemas/notes.UserReplyNote'
+      - $ref: '#/components/schemas/notes.AiNotetakerReplyNote'
+      discriminator:
+        propertyName: type
+        mapping:
+          entities: '#/components/schemas/notes.EntitiesNote'
+          interaction: '#/components/schemas/notes.InteractionNote'
+          ai-notetaker: '#/components/schemas/notes.AiNotetakerRootNote'
+          user-reply: '#/components/schemas/notes.UserReplyNote'
+          ai-notetaker-reply: '#/components/schemas/notes.AiNotetakerReplyNote'
+    notes.Mention:
+      x-stability-level: beta
+      title: notes.Mention
+      description: A mention in a note.
+      oneOf:
+      - $ref: '#/components/schemas/notes.PersonMention'
+      discriminator:
+        propertyName: type
+        mapping:
+          person: '#/components/schemas/notes.PersonMention'
     MethodNotAllowedError:
       title: MethodNotAllowedError
       type: object
@@ -2469,6 +1550,918 @@ components:
       examples:
       - code: method-not-allowed
         message: 🚨 Error! Sound the alarm! 🚨
+    NotImplementedError:
+      title: NotImplementedError
+      type: object
+      properties:
+        code:
+          description: Error code
+          type: string
+          enum:
+          - not-implemented
+        message:
+          description: Error message
+          type: string
+      required:
+      - code
+      - message
+      additionalProperties: false
+      examples:
+      - code: not-implemented
+        message: 🚨 Error! Sound the alarm! 🚨
+    Location:
+      title: Location
+      type: object
+      properties:
+        streetAddress:
+          description: Street address
+          type:
+          - string
+          - 'null'
+          examples:
+          - 1 Main Street
+        city:
+          description: City
+          type:
+          - string
+          - 'null'
+          examples:
+          - San Francisco
+        state:
+          description: State
+          type:
+          - string
+          - 'null'
+          examples:
+          - California
+        country:
+          description: Country
+          type:
+          - string
+          - 'null'
+          examples:
+          - United States
+        continent:
+          description: Continent
+          type:
+          - string
+          - 'null'
+          examples:
+          - North America
+      required:
+      - city
+      - continent
+      - country
+      - state
+      - streetAddress
+      additionalProperties: false
+      examples:
+      - continent: North America
+        country: United States
+        streetAddress: 1 Main Street
+        city: San Francisco
+        state: California
+    FloatValue:
+      title: FloatValue
+      type: object
+      properties:
+        type:
+          description: The type of value
+          type: string
+          enum:
+          - number
+        data:
+          description: The value for a number
+          type:
+          - number
+          - 'null'
+      required:
+      - data
+      - type
+      additionalProperties: false
+    notes.PersonsPreview:
+      x-stability-level: beta
+      title: notes.PersonsPreview
+      description: A preview for attached Persons on a Note
+      type: object
+      properties:
+        data:
+          description: Preview of attached Persons for a Note
+          type: array
+          items:
+            $ref: '#/components/schemas/PersonData'
+          maxItems: 100
+        totalCount:
+          description: The total count of the collection parameter.
+          type: integer
+          format: int64
+          minimum: 0
+          maximum: 9007199254740991
+    FormulaNumber:
+      title: FormulaNumber
+      type: object
+      properties:
+        calculatedValue:
+          description: Calculated value
+          type:
+          - number
+          - 'null'
+      additionalProperties: false
+    notes.EmailInteraction:
+      x-stability-level: beta
+      title: notes.EmailInteraction
+      description: This is an Email object attached to a note
+      type: object
+      properties:
+        id:
+          description: The id of the Email
+          type: integer
+          format: int64
+          minimum: 1
+          maximum: 9007199254740991
+        type:
+          description: The type of the Interaction
+          type: string
+          enum:
+          - email
+      required:
+      - id
+      - type
+    notes.BaseReply:
+      x-stability-level: beta
+      title: notes.BaseReply
+      description: An abstract base class for note replies, either of a UserNoteReply or AiNotetakerNoteReply
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/notes.BaseNote'
+      properties:
+        parent:
+          type: object
+          properties:
+            id:
+              description: The id of the parent note
+              type: integer
+              format: int32
+              minimum: 1
+              maximum: 2147483647
+          required:
+          - id
+      required:
+      - parent
+    PaginationWithTotalCount:
+      title: PaginationWithTotalCount
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/Pagination'
+      properties:
+        totalCount:
+          description: The total count of the collection. Only included if requested via the totalCount query string parameter.
+          type: integer
+          format: int64
+          minimum: 0
+          maximum: 9007199254740991
+    AuthenticationError:
+      title: AuthenticationError
+      type: object
+      properties:
+        code:
+          description: Error code
+          type: string
+          enum:
+          - authentication
+        message:
+          description: Error message
+          type: string
+      required:
+      - code
+      - message
+      additionalProperties: false
+      examples:
+      - code: authentication
+        message: 🚨 Error! Sound the alarm! 🚨
+    ValidationError:
+      title: ValidationError
+      type: object
+      properties:
+        code:
+          description: Error code
+          type: string
+          enum:
+          - validation
+        message:
+          description: Error message
+          type: string
+        param:
+          description: Param the error refers to
+          type: string
+      required:
+      - code
+      - message
+      - param
+      additionalProperties: false
+      examples:
+      - code: validation
+        param: limit
+        message: 🚨 Error! Sound the alarm! 🚨
+    notes.PermissionSettings:
+      x-stability-level: beta
+      title: notes.PermissionSettings
+      description: The permission settings of a note
+      type: object
+      properties:
+        sharingType:
+          description: The sharing type of the note
+          type: string
+          enum:
+          - private
+          - public
+          - custom
+        owner:
+          $ref: '#/components/schemas/PersonData'
+      required:
+      - sharingType
+      - owner
+    notes.UserReplyNote:
+      x-stability-level: beta
+      title: notes.UserReplyNote
+      description: A reply to a note created by a user
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/notes.BaseReply'
+      properties:
+        type:
+          description: The type of the note
+          type: string
+          enum:
+          - user-reply
+      required:
+      - type
+    NotAcceptableError:
+      title: NotAcceptableError
+      type: object
+      properties:
+        code:
+          description: Error code
+          type: string
+          enum:
+          - not-acceptable
+        message:
+          description: Error message
+          type: string
+      required:
+      - code
+      - message
+      additionalProperties: false
+      examples:
+      - code: not-acceptable
+        message: 🚨 Error! Sound the alarm! 🚨
+    Opportunity:
+      title: Opportunity
+      description: Opportunity model
+      type: object
+      properties:
+        id:
+          description: The unique identifier for the opportunity
+          type: integer
+          format: int64
+          minimum: 1
+          maximum: 9007199254740991
+          examples:
+          - 1
+        name:
+          description: The name of the opportunity
+          type: string
+          examples:
+          - Acme Upsell $10k
+        listId:
+          description: The ID of the list that the opportunity belongs to
+          type: integer
+          format: int64
+          minimum: 1
+          maximum: 9007199254740991
+          examples:
+          - 1
+      required:
+      - id
+      - listId
+      - name
+      additionalProperties: false
+      examples:
+      - listId: 1
+        name: Acme Upsell $10k
+        id: 1
+    UnprocessableEntityError:
+      title: UnprocessableEntityError
+      type: object
+      properties:
+        code:
+          description: Error code
+          type: string
+          enum:
+          - unprocessable-entity
+        message:
+          description: Error message
+          type: string
+      required:
+      - code
+      - message
+      additionalProperties: false
+      examples:
+      - code: unprocessable-entity
+        message: 🚨 Error! Sound the alarm! 🚨
+    FieldValue:
+      title: FieldValue
+      oneOf:
+      - $ref: '#/components/schemas/CompaniesValue'
+      - $ref: '#/components/schemas/CompanyValue'
+      - $ref: '#/components/schemas/DateValue'
+      - $ref: '#/components/schemas/DropdownsValue'
+      - $ref: '#/components/schemas/DropdownValue'
+      - $ref: '#/components/schemas/FloatsValue'
+      - $ref: '#/components/schemas/FloatValue'
+      - $ref: '#/components/schemas/FormulaValue'
+      - $ref: '#/components/schemas/InteractionValue'
+      - $ref: '#/components/schemas/LocationsValue'
+      - $ref: '#/components/schemas/LocationValue'
+      - $ref: '#/components/schemas/PersonsValue'
+      - $ref: '#/components/schemas/PersonValue'
+      - $ref: '#/components/schemas/RankedDropdownValue'
+      - $ref: '#/components/schemas/TextsValue'
+      - $ref: '#/components/schemas/TextValue'
+      discriminator:
+        propertyName: type
+        mapping:
+          company: '#/components/schemas/CompanyValue'
+          company-multi: '#/components/schemas/CompaniesValue'
+          datetime: '#/components/schemas/DateValue'
+          dropdown: '#/components/schemas/DropdownValue'
+          dropdown-multi: '#/components/schemas/DropdownsValue'
+          number: '#/components/schemas/FloatValue'
+          number-multi: '#/components/schemas/FloatsValue'
+          filterable-text: '#/components/schemas/TextValue'
+          filterable-text-multi: '#/components/schemas/TextsValue'
+          formula-number: '#/components/schemas/FormulaValue'
+          interaction: '#/components/schemas/InteractionValue'
+          location: '#/components/schemas/LocationValue'
+          location-multi: '#/components/schemas/LocationsValue'
+          person: '#/components/schemas/PersonValue'
+          person-multi: '#/components/schemas/PersonsValue'
+          ranked-dropdown: '#/components/schemas/RankedDropdownValue'
+          text: '#/components/schemas/TextValue'
+      examples:
+      - data:
+          continent: North America
+          country: United States
+          streetAddress: 1 Main Street
+          city: San Francisco
+          state: California
+        type: location
+    TextsValue:
+      title: TextsValue
+      type: object
+      properties:
+        type:
+          description: The type of value
+          type: string
+          enum:
+          - filterable-text-multi
+        data:
+          description: The value for many strings
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+      required:
+      - data
+      - type
+      additionalProperties: false
+    FloatsValue:
+      title: FloatsValue
+      type: object
+      properties:
+        type:
+          description: The type of value
+          type: string
+          enum:
+          - number-multi
+        data:
+          description: The value for many numbers
+          type:
+          - array
+          - 'null'
+          items:
+            type: number
+      required:
+      - data
+      - type
+      additionalProperties: false
+    LocationsValue:
+      title: LocationsValue
+      type: object
+      properties:
+        type:
+          description: The type of value
+          type: string
+          enum:
+          - location-multi
+        data:
+          description: The values for many locations
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Location'
+      required:
+      - data
+      - type
+      additionalProperties: false
+    Email:
+      title: Email
+      type: object
+      properties:
+        type:
+          description: The type of interaction
+          type: string
+          examples:
+          - email
+          enum:
+          - email
+        id:
+          description: The email's unique identifier
+          type: integer
+          format: int64
+          minimum: 1
+          maximum: 9007199254740991
+          examples:
+          - 1
+        subject:
+          description: The subject of the email
+          type:
+          - string
+          - 'null'
+          examples:
+          - Acme Upsell $10k
+        sentAt:
+          description: The time the email was sent
+          type: string
+          format: date-time
+          examples:
+          - '2023-01-01T00:00:00Z'
+        from:
+          $ref: '#/components/schemas/Attendee'
+        to:
+          description: The recipients of the email
+          type: array
+          items:
+            $ref: '#/components/schemas/Attendee'
+        cc:
+          description: The cc recipients of the email
+          type: array
+          items:
+            $ref: '#/components/schemas/Attendee'
+      required:
+      - cc
+      - from
+      - id
+      - sentAt
+      - subject
+      - to
+      - type
+      additionalProperties: false
+    notes.AiNotetakerReplyNote:
+      x-stability-level: beta
+      title: notes.AiNotetakerReplyNote
+      description: A reply to a Note, created by an AI Notetaker
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/notes.BaseReply'
+      properties:
+        type:
+          description: The type of the note
+          type: string
+          enum:
+          - ai-notetaker-reply
+        interaction:
+          description: The meeting this AI Notetaker was invited to.
+          $ref: '#/components/schemas/notes.MeetingInteraction'
+      required:
+      - type
+    Field:
+      title: Field
+      type: object
+      properties:
+        id:
+          description: The field's unique identifier
+          type: string
+          examples:
+          - affinity-data-location
+          - field-1234
+        name:
+          description: The field's name
+          type: string
+          examples:
+          - Location
+        type:
+          description: The field's type
+          type: string
+          enum:
+          - enriched
+          - global
+          - list
+          - relationship-intelligence
+          examples:
+          - enriched
+        enrichmentSource:
+          description: The source of the data in this Field (if it is enriched)
+          type:
+          - string
+          - 'null'
+          enum:
+          - affinity-data
+          - dealroom
+          - null
+          examples:
+          - affinity-data
+        value:
+          $ref: '#/components/schemas/FieldValue'
+      required:
+      - enrichmentSource
+      - id
+      - name
+      - type
+      - value
+      additionalProperties: false
+      examples:
+      - enrichmentSource: affinity-data
+        name: Location
+        id: affinity-data-location
+        type: enriched
+        value:
+          data:
+            continent: North America
+            country: United States
+            streetAddress: 1 Main Street
+            city: San Francisco
+            state: California
+          type: location
+    PersonsValue:
+      title: PersonsValue
+      type: object
+      properties:
+        type:
+          description: The type of value
+          type: string
+          enum:
+          - person-multi
+        data:
+          description: The values for many persons
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/PersonData'
+          maxItems: 100
+      required:
+      - data
+      - type
+      additionalProperties: false
+    notes.InteractionNote:
+      x-stability-level: beta
+      title: notes.InteractionNote
+      description: A Note object attached to an interaction (Email, Meeting, Call, ChatMessage)
+      allOf:
+      - $ref: '#/components/schemas/notes.BaseRootNote'
+      properties:
+        type:
+          description: The type of the note
+          type: string
+          enum:
+          - interaction
+        interaction:
+          $ref: '#/components/schemas/notes.Interaction'
+      required:
+      - type
+      - interaction
+    CompanyData:
+      title: CompanyData
+      type: object
+      properties:
+        id:
+          description: The company's unique identifier
+          type: integer
+          format: int64
+          minimum: 1
+          maximum: 9007199254740991
+          examples:
+          - 1
+        name:
+          description: The company's name
+          type: string
+          examples:
+          - Acme
+        domain:
+          description: The company's primary domain
+          type:
+          - string
+          - 'null'
+          format: hostname
+          examples:
+          - acme.co
+      required:
+      - domain
+      - id
+      - name
+      additionalProperties: false
+    ChatMessage:
+      title: ChatMessage
+      type: object
+      properties:
+        type:
+          description: The type of interaction
+          type: string
+          examples:
+          - chat-message
+          enum:
+          - chat-message
+        id:
+          description: The chat message's unique identifier
+          type: integer
+          format: int64
+          minimum: 1
+          maximum: 9007199254740991
+          examples:
+          - 1
+        direction:
+          description: The direction of the chat message
+          type: string
+          enum:
+          - received
+          - sent
+          examples:
+          - sent
+        sentAt:
+          description: The time the chat message was sent
+          type: string
+          format: date-time
+          examples:
+          - '2023-01-01T00:00:00Z'
+        manualCreator:
+          $ref: '#/components/schemas/PersonData'
+        participants:
+          description: The participants of the chat
+          type: array
+          items:
+            $ref: '#/components/schemas/PersonData'
+      required:
+      - direction
+      - id
+      - manualCreator
+      - participants
+      - sentAt
+      - type
+      additionalProperties: false
+    Meeting:
+      title: Meeting
+      type: object
+      properties:
+        type:
+          description: The type of interaction
+          type: string
+          examples:
+          - meeting
+          enum:
+          - meeting
+        id:
+          description: The meeting's unique identifier
+          type: integer
+          format: int64
+          minimum: 1
+          maximum: 9007199254740991
+          examples:
+          - 1
+        title:
+          description: The meeting's title
+          type:
+          - string
+          - 'null'
+          examples:
+          - Acme Upsell $10k
+        allDay:
+          description: Whether the meeting is an all-day event
+          type: boolean
+          examples:
+          - false
+        startTime:
+          description: The meeting start time
+          type: string
+          format: date-time
+          examples:
+          - '2023-02-03T04:00:00Z'
+        endTime:
+          description: The meeting end time
+          type:
+          - string
+          - 'null'
+          format: date-time
+          examples:
+          - '2023-02-03T05:00:00Z'
+        attendees:
+          description: People attending the meeting
+          type: array
+          items:
+            $ref: '#/components/schemas/Attendee'
+      required:
+      - allDay
+      - attendees
+      - endTime
+      - id
+      - startTime
+      - title
+      - type
+      additionalProperties: false
+    PhoneCall:
+      title: PhoneCall
+      type: object
+      properties:
+        type:
+          description: The type of interaction
+          type: string
+          examples:
+          - call
+          enum:
+          - call
+        id:
+          description: The phon_call's unique identifier
+          type: integer
+          format: int64
+          minimum: 1
+          maximum: 9007199254740991
+          examples:
+          - 1
+        startTime:
+          description: The call start time
+          type: string
+          format: date-time
+          examples:
+          - '2023-02-03T04:00:00Z'
+        attendees:
+          description: People attending the call
+          type: array
+          items:
+            $ref: '#/components/schemas/Attendee'
+      required:
+      - attendees
+      - id
+      - startTime
+      - type
+      additionalProperties: false
+    ListEntry:
+      title: ListEntry
+      type: object
+      properties:
+        id:
+          description: The list entry's unique identifier
+          type: integer
+          format: int64
+          minimum: 1
+          maximum: 9007199254740991
+          examples:
+          - 1
+        listId:
+          description: The ID of the list that this list entry belongs to
+          type: integer
+          format: int64
+          minimum: 1
+          maximum: 9007199254740991
+          examples:
+          - 1
+        createdAt:
+          description: The date that the list entry was created
+          type: string
+          format: date-time
+          examples:
+          - '2023-01-01T00:00:00Z'
+        creatorId:
+          description: The ID of the user that created this list entry
+          type:
+          - integer
+          - 'null'
+          format: int64
+          minimum: 1
+          maximum: 9007199254740991
+          examples:
+          - 1
+        fields:
+          description: The fields associated with the list entry
+          type: array
+          items:
+            $ref: '#/components/schemas/Field'
+      required:
+      - createdAt
+      - creatorId
+      - fields
+      - id
+      - listId
+      additionalProperties: false
+      examples:
+      - listId: 1
+        createdAt: '2023-01-01T00:00:00Z'
+        creatorId: 1
+        id: 1
+        fields:
+        - enrichmentSource: affinity-data
+          name: Location
+          id: affinity-data-location
+          type: enriched
+          value:
+            data:
+              continent: North America
+              country: United States
+              streetAddress: 1 Main Street
+              city: San Francisco
+              state: California
+            type: location
+        - enrichmentSource: affinity-data
+          name: Location
+          id: affinity-data-location
+          type: enriched
+          value:
+            data:
+              continent: North America
+              country: United States
+              streetAddress: 1 Main Street
+              city: San Francisco
+              state: California
+            type: location
+    notes.CompaniesPreview:
+      x-stability-level: beta
+      title: notes.CompaniesPreview
+      description: A preview for attached Companies on a Note
+      type: object
+      properties:
+        data:
+          description: Preview of attached Companies for a Note
+          type: array
+          items:
+            $ref: '#/components/schemas/CompanyData'
+          maxItems: 100
+        totalCount:
+          description: The total count of the collection parameter.
+          type: integer
+          format: int64
+          minimum: 0
+          maximum: 9007199254740991
+    notes.OpportunitiesPreview:
+      x-stability-level: beta
+      title: notes.OpportunitiesPreview
+      description: A preview for attached Opportunities on a Note
+      type: object
+      properties:
+        data:
+          description: Preview of attached Opportunities for a Note
+          type: array
+          items:
+            $ref: '#/components/schemas/Opportunity'
+          maxItems: 100
+        totalCount:
+          description: The total count of the collection parameter.
+          type: integer
+          format: int64
+          minimum: 0
+          maximum: 9007199254740991
+    ListPaged:
+      title: ListPaged
+      description: ListPaged model
+      type: object
+      properties:
+        data:
+          description: A page of List results
+          type: array
+          items:
+            $ref: '#/components/schemas/List'
+          maxItems: 100
+        pagination:
+          $ref: '#/components/schemas/Pagination'
+      required:
+      - data
+      - pagination
+      additionalProperties: false
+      examples:
+      - pagination:
+          prevUrl: https://api.affinity.co/v2/foo?cursor=ICAgICAgYmVmb3JlOjo6Nw
+          nextUrl: https://api.affinity.co/v2/foo?cursor=ICAgICAgIGFmdGVyOjo6NA
+        data:
+        - name: All companies
+          creatorId: 1
+          isPublic: false
+          id: 1
+          ownerId: 1
+        - name: All companies
+          creatorId: 1
+          isPublic: false
+          id: 1
+          ownerId: 1
     notes.NotesPaged:
       x-stability-level: beta
       title: notes.NotesPaged
@@ -2486,56 +2479,83 @@ components:
       required:
       - data
       - pagination
-    Interaction:
-      title: Interaction
-      oneOf:
-      - $ref: '#/components/schemas/ChatMessage'
-      - $ref: '#/components/schemas/Email'
-      - $ref: '#/components/schemas/Meeting'
-      - $ref: '#/components/schemas/PhoneCall'
-      discriminator:
-        propertyName: type
-        mapping:
-          chat-message: '#/components/schemas/ChatMessage'
-          email: '#/components/schemas/Email'
-          meeting: '#/components/schemas/Meeting'
-          call: '#/components/schemas/PhoneCall'
-    notes.PersonMention:
+    CompaniesValue:
+      title: CompaniesValue
+      type: object
+      properties:
+        type:
+          description: The type of value
+          type: string
+          enum:
+          - company-multi
+        data:
+          description: The values for many companies
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/CompanyData'
+          maxItems: 100
+      required:
+      - data
+      - type
+      additionalProperties: false
+    CompanyValue:
+      title: CompanyValue
+      type: object
+      properties:
+        type:
+          description: The type of value
+          type: string
+          enum:
+          - company
+        data:
+          oneOf:
+          - $ref: '#/components/schemas/CompanyData'
+          - type: 'null'
+      required:
+      - data
+      - type
+      additionalProperties: false
+    ConflictError:
+      title: ConflictError
+      type: object
+      properties:
+        code:
+          description: Error code
+          type: string
+          enum:
+          - conflict
+        message:
+          description: Error message
+          type: string
+      required:
+      - code
+      - message
+      additionalProperties: false
+      examples:
+      - code: conflict
+        message: 🚨 Error! Sound the alarm! 🚨
+    notes.ChatMessageInteraction:
       x-stability-level: beta
-      title: notes.PersonMention
-      description: A person mentioned in a note.
+      title: notes.ChatMessageInteraction
+      description: A ChatMessage object attached to a note
       type: object
       properties:
         id:
-          description: The id of the mention
+          description: The id of the ChatMessage
           type: integer
-          format: int32
+          format: int64
           minimum: 1
-          maximum: 2147483647
+          maximum: 9007199254740991
         type:
-          description: The type of mention
+          description: The type of the Interaction
           type: string
           enum:
-          - person
-        person:
-          $ref: '#/components/schemas/PersonData'
+          - chat-message
       required:
       - id
       - type
-      - person
-    notes.Content:
-      x-stability-level: beta
-      title: notes.Content
-      description: A note content
-      type: object
-      properties:
-        html:
-          description: The HTML content of the note
-          type:
-          - string
-          - 'null'
-      required:
-      - html
     PersonData:
       title: PersonData
       type: object
@@ -2586,23 +2606,6 @@ components:
       - primaryEmailAddress
       - type
       additionalProperties: false
-    LocationValue:
-      title: LocationValue
-      type: object
-      properties:
-        type:
-          description: The type of value
-          type: string
-          enum:
-          - location
-        data:
-          oneOf:
-          - $ref: '#/components/schemas/Location'
-          - type: 'null'
-      required:
-      - data
-      - type
-      additionalProperties: false
     ServerError:
       title: ServerError
       type: object
@@ -2622,39 +2625,124 @@ components:
       examples:
       - code: server
         message: 🚨 Error! Sound the alarm! 🚨
-    notes.BaseRootNote:
+    notes.EntitiesNote:
       x-stability-level: beta
-      title: notes.BaseRootNote
-      description: A root note
+      title: notes.EntitiesNote
+      description: A Note object attached to an entity (Person, Company, Opportunity)
       allOf:
-      - $ref: '#/components/schemas/notes.BaseNote'
+      - $ref: '#/components/schemas/notes.BaseRootNote'
       properties:
-        repliesCount:
-          description: The number of replies to this note. This is only included if the `repliesCount` parameter is passed in the `includes` in the request and the note is not a reply itself.
-          type: integer
-          format: int32
-          minimum: 0
-          maximum: 2147483647
-        permissions:
-          $ref: '#/components/schemas/notes.PermissionSettings'
-        opportunitiesPreview:
-          $ref: '#/components/schemas/notes.OpportunitiesPreview'
-        personsPreview:
-          $ref: '#/components/schemas/notes.PersonsPreview'
-        companiesPreview:
-          $ref: '#/components/schemas/notes.CompaniesPreview'
-    PaginationWithTotalCount:
-      title: PaginationWithTotalCount
+        type:
+          description: The type of the note
+          type: string
+          enum:
+          - entities
+      required:
+      - type
+    TextValue:
+      title: TextValue
       type: object
-      allOf:
-      - $ref: '#/components/schemas/Pagination'
       properties:
-        totalCount:
-          description: The total count of the collection. Only included if requested via the totalCount query string parameter.
-          type: integer
-          format: int64
-          minimum: 0
-          maximum: 9007199254740991
+        type:
+          description: The type of value
+          type: string
+          enum:
+          - filterable-text
+          - text
+          examples:
+          - filterable-text
+        data:
+          description: The value for a string
+          type:
+          - string
+          - 'null'
+      required:
+      - data
+      - type
+      additionalProperties: false
+    PersonValue:
+      title: PersonValue
+      type: object
+      properties:
+        type:
+          description: The type of value
+          type: string
+          enum:
+          - person
+        data:
+          oneOf:
+          - $ref: '#/components/schemas/PersonData'
+          - type: 'null'
+      required:
+      - data
+      - type
+      additionalProperties: false
+    DateValue:
+      title: DateValue
+      type: object
+      properties:
+        type:
+          description: The type of value
+          type: string
+          enum:
+          - datetime
+        data:
+          description: The value for a date
+          type:
+          - string
+          - 'null'
+          format: date-time
+      required:
+      - data
+      - type
+      additionalProperties: false
+    FormulaValue:
+      title: FormulaValue
+      type: object
+      properties:
+        type:
+          description: The type of value
+          type: string
+          enum:
+          - formula-number
+        data:
+          oneOf:
+          - $ref: '#/components/schemas/FormulaNumber'
+          - type: 'null'
+      required:
+      - data
+      - type
+      additionalProperties: false
+    notes.Interaction:
+      x-stability-level: beta
+      title: notes.NoteInteraction
+      description: An interaction attached to a Note. It can be a Meeting, a Call or an ChatMessage.
+      oneOf:
+      - $ref: '#/components/schemas/notes.MeetingInteraction'
+      - $ref: '#/components/schemas/notes.CallInteraction'
+      - $ref: '#/components/schemas/notes.ChatMessageInteraction'
+      - $ref: '#/components/schemas/notes.EmailInteraction'
+      discriminator:
+        propertyName: type
+        mapping:
+          meeting: '#/components/schemas/notes.MeetingInteraction'
+          call: '#/components/schemas/notes.CallInteraction'
+          chat-message: '#/components/schemas/notes.ChatMessageInteraction'
+          email: '#/components/schemas/notes.EmailInteraction'
+    Interaction:
+      title: Interaction
+      oneOf:
+      - $ref: '#/components/schemas/ChatMessage'
+      - $ref: '#/components/schemas/Email'
+      - $ref: '#/components/schemas/Meeting'
+      - $ref: '#/components/schemas/PhoneCall'
+      discriminator:
+        propertyName: type
+        mapping:
+          chat-message: '#/components/schemas/ChatMessage'
+          email: '#/components/schemas/Email'
+          meeting: '#/components/schemas/Meeting'
+          call: '#/components/schemas/PhoneCall'
     Error:
       title: Error
       oneOf:
@@ -2687,27 +2775,68 @@ components:
           unprocessable-entity: '#/components/schemas/UnprocessableEntityError'
           unsupported-media-type: '#/components/schemas/UnsupportedMediaTypeError'
           validation: '#/components/schemas/ValidationError'
-    LocationsValue:
-      title: LocationsValue
-      type: object
-      properties:
-        type:
-          description: The type of value
-          type: string
-          enum:
-          - location-multi
-        data:
-          description: The values for many locations
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/Location'
-      required:
-      - data
-      - type
-      additionalProperties: false
+  headers:
+    X-Ratelimit-Limit-User-Reset:
+      description: Time in seconds before the limit resets for the user
+      schema:
+        type: integer
+    X-Ratelimit-Limit-User:
+      description: Number of requests allowed per minute for the user
+      schema:
+        type: integer
+    X-Ratelimit-Limit-Org:
+      description: Number of requests allowed per month for the account
+      schema:
+        type: integer
+    X-Ratelimit-Limit-Org-Remaining:
+      description: Number of requests remaining for the account
+      schema:
+        type: integer
+    X-Ratelimit-Limit-User-Remaining:
+      description: Number of requests remaining for the user
+      schema:
+        type: integer
+    X-Ratelimit-Limit-Org-Reset:
+      description: Time in seconds before the limit resets for the account
+      schema:
+        type: integer
   examples:
+    ai-notetaker-3:
+      x-stability-level: beta
+      value:
+        data:
+        - id: 1
+          type: ai-notetaker
+          content:
+            html: <p>test</p><p>%</p>
+          creator:
+            id: 1
+            firstName: Jane
+            lastName: Doe
+            primaryEmailAddress: jane.doe@acme.co
+            type: internal
+          mentions:
+          - id: 1
+            type: person
+            person:
+              id: 1
+              firstName: Jane
+              lastName: Doe
+              primaryEmailAddress: jane.doe@acme.co
+              type: internal
+          createdAt: '2023-01-01T00:00:00Z'
+          updatedAt: '2023-01-01T00:00:00Z'
+          permissions:
+            sharingType: private
+            owner:
+              id: 1
+              firstName: Jane
+              lastName: Doe
+              primaryEmailAddress: jane.doe@acme.co
+              type: internal
+        pagination:
+          prevUrl: https://api.affinity.co/v2/persons/1/notes?cursor=ICAgICAgYmVmb3JlOjo6Nw
+          nextUrl: https://api.affinity.co/v2/persons/1/notes?cursor=ICAgICAgIGFmdGVyOjo6NA
     interaction-4:
       x-stability-level: beta
       value:
@@ -2747,42 +2876,6 @@ components:
         pagination:
           prevUrl: https://api.affinity.co/v2/persons/1/notes?cursor=ICAgICAgYmVmb3JlOjo6Nw
           nextUrl: https://api.affinity.co/v2/persons/1/notes?cursor=ICAgICAgIGFmdGVyOjo6NA
-    ai-notetaker-3:
-      x-stability-level: beta
-      value:
-        data:
-        - id: 1
-          type: ai-notetaker
-          content:
-            html: <p>test</p><p>%</p>
-          creator:
-            id: 1
-            firstName: Jane
-            lastName: Doe
-            primaryEmailAddress: jane.doe@acme.co
-            type: internal
-          mentions:
-          - id: 1
-            type: person
-            person:
-              id: 1
-              firstName: Jane
-              lastName: Doe
-              primaryEmailAddress: jane.doe@acme.co
-              type: internal
-          createdAt: '2023-01-01T00:00:00Z'
-          updatedAt: '2023-01-01T00:00:00Z'
-          permissions:
-            sharingType: private
-            owner:
-              id: 1
-              firstName: Jane
-              lastName: Doe
-              primaryEmailAddress: jane.doe@acme.co
-              type: internal
-        pagination:
-          prevUrl: https://api.affinity.co/v2/persons/1/notes?cursor=ICAgICAgYmVmb3JlOjo6Nw
-          nextUrl: https://api.affinity.co/v2/persons/1/notes?cursor=ICAgICAgIGFmdGVyOjo6NA
     entities-3:
       x-stability-level: beta
       value:
@@ -2819,99 +2912,6 @@ components:
         pagination:
           prevUrl: https://api.affinity.co/v2/persons/1/notes?cursor=ICAgICAgYmVmb3JlOjo6Nw
           nextUrl: https://api.affinity.co/v2/persons/1/notes?cursor=ICAgICAgIGFmdGVyOjo6NA
-  responses:
-    default:
-      description: Errors
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Errors'
-      headers:
-        X-Ratelimit-Limit-User:
-          $ref: '#/components/headers/X-Ratelimit-Limit-User'
-        X-Ratelimit-Limit-User-Remaining:
-          $ref: '#/components/headers/X-Ratelimit-Limit-User-Remaining'
-        X-Ratelimit-Limit-User-Reset:
-          $ref: '#/components/headers/X-Ratelimit-Limit-User-Reset'
-        X-Ratelimit-Limit-Org:
-          $ref: '#/components/headers/X-Ratelimit-Limit-Org'
-        X-Ratelimit-Limit-Org-Remaining:
-          $ref: '#/components/headers/X-Ratelimit-Limit-Org-Remaining'
-        X-Ratelimit-Limit-Org-Reset:
-          $ref: '#/components/headers/X-Ratelimit-Limit-Org-Reset'
-    '404':
-      description: Not Found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/NotFoundErrors'
-      headers:
-        X-Ratelimit-Limit-User:
-          $ref: '#/components/headers/X-Ratelimit-Limit-User'
-        X-Ratelimit-Limit-User-Remaining:
-          $ref: '#/components/headers/X-Ratelimit-Limit-User-Remaining'
-        X-Ratelimit-Limit-User-Reset:
-          $ref: '#/components/headers/X-Ratelimit-Limit-User-Reset'
-        X-Ratelimit-Limit-Org:
-          $ref: '#/components/headers/X-Ratelimit-Limit-Org'
-        X-Ratelimit-Limit-Org-Remaining:
-          $ref: '#/components/headers/X-Ratelimit-Limit-Org-Remaining'
-        X-Ratelimit-Limit-Org-Reset:
-          $ref: '#/components/headers/X-Ratelimit-Limit-Org-Reset'
-    '403':
-      description: Forbidden
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/AuthorizationErrors'
-      headers:
-        X-Ratelimit-Limit-User:
-          $ref: '#/components/headers/X-Ratelimit-Limit-User'
-        X-Ratelimit-Limit-User-Remaining:
-          $ref: '#/components/headers/X-Ratelimit-Limit-User-Remaining'
-        X-Ratelimit-Limit-User-Reset:
-          $ref: '#/components/headers/X-Ratelimit-Limit-User-Reset'
-        X-Ratelimit-Limit-Org:
-          $ref: '#/components/headers/X-Ratelimit-Limit-Org'
-        X-Ratelimit-Limit-Org-Remaining:
-          $ref: '#/components/headers/X-Ratelimit-Limit-Org-Remaining'
-        X-Ratelimit-Limit-Org-Reset:
-          $ref: '#/components/headers/X-Ratelimit-Limit-Org-Reset'
-    '400':
-      description: Bad Request
-      content:
-        application/json:
-          schema:
-            title: responses.400
-            type: object
-            properties:
-              errors:
-                type: array
-                items:
-                  oneOf:
-                  - $ref: '#/components/schemas/BadRequestError'
-                  - $ref: '#/components/schemas/ValidationError'
-                  discriminator:
-                    propertyName: code
-                    mapping:
-                      bad-request: '#/components/schemas/BadRequestError'
-                      validation: '#/components/schemas/ValidationError'
-            required:
-            - errors
-            additionalProperties: false
-      headers:
-        X-Ratelimit-Limit-User:
-          $ref: '#/components/headers/X-Ratelimit-Limit-User'
-        X-Ratelimit-Limit-User-Remaining:
-          $ref: '#/components/headers/X-Ratelimit-Limit-User-Remaining'
-        X-Ratelimit-Limit-User-Reset:
-          $ref: '#/components/headers/X-Ratelimit-Limit-User-Reset'
-        X-Ratelimit-Limit-Org:
-          $ref: '#/components/headers/X-Ratelimit-Limit-Org'
-        X-Ratelimit-Limit-Org-Remaining:
-          $ref: '#/components/headers/X-Ratelimit-Limit-Org-Remaining'
-        X-Ratelimit-Limit-Org-Reset:
-          $ref: '#/components/headers/X-Ratelimit-Limit-Org-Reset'
   securitySchemes:
     bearerAuth:
       type: http

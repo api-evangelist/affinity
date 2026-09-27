@@ -253,7 +253,421 @@ paths:
         default:
           $ref: '#/components/responses/default'
 components:
+  responses:
+    '404':
+      description: Not Found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/NotFoundErrors'
+      headers:
+        X-Ratelimit-Limit-User:
+          $ref: '#/components/headers/X-Ratelimit-Limit-User'
+        X-Ratelimit-Limit-User-Remaining:
+          $ref: '#/components/headers/X-Ratelimit-Limit-User-Remaining'
+        X-Ratelimit-Limit-User-Reset:
+          $ref: '#/components/headers/X-Ratelimit-Limit-User-Reset'
+        X-Ratelimit-Limit-Org:
+          $ref: '#/components/headers/X-Ratelimit-Limit-Org'
+        X-Ratelimit-Limit-Org-Remaining:
+          $ref: '#/components/headers/X-Ratelimit-Limit-Org-Remaining'
+        X-Ratelimit-Limit-Org-Reset:
+          $ref: '#/components/headers/X-Ratelimit-Limit-Org-Reset'
+    '400':
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            title: responses.400
+            type: object
+            properties:
+              errors:
+                type: array
+                items:
+                  oneOf:
+                  - $ref: '#/components/schemas/BadRequestError'
+                  - $ref: '#/components/schemas/ValidationError'
+                  discriminator:
+                    propertyName: code
+                    mapping:
+                      bad-request: '#/components/schemas/BadRequestError'
+                      validation: '#/components/schemas/ValidationError'
+            required:
+            - errors
+            additionalProperties: false
+      headers:
+        X-Ratelimit-Limit-User:
+          $ref: '#/components/headers/X-Ratelimit-Limit-User'
+        X-Ratelimit-Limit-User-Remaining:
+          $ref: '#/components/headers/X-Ratelimit-Limit-User-Remaining'
+        X-Ratelimit-Limit-User-Reset:
+          $ref: '#/components/headers/X-Ratelimit-Limit-User-Reset'
+        X-Ratelimit-Limit-Org:
+          $ref: '#/components/headers/X-Ratelimit-Limit-Org'
+        X-Ratelimit-Limit-Org-Remaining:
+          $ref: '#/components/headers/X-Ratelimit-Limit-Org-Remaining'
+        X-Ratelimit-Limit-Org-Reset:
+          $ref: '#/components/headers/X-Ratelimit-Limit-Org-Reset'
+    default:
+      description: Errors
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Errors'
+      headers:
+        X-Ratelimit-Limit-User:
+          $ref: '#/components/headers/X-Ratelimit-Limit-User'
+        X-Ratelimit-Limit-User-Remaining:
+          $ref: '#/components/headers/X-Ratelimit-Limit-User-Remaining'
+        X-Ratelimit-Limit-User-Reset:
+          $ref: '#/components/headers/X-Ratelimit-Limit-User-Reset'
+        X-Ratelimit-Limit-Org:
+          $ref: '#/components/headers/X-Ratelimit-Limit-Org'
+        X-Ratelimit-Limit-Org-Remaining:
+          $ref: '#/components/headers/X-Ratelimit-Limit-Org-Remaining'
+        X-Ratelimit-Limit-Org-Reset:
+          $ref: '#/components/headers/X-Ratelimit-Limit-Org-Reset'
+    '403':
+      description: Forbidden
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/AuthorizationErrors'
+      headers:
+        X-Ratelimit-Limit-User:
+          $ref: '#/components/headers/X-Ratelimit-Limit-User'
+        X-Ratelimit-Limit-User-Remaining:
+          $ref: '#/components/headers/X-Ratelimit-Limit-User-Remaining'
+        X-Ratelimit-Limit-User-Reset:
+          $ref: '#/components/headers/X-Ratelimit-Limit-User-Reset'
+        X-Ratelimit-Limit-Org:
+          $ref: '#/components/headers/X-Ratelimit-Limit-Org'
+        X-Ratelimit-Limit-Org-Remaining:
+          $ref: '#/components/headers/X-Ratelimit-Limit-Org-Remaining'
+        X-Ratelimit-Limit-Org-Reset:
+          $ref: '#/components/headers/X-Ratelimit-Limit-Org-Reset'
   schemas:
+    notes.AiNotetakerRootNote:
+      x-stability-level: beta
+      title: notes.AiNotetakerRootNote
+      description: A Root Note object created by the AI Notetaker
+      allOf:
+      - $ref: '#/components/schemas/notes.BaseRootNote'
+      properties:
+        type:
+          description: The type of the note
+          type: string
+          enum:
+          - ai-notetaker
+        interaction:
+          description: The meeting this AI Notetaker was invited to.
+          $ref: '#/components/schemas/notes.MeetingInteraction'
+      required:
+      - type
+    notes.PersonMention:
+      x-stability-level: beta
+      title: notes.PersonMention
+      description: A person mentioned in a note.
+      type: object
+      properties:
+        id:
+          description: The id of the mention
+          type: integer
+          format: int32
+          minimum: 1
+          maximum: 2147483647
+        type:
+          description: The type of mention
+          type: string
+          enum:
+          - person
+        person:
+          $ref: '#/components/schemas/PersonData'
+      required:
+      - id
+      - type
+      - person
+    notes.UserReplyNote:
+      x-stability-level: beta
+      title: notes.UserReplyNote
+      description: A reply to a note created by a user
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/notes.BaseReply'
+      properties:
+        type:
+          description: The type of the note
+          type: string
+          enum:
+          - user-reply
+      required:
+      - type
+    Pagination:
+      title: Pagination
+      type: object
+      properties:
+        prevUrl:
+          description: URL for the previous page
+          type:
+          - string
+          - 'null'
+          format: uri
+          examples:
+          - https://api.affinity.co/v2/foo?cursor=ICAgICAgYmVmb3JlOjo6Nw
+        nextUrl:
+          description: URL for the next page
+          type:
+          - string
+          - 'null'
+          format: uri
+          examples:
+          - https://api.affinity.co/v2/foo?cursor=ICAgICAgIGFmdGVyOjo6NA
+      examples:
+      - prevUrl: https://api.affinity.co/v2/foo?cursor=ICAgICAgYmVmb3JlOjo6Nw
+        nextUrl: https://api.affinity.co/v2/foo?cursor=ICAgICAgIGFmdGVyOjo6NA
+    NotFoundError:
+      title: NotFoundError
+      type: object
+      properties:
+        code:
+          description: Error code
+          type: string
+          enum:
+          - not-found
+        message:
+          description: Error message
+          type: string
+      required:
+      - code
+      - message
+      additionalProperties: false
+      examples:
+      - code: not-found
+        message: 🚨 Error! Sound the alarm! 🚨
+    notes.BaseRootNote:
+      x-stability-level: beta
+      title: notes.BaseRootNote
+      description: A root note
+      allOf:
+      - $ref: '#/components/schemas/notes.BaseNote'
+      properties:
+        repliesCount:
+          description: The number of replies to this note. This is only included if the `repliesCount` parameter is passed in the `includes` in the request and the note is not a reply itself.
+          type: integer
+          format: int32
+          minimum: 0
+          maximum: 2147483647
+        permissions:
+          $ref: '#/components/schemas/notes.PermissionSettings'
+        opportunitiesPreview:
+          $ref: '#/components/schemas/notes.OpportunitiesPreview'
+        personsPreview:
+          $ref: '#/components/schemas/notes.PersonsPreview'
+        companiesPreview:
+          $ref: '#/components/schemas/notes.CompaniesPreview'
+    NotFoundErrors:
+      title: NotFoundErrors
+      description: NotFoundErrors model
+      type: object
+      properties:
+        errors:
+          description: NotFoundError errors
+          type: array
+          items:
+            $ref: '#/components/schemas/NotFoundError'
+      required:
+      - errors
+      additionalProperties: false
+      examples:
+      - errors:
+        - code: not-found
+          message: 🚨 Error! Sound the alarm! 🚨
+        - code: not-found
+          message: 🚨 Error! Sound the alarm! 🚨
+    notes.CompaniesPreview:
+      x-stability-level: beta
+      title: notes.CompaniesPreview
+      description: A preview for attached Companies on a Note
+      type: object
+      properties:
+        data:
+          description: Preview of attached Companies for a Note
+          type: array
+          items:
+            $ref: '#/components/schemas/CompanyData'
+          maxItems: 100
+        totalCount:
+          description: The total count of the collection parameter.
+          type: integer
+          format: int64
+          minimum: 0
+          maximum: 9007199254740991
+    notes.OpportunitiesPreview:
+      x-stability-level: beta
+      title: notes.OpportunitiesPreview
+      description: A preview for attached Opportunities on a Note
+      type: object
+      properties:
+        data:
+          description: Preview of attached Opportunities for a Note
+          type: array
+          items:
+            $ref: '#/components/schemas/Opportunity'
+          maxItems: 100
+        totalCount:
+          description: The total count of the collection parameter.
+          type: integer
+          format: int64
+          minimum: 0
+          maximum: 9007199254740991
+    notes.CallInteraction:
+      x-stability-level: beta
+      title: notes.CallInteraction
+      description: This is a Call (Event) object attached to a note
+      type: object
+      properties:
+        id:
+          description: The id of the Call (Event)
+          type: integer
+          format: int64
+          minimum: 1
+          maximum: 9007199254740991
+        type:
+          description: The type of the Interaction
+          type: string
+          enum:
+          - call
+      required:
+      - id
+      - type
+    notes.NotesPaged:
+      x-stability-level: beta
+      title: notes.NotesPaged
+      description: NotesPaged model
+      type: object
+      properties:
+        data:
+          description: A page of Note objects
+          type: array
+          items:
+            $ref: '#/components/schemas/notes.Note'
+          maxItems: 100
+        pagination:
+          $ref: '#/components/schemas/PaginationWithTotalCount'
+      required:
+      - data
+      - pagination
+    NotAcceptableError:
+      title: NotAcceptableError
+      type: object
+      properties:
+        code:
+          description: Error code
+          type: string
+          enum:
+          - not-acceptable
+        message:
+          description: Error message
+          type: string
+      required:
+      - code
+      - message
+      additionalProperties: false
+      examples:
+      - code: not-acceptable
+        message: 🚨 Error! Sound the alarm! 🚨
+    ConflictError:
+      title: ConflictError
+      type: object
+      properties:
+        code:
+          description: Error code
+          type: string
+          enum:
+          - conflict
+        message:
+          description: Error message
+          type: string
+      required:
+      - code
+      - message
+      additionalProperties: false
+      examples:
+      - code: conflict
+        message: 🚨 Error! Sound the alarm! 🚨
+    notes.ChatMessageInteraction:
+      x-stability-level: beta
+      title: notes.ChatMessageInteraction
+      description: A ChatMessage object attached to a note
+      type: object
+      properties:
+        id:
+          description: The id of the ChatMessage
+          type: integer
+          format: int64
+          minimum: 1
+          maximum: 9007199254740991
+        type:
+          description: The type of the Interaction
+          type: string
+          enum:
+          - chat-message
+      required:
+      - id
+      - type
+    Errors:
+      title: Errors
+      type: object
+      properties:
+        errors:
+          description: Errors
+          type: array
+          items:
+            $ref: '#/components/schemas/Error'
+      required:
+      - errors
+      additionalProperties: false
+    notes.Content:
+      x-stability-level: beta
+      title: notes.Content
+      description: A note content
+      type: object
+      properties:
+        html:
+          description: The HTML content of the note
+          type:
+          - string
+          - 'null'
+      required:
+      - html
+    OpportunityPaged:
+      title: OpportunityPaged
+      description: OpportunityPaged model
+      type: object
+      properties:
+        data:
+          description: A page of Opportunity results
+          type: array
+          items:
+            $ref: '#/components/schemas/Opportunity'
+          maxItems: 100
+        pagination:
+          $ref: '#/components/schemas/Pagination'
+      required:
+      - data
+      - pagination
+      additionalProperties: false
+      examples:
+      - pagination:
+          prevUrl: https://api.affinity.co/v2/foo?cursor=ICAgICAgYmVmb3JlOjo6Nw
+          nextUrl: https://api.affinity.co/v2/foo?cursor=ICAgICAgIGFmdGVyOjo6NA
+        data:
+        - listId: 1
+          name: Acme Upsell $10k
+          id: 1
+        - listId: 1
+          name: Acme Upsell $10k
+          id: 1
     Opportunity:
       title: Opportunity
       description: Opportunity model
@@ -289,472 +703,6 @@ components:
       - listId: 1
         name: Acme Upsell $10k
         id: 1
-    Pagination:
-      title: Pagination
-      type: object
-      properties:
-        prevUrl:
-          description: URL for the previous page
-          type:
-          - string
-          - 'null'
-          format: uri
-          examples:
-          - https://api.affinity.co/v2/foo?cursor=ICAgICAgYmVmb3JlOjo6Nw
-        nextUrl:
-          description: URL for the next page
-          type:
-          - string
-          - 'null'
-          format: uri
-          examples:
-          - https://api.affinity.co/v2/foo?cursor=ICAgICAgIGFmdGVyOjo6NA
-      examples:
-      - prevUrl: https://api.affinity.co/v2/foo?cursor=ICAgICAgYmVmb3JlOjo6Nw
-        nextUrl: https://api.affinity.co/v2/foo?cursor=ICAgICAgIGFmdGVyOjo6NA
-    notes.Mention:
-      x-stability-level: beta
-      title: notes.Mention
-      description: A mention in a note.
-      oneOf:
-      - $ref: '#/components/schemas/notes.PersonMention'
-      discriminator:
-        propertyName: type
-        mapping:
-          person: '#/components/schemas/notes.PersonMention'
-    NotFoundError:
-      title: NotFoundError
-      type: object
-      properties:
-        code:
-          description: Error code
-          type: string
-          enum:
-          - not-found
-        message:
-          description: Error message
-          type: string
-      required:
-      - code
-      - message
-      additionalProperties: false
-      examples:
-      - code: not-found
-        message: 🚨 Error! Sound the alarm! 🚨
-    ValidationError:
-      title: ValidationError
-      type: object
-      properties:
-        code:
-          description: Error code
-          type: string
-          enum:
-          - validation
-        message:
-          description: Error message
-          type: string
-        param:
-          description: Param the error refers to
-          type: string
-      required:
-      - code
-      - message
-      - param
-      additionalProperties: false
-      examples:
-      - code: validation
-        param: limit
-        message: 🚨 Error! Sound the alarm! 🚨
-    notes.OpportunitiesPreview:
-      x-stability-level: beta
-      title: notes.OpportunitiesPreview
-      description: A preview for attached Opportunities on a Note
-      type: object
-      properties:
-        data:
-          description: Preview of attached Opportunities for a Note
-          type: array
-          items:
-            $ref: '#/components/schemas/Opportunity'
-          maxItems: 100
-        totalCount:
-          description: The total count of the collection parameter.
-          type: integer
-          format: int64
-          minimum: 0
-          maximum: 9007199254740991
-    notes.EmailInteraction:
-      x-stability-level: beta
-      title: notes.EmailInteraction
-      description: This is an Email object attached to a note
-      type: object
-      properties:
-        id:
-          description: The id of the Email
-          type: integer
-          format: int64
-          minimum: 1
-          maximum: 9007199254740991
-        type:
-          description: The type of the Interaction
-          type: string
-          enum:
-          - email
-      required:
-      - id
-      - type
-    notes.AiNotetakerRootNote:
-      x-stability-level: beta
-      title: notes.AiNotetakerRootNote
-      description: A Root Note object created by the AI Notetaker
-      allOf:
-      - $ref: '#/components/schemas/notes.BaseRootNote'
-      properties:
-        type:
-          description: The type of the note
-          type: string
-          enum:
-          - ai-notetaker
-        interaction:
-          description: The meeting this AI Notetaker was invited to.
-          $ref: '#/components/schemas/notes.MeetingInteraction'
-      required:
-      - type
-    UnsupportedMediaTypeError:
-      title: UnsupportedMediaTypeError
-      type: object
-      properties:
-        code:
-          description: Error code
-          type: string
-          enum:
-          - unsupported-media-type
-        message:
-          description: Error message
-          type: string
-      required:
-      - code
-      - message
-      additionalProperties: false
-      examples:
-      - code: unsupported-media-type
-        message: 🚨 Error! Sound the alarm! 🚨
-    ConflictError:
-      title: ConflictError
-      type: object
-      properties:
-        code:
-          description: Error code
-          type: string
-          enum:
-          - conflict
-        message:
-          description: Error message
-          type: string
-      required:
-      - code
-      - message
-      additionalProperties: false
-      examples:
-      - code: conflict
-        message: 🚨 Error! Sound the alarm! 🚨
-    ServerError:
-      title: ServerError
-      type: object
-      properties:
-        code:
-          description: Error code
-          type: string
-          enum:
-          - server
-        message:
-          description: Error message
-          type: string
-      required:
-      - code
-      - message
-      additionalProperties: false
-      examples:
-      - code: server
-        message: 🚨 Error! Sound the alarm! 🚨
-    NotAcceptableError:
-      title: NotAcceptableError
-      type: object
-      properties:
-        code:
-          description: Error code
-          type: string
-          enum:
-          - not-acceptable
-        message:
-          description: Error message
-          type: string
-      required:
-      - code
-      - message
-      additionalProperties: false
-      examples:
-      - code: not-acceptable
-        message: 🚨 Error! Sound the alarm! 🚨
-    UnprocessableEntityError:
-      title: UnprocessableEntityError
-      type: object
-      properties:
-        code:
-          description: Error code
-          type: string
-          enum:
-          - unprocessable-entity
-        message:
-          description: Error message
-          type: string
-      required:
-      - code
-      - message
-      additionalProperties: false
-      examples:
-      - code: unprocessable-entity
-        message: 🚨 Error! Sound the alarm! 🚨
-    NotImplementedError:
-      title: NotImplementedError
-      type: object
-      properties:
-        code:
-          description: Error code
-          type: string
-          enum:
-          - not-implemented
-        message:
-          description: Error message
-          type: string
-      required:
-      - code
-      - message
-      additionalProperties: false
-      examples:
-      - code: not-implemented
-        message: 🚨 Error! Sound the alarm! 🚨
-    NotFoundErrors:
-      title: NotFoundErrors
-      description: NotFoundErrors model
-      type: object
-      properties:
-        errors:
-          description: NotFoundError errors
-          type: array
-          items:
-            $ref: '#/components/schemas/NotFoundError'
-      required:
-      - errors
-      additionalProperties: false
-      examples:
-      - errors:
-        - code: not-found
-          message: 🚨 Error! Sound the alarm! 🚨
-        - code: not-found
-          message: 🚨 Error! Sound the alarm! 🚨
-    CompanyData:
-      title: CompanyData
-      type: object
-      properties:
-        id:
-          description: The company's unique identifier
-          type: integer
-          format: int64
-          minimum: 1
-          maximum: 9007199254740991
-          examples:
-          - 1
-        name:
-          description: The company's name
-          type: string
-          examples:
-          - Acme
-        domain:
-          description: The company's primary domain
-          type:
-          - string
-          - 'null'
-          format: hostname
-          examples:
-          - acme.co
-      required:
-      - domain
-      - id
-      - name
-      additionalProperties: false
-    notes.ChatMessageInteraction:
-      x-stability-level: beta
-      title: notes.ChatMessageInteraction
-      description: A ChatMessage object attached to a note
-      type: object
-      properties:
-        id:
-          description: The id of the ChatMessage
-          type: integer
-          format: int64
-          minimum: 1
-          maximum: 9007199254740991
-        type:
-          description: The type of the Interaction
-          type: string
-          enum:
-          - chat-message
-      required:
-      - id
-      - type
-    MethodNotAllowedError:
-      title: MethodNotAllowedError
-      type: object
-      properties:
-        code:
-          description: Error code
-          type: string
-          enum:
-          - method-not-allowed
-        message:
-          description: Error message
-          type: string
-      required:
-      - code
-      - message
-      additionalProperties: false
-      examples:
-      - code: method-not-allowed
-        message: 🚨 Error! Sound the alarm! 🚨
-    notes.NotesPaged:
-      x-stability-level: beta
-      title: notes.NotesPaged
-      description: NotesPaged model
-      type: object
-      properties:
-        data:
-          description: A page of Note objects
-          type: array
-          items:
-            $ref: '#/components/schemas/notes.Note'
-          maxItems: 100
-        pagination:
-          $ref: '#/components/schemas/PaginationWithTotalCount'
-      required:
-      - data
-      - pagination
-    notes.AiNotetakerReplyNote:
-      x-stability-level: beta
-      title: notes.AiNotetakerReplyNote
-      description: A reply to a Note, created by an AI Notetaker
-      type: object
-      allOf:
-      - $ref: '#/components/schemas/notes.BaseReply'
-      properties:
-        type:
-          description: The type of the note
-          type: string
-          enum:
-          - ai-notetaker-reply
-        interaction:
-          description: The meeting this AI Notetaker was invited to.
-          $ref: '#/components/schemas/notes.MeetingInteraction'
-      required:
-      - type
-    notes.InteractionNote:
-      x-stability-level: beta
-      title: notes.InteractionNote
-      description: A Note object attached to an interaction (Email, Meeting, Call, ChatMessage)
-      allOf:
-      - $ref: '#/components/schemas/notes.BaseRootNote'
-      properties:
-        type:
-          description: The type of the note
-          type: string
-          enum:
-          - interaction
-        interaction:
-          $ref: '#/components/schemas/notes.Interaction'
-      required:
-      - type
-      - interaction
-    notes.PersonMention:
-      x-stability-level: beta
-      title: notes.PersonMention
-      description: A person mentioned in a note.
-      type: object
-      properties:
-        id:
-          description: The id of the mention
-          type: integer
-          format: int32
-          minimum: 1
-          maximum: 2147483647
-        type:
-          description: The type of mention
-          type: string
-          enum:
-          - person
-        person:
-          $ref: '#/components/schemas/PersonData'
-      required:
-      - id
-      - type
-      - person
-    AuthenticationError:
-      title: AuthenticationError
-      type: object
-      properties:
-        code:
-          description: Error code
-          type: string
-          enum:
-          - authentication
-        message:
-          description: Error message
-          type: string
-      required:
-      - code
-      - message
-      additionalProperties: false
-      examples:
-      - code: authentication
-        message: 🚨 Error! Sound the alarm! 🚨
-    Errors:
-      title: Errors
-      type: object
-      properties:
-        errors:
-          description: Errors
-          type: array
-          items:
-            $ref: '#/components/schemas/Error'
-      required:
-      - errors
-      additionalProperties: false
-    notes.EntitiesNote:
-      x-stability-level: beta
-      title: notes.EntitiesNote
-      description: A Note object attached to an entity (Person, Company, Opportunity)
-      allOf:
-      - $ref: '#/components/schemas/notes.BaseRootNote'
-      properties:
-        type:
-          description: The type of the note
-          type: string
-          enum:
-          - entities
-      required:
-      - type
-    notes.Content:
-      x-stability-level: beta
-      title: notes.Content
-      description: A note content
-      type: object
-      properties:
-        html:
-          description: The HTML content of the note
-          type:
-          - string
-          - 'null'
-      required:
-      - html
     PersonData:
       title: PersonData
       type: object
@@ -805,105 +753,25 @@ components:
       - primaryEmailAddress
       - type
       additionalProperties: false
-    notes.CallInteraction:
-      x-stability-level: beta
-      title: notes.CallInteraction
-      description: This is a Call (Event) object attached to a note
+    ServerError:
+      title: ServerError
       type: object
       properties:
-        id:
-          description: The id of the Call (Event)
-          type: integer
-          format: int64
-          minimum: 1
-          maximum: 9007199254740991
-        type:
-          description: The type of the Interaction
+        code:
+          description: Error code
           type: string
           enum:
-          - call
+          - server
+        message:
+          description: Error message
+          type: string
       required:
-      - id
-      - type
-    OpportunityPaged:
-      title: OpportunityPaged
-      description: OpportunityPaged model
-      type: object
-      properties:
-        data:
-          description: A page of Opportunity results
-          type: array
-          items:
-            $ref: '#/components/schemas/Opportunity'
-          maxItems: 100
-        pagination:
-          $ref: '#/components/schemas/Pagination'
-      required:
-      - data
-      - pagination
+      - code
+      - message
       additionalProperties: false
       examples:
-      - pagination:
-          prevUrl: https://api.affinity.co/v2/foo?cursor=ICAgICAgYmVmb3JlOjo6Nw
-          nextUrl: https://api.affinity.co/v2/foo?cursor=ICAgICAgIGFmdGVyOjo6NA
-        data:
-        - listId: 1
-          name: Acme Upsell $10k
-          id: 1
-        - listId: 1
-          name: Acme Upsell $10k
-          id: 1
-    notes.CompaniesPreview:
-      x-stability-level: beta
-      title: notes.CompaniesPreview
-      description: A preview for attached Companies on a Note
-      type: object
-      properties:
-        data:
-          description: Preview of attached Companies for a Note
-          type: array
-          items:
-            $ref: '#/components/schemas/CompanyData'
-          maxItems: 100
-        totalCount:
-          description: The total count of the collection parameter.
-          type: integer
-          format: int64
-          minimum: 0
-          maximum: 9007199254740991
-    notes.UserReplyNote:
-      x-stability-level: beta
-      title: notes.UserReplyNote
-      description: A reply to a note created by a user
-      type: object
-      allOf:
-      - $ref: '#/components/schemas/notes.BaseReply'
-      properties:
-        type:
-          description: The type of the note
-          type: string
-          enum:
-          - user-reply
-      required:
-      - type
-    notes.PersonsPreview:
-      x-stability-level: beta
-      title: notes.PersonsPreview
-      description: A preview for attached Persons on a Note
-      type: object
-      properties:
-        data:
-          description: Preview of attached Persons for a Note
-          type: array
-          items:
-            $ref: '#/components/schemas/PersonData'
-          maxItems: 100
-        totalCount:
-          description: The total count of the collection parameter.
-          type: integer
-          format: int64
-          minimum: 0
-          maximum: 9007199254740991
+      - code: server
+        message: 🚨 Error! Sound the alarm! 🚨
     notes.MeetingInteraction:
       x-stability-level: beta
       title: notes.MeetingInteraction
@@ -924,25 +792,161 @@ components:
       required:
       - id
       - type
-    AuthorizationErrors:
-      title: AuthorizationErrors
-      description: AuthorizationErrors model
+    notes.Note:
+      x-stability-level: beta
+      title: notes.Note
+      description: Note model
+      oneOf:
+      - $ref: '#/components/schemas/notes.EntitiesNote'
+      - $ref: '#/components/schemas/notes.InteractionNote'
+      - $ref: '#/components/schemas/notes.AiNotetakerRootNote'
+      - $ref: '#/components/schemas/notes.UserReplyNote'
+      - $ref: '#/components/schemas/notes.AiNotetakerReplyNote'
+      discriminator:
+        propertyName: type
+        mapping:
+          entities: '#/components/schemas/notes.EntitiesNote'
+          interaction: '#/components/schemas/notes.InteractionNote'
+          ai-notetaker: '#/components/schemas/notes.AiNotetakerRootNote'
+          user-reply: '#/components/schemas/notes.UserReplyNote'
+          ai-notetaker-reply: '#/components/schemas/notes.AiNotetakerReplyNote'
+    UnsupportedMediaTypeError:
+      title: UnsupportedMediaTypeError
       type: object
       properties:
-        errors:
-          description: AuthorizationError errors
-          type: array
-          items:
-            $ref: '#/components/schemas/AuthorizationError'
+        code:
+          description: Error code
+          type: string
+          enum:
+          - unsupported-media-type
+        message:
+          description: Error message
+          type: string
       required:
-      - errors
+      - code
+      - message
       additionalProperties: false
       examples:
-      - errors:
-        - code: authorization
-          message: 🚨 Error! Sound the alarm! 🚨
-        - code: authorization
-          message: 🚨 Error! Sound the alarm! 🚨
+      - code: unsupported-media-type
+        message: 🚨 Error! Sound the alarm! 🚨
+    notes.Mention:
+      x-stability-level: beta
+      title: notes.Mention
+      description: A mention in a note.
+      oneOf:
+      - $ref: '#/components/schemas/notes.PersonMention'
+      discriminator:
+        propertyName: type
+        mapping:
+          person: '#/components/schemas/notes.PersonMention'
+    MethodNotAllowedError:
+      title: MethodNotAllowedError
+      type: object
+      properties:
+        code:
+          description: Error code
+          type: string
+          enum:
+          - method-not-allowed
+        message:
+          description: Error message
+          type: string
+      required:
+      - code
+      - message
+      additionalProperties: false
+      examples:
+      - code: method-not-allowed
+        message: 🚨 Error! Sound the alarm! 🚨
+    NotImplementedError:
+      title: NotImplementedError
+      type: object
+      properties:
+        code:
+          description: Error code
+          type: string
+          enum:
+          - not-implemented
+        message:
+          description: Error message
+          type: string
+      required:
+      - code
+      - message
+      additionalProperties: false
+      examples:
+      - code: not-implemented
+        message: 🚨 Error! Sound the alarm! 🚨
+    AuthorizationError:
+      title: AuthorizationError
+      type: object
+      properties:
+        code:
+          description: Error code
+          type: string
+          enum:
+          - authorization
+        message:
+          description: Error message
+          type: string
+      required:
+      - code
+      - message
+      additionalProperties: false
+      examples:
+      - code: authorization
+        message: 🚨 Error! Sound the alarm! 🚨
+    notes.EntitiesNote:
+      x-stability-level: beta
+      title: notes.EntitiesNote
+      description: A Note object attached to an entity (Person, Company, Opportunity)
+      allOf:
+      - $ref: '#/components/schemas/notes.BaseRootNote'
+      properties:
+        type:
+          description: The type of the note
+          type: string
+          enum:
+          - entities
+      required:
+      - type
+    UnprocessableEntityError:
+      title: UnprocessableEntityError
+      type: object
+      properties:
+        code:
+          description: Error code
+          type: string
+          enum:
+          - unprocessable-entity
+        message:
+          description: Error message
+          type: string
+      required:
+      - code
+      - message
+      additionalProperties: false
+      examples:
+      - code: unprocessable-entity
+        message: 🚨 Error! Sound the alarm! 🚨
+    notes.PersonsPreview:
+      x-stability-level: beta
+      title: notes.PersonsPreview
+      description: A preview for attached Persons on a Note
+      type: object
+      properties:
+        data:
+          description: Preview of attached Persons for a Note
+          type: array
+          items:
+            $ref: '#/components/schemas/PersonData'
+          maxItems: 100
+        totalCount:
+          description: The total count of the collection parameter.
+          type: integer
+          format: int64
+          minimum: 0
+          maximum: 9007199254740991
     RateLimitError:
       title: RateLimitError
       type: object
@@ -962,60 +966,60 @@ components:
       examples:
       - code: rate-limit
         message: 🚨 Error! Sound the alarm! 🚨
-    notes.BaseRootNote:
-      x-stability-level: beta
-      title: notes.BaseRootNote
-      description: A root note
-      allOf:
-      - $ref: '#/components/schemas/notes.BaseNote'
-      properties:
-        repliesCount:
-          description: The number of replies to this note. This is only included if the `repliesCount` parameter is passed in the `includes` in the request and the note is not a reply itself.
-          type: integer
-          format: int32
-          minimum: 0
-          maximum: 2147483647
-        permissions:
-          $ref: '#/components/schemas/notes.PermissionSettings'
-        opportunitiesPreview:
-          $ref: '#/components/schemas/notes.OpportunitiesPreview'
-        personsPreview:
-          $ref: '#/components/schemas/notes.PersonsPreview'
-        companiesPreview:
-          $ref: '#/components/schemas/notes.CompaniesPreview'
-    PaginationWithTotalCount:
-      title: PaginationWithTotalCount
+    AuthorizationErrors:
+      title: AuthorizationErrors
+      description: AuthorizationErrors model
       type: object
-      allOf:
-      - $ref: '#/components/schemas/Pagination'
       properties:
-        totalCount:
-          description: The total count of the collection. Only included if requested via the totalCount query string parameter.
-          type: integer
-          format: int64
-          minimum: 0
-          maximum: 9007199254740991
-    notes.BaseReply:
-      x-stability-level: beta
-      title: notes.BaseReply
-      description: An abstract base class for note replies, either of a UserNoteReply or AiNotetakerNoteReply
-      type: object
-      allOf:
-      - $ref: '#/components/schemas/notes.BaseNote'
-      properties:
-        parent:
-          type: object
-          properties:
-            id:
-              description: The id of the parent note
-              type: integer
-              format: int32
-              minimum: 1
-              maximum: 2147483647
-          required:
-          - id
+        errors:
+          description: AuthorizationError errors
+          type: array
+          items:
+            $ref: '#/components/schemas/AuthorizationError'
       required:
-      - parent
+      - errors
+      additionalProperties: false
+      examples:
+      - errors:
+        - code: authorization
+          message: 🚨 Error! Sound the alarm! 🚨
+        - code: authorization
+          message: 🚨 Error! Sound the alarm! 🚨
+    BadRequestError:
+      title: BadRequestError
+      type: object
+      properties:
+        code:
+          description: Error code
+          type: string
+          enum:
+          - bad-request
+        message:
+          description: Error message
+          type: string
+      required:
+      - code
+      - message
+      additionalProperties: false
+      examples:
+      - code: bad-request
+        message: 🚨 Error! Sound the alarm! 🚨
+    notes.Interaction:
+      x-stability-level: beta
+      title: notes.NoteInteraction
+      description: An interaction attached to a Note. It can be a Meeting, a Call or an ChatMessage.
+      oneOf:
+      - $ref: '#/components/schemas/notes.MeetingInteraction'
+      - $ref: '#/components/schemas/notes.CallInteraction'
+      - $ref: '#/components/schemas/notes.ChatMessageInteraction'
+      - $ref: '#/components/schemas/notes.EmailInteraction'
+      discriminator:
+        propertyName: type
+        mapping:
+          meeting: '#/components/schemas/notes.MeetingInteraction'
+          call: '#/components/schemas/notes.CallInteraction'
+          chat-message: '#/components/schemas/notes.ChatMessageInteraction'
+          email: '#/components/schemas/notes.EmailInteraction'
     notes.BaseNote:
       x-stability-level: beta
       title: notes.BaseNote
@@ -1055,78 +1059,26 @@ components:
       - mentions
       - createdAt
       - updatedAt
-    notes.Note:
+    notes.EmailInteraction:
       x-stability-level: beta
-      title: notes.Note
-      description: Note model
-      oneOf:
-      - $ref: '#/components/schemas/notes.EntitiesNote'
-      - $ref: '#/components/schemas/notes.InteractionNote'
-      - $ref: '#/components/schemas/notes.AiNotetakerRootNote'
-      - $ref: '#/components/schemas/notes.UserReplyNote'
-      - $ref: '#/components/schemas/notes.AiNotetakerReplyNote'
-      discriminator:
-        propertyName: type
-        mapping:
-          entities: '#/components/schemas/notes.EntitiesNote'
-          interaction: '#/components/schemas/notes.InteractionNote'
-          ai-notetaker: '#/components/schemas/notes.AiNotetakerRootNote'
-          user-reply: '#/components/schemas/notes.UserReplyNote'
-          ai-notetaker-reply: '#/components/schemas/notes.AiNotetakerReplyNote'
-    notes.Interaction:
-      x-stability-level: beta
-      title: notes.NoteInteraction
-      description: An interaction attached to a Note. It can be a Meeting, a Call or an ChatMessage.
-      oneOf:
-      - $ref: '#/components/schemas/notes.MeetingInteraction'
-      - $ref: '#/components/schemas/notes.CallInteraction'
-      - $ref: '#/components/schemas/notes.ChatMessageInteraction'
-      - $ref: '#/components/schemas/notes.EmailInteraction'
-      discriminator:
-        propertyName: type
-        mapping:
-          meeting: '#/components/schemas/notes.MeetingInteraction'
-          call: '#/components/schemas/notes.CallInteraction'
-          chat-message: '#/components/schemas/notes.ChatMessageInteraction'
-          email: '#/components/schemas/notes.EmailInteraction'
-    AuthorizationError:
-      title: AuthorizationError
+      title: notes.EmailInteraction
+      description: This is an Email object attached to a note
       type: object
       properties:
-        code:
-          description: Error code
+        id:
+          description: The id of the Email
+          type: integer
+          format: int64
+          minimum: 1
+          maximum: 9007199254740991
+        type:
+          description: The type of the Interaction
           type: string
           enum:
-          - authorization
-        message:
-          description: Error message
-          type: string
+          - email
       required:
-      - code
-      - message
-      additionalProperties: false
-      examples:
-      - code: authorization
-        message: 🚨 Error! Sound the alarm! 🚨
-    BadRequestError:
-      title: BadRequestError
-      type: object
-      properties:
-        code:
-          description: Error code
-          type: string
-          enum:
-          - bad-request
-        message:
-          description: Error message
-          type: string
-      required:
-      - code
-      - message
-      additionalProperties: false
-      examples:
-      - code: bad-request
-        message: 🚨 Error! Sound the alarm! 🚨
+      - id
+      - type
     Error:
       title: Error
       oneOf:
@@ -1159,6 +1111,147 @@ components:
           unprocessable-entity: '#/components/schemas/UnprocessableEntityError'
           unsupported-media-type: '#/components/schemas/UnsupportedMediaTypeError'
           validation: '#/components/schemas/ValidationError'
+    notes.AiNotetakerReplyNote:
+      x-stability-level: beta
+      title: notes.AiNotetakerReplyNote
+      description: A reply to a Note, created by an AI Notetaker
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/notes.BaseReply'
+      properties:
+        type:
+          description: The type of the note
+          type: string
+          enum:
+          - ai-notetaker-reply
+        interaction:
+          description: The meeting this AI Notetaker was invited to.
+          $ref: '#/components/schemas/notes.MeetingInteraction'
+      required:
+      - type
+    PaginationWithTotalCount:
+      title: PaginationWithTotalCount
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/Pagination'
+      properties:
+        totalCount:
+          description: The total count of the collection. Only included if requested via the totalCount query string parameter.
+          type: integer
+          format: int64
+          minimum: 0
+          maximum: 9007199254740991
+    CompanyData:
+      title: CompanyData
+      type: object
+      properties:
+        id:
+          description: The company's unique identifier
+          type: integer
+          format: int64
+          minimum: 1
+          maximum: 9007199254740991
+          examples:
+          - 1
+        name:
+          description: The company's name
+          type: string
+          examples:
+          - Acme
+        domain:
+          description: The company's primary domain
+          type:
+          - string
+          - 'null'
+          format: hostname
+          examples:
+          - acme.co
+      required:
+      - domain
+      - id
+      - name
+      additionalProperties: false
+    notes.BaseReply:
+      x-stability-level: beta
+      title: notes.BaseReply
+      description: An abstract base class for note replies, either of a UserNoteReply or AiNotetakerNoteReply
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/notes.BaseNote'
+      properties:
+        parent:
+          type: object
+          properties:
+            id:
+              description: The id of the parent note
+              type: integer
+              format: int32
+              minimum: 1
+              maximum: 2147483647
+          required:
+          - id
+      required:
+      - parent
+    AuthenticationError:
+      title: AuthenticationError
+      type: object
+      properties:
+        code:
+          description: Error code
+          type: string
+          enum:
+          - authentication
+        message:
+          description: Error message
+          type: string
+      required:
+      - code
+      - message
+      additionalProperties: false
+      examples:
+      - code: authentication
+        message: 🚨 Error! Sound the alarm! 🚨
+    ValidationError:
+      title: ValidationError
+      type: object
+      properties:
+        code:
+          description: Error code
+          type: string
+          enum:
+          - validation
+        message:
+          description: Error message
+          type: string
+        param:
+          description: Param the error refers to
+          type: string
+      required:
+      - code
+      - message
+      - param
+      additionalProperties: false
+      examples:
+      - code: validation
+        param: limit
+        message: 🚨 Error! Sound the alarm! 🚨
+    notes.InteractionNote:
+      x-stability-level: beta
+      title: notes.InteractionNote
+      description: A Note object attached to an interaction (Email, Meeting, Call, ChatMessage)
+      allOf:
+      - $ref: '#/components/schemas/notes.BaseRootNote'
+      properties:
+        type:
+          description: The type of the note
+          type: string
+          enum:
+          - interaction
+        interaction:
+          $ref: '#/components/schemas/notes.Interaction'
+      required:
+      - type
+      - interaction
     notes.PermissionSettings:
       x-stability-level: beta
       title: notes.PermissionSettings
@@ -1178,31 +1271,67 @@ components:
       - sharingType
       - owner
   headers:
-    X-Ratelimit-Limit-Org:
-      description: Number of requests allowed per month for the account
-      schema:
-        type: integer
-    X-Ratelimit-Limit-Org-Remaining:
-      description: Number of requests remaining for the account
+    X-Ratelimit-Limit-User-Reset:
+      description: Time in seconds before the limit resets for the user
       schema:
         type: integer
     X-Ratelimit-Limit-User-Remaining:
       description: Number of requests remaining for the user
       schema:
         type: integer
-    X-Ratelimit-Limit-User:
-      description: Number of requests allowed per minute for the user
+    X-Ratelimit-Limit-Org-Remaining:
+      description: Number of requests remaining for the account
       schema:
         type: integer
     X-Ratelimit-Limit-Org-Reset:
       description: Time in seconds before the limit resets for the account
       schema:
         type: integer
-    X-Ratelimit-Limit-User-Reset:
-      description: Time in seconds before the limit resets for the user
+    X-Ratelimit-Limit-Org:
+      description: Number of requests allowed per month for the account
+      schema:
+        type: integer
+    X-Ratelimit-Limit-User:
+      description: Number of requests allowed per minute for the user
       schema:
         type: integer
   examples:
+    ai-notetaker-3:
+      x-stability-level: beta
+      value:
+        data:
+        - id: 1
+          type: ai-notetaker
+          content:
+            html: <p>test</p><p>%</p>
+          creator:
+            id: 1
+            firstName: Jane
+            lastName: Doe
+            primaryEmailAddress: jane.doe@acme.co
+            type: internal
+          mentions:
+          - id: 1
+            type: person
+            person:
+              id: 1
+              firstName: Jane
+              lastName: Doe
+              primaryEmailAddress: jane.doe@acme.co
+              type: internal
+          createdAt: '2023-01-01T00:00:00Z'
+          updatedAt: '2023-01-01T00:00:00Z'
+          permissions:
+            sharingType: private
+            owner:
+              id: 1
+              firstName: Jane
+              lastName: Doe
+              primaryEmailAddress: jane.doe@acme.co
+              type: internal
+        pagination:
+          prevUrl: https://api.affinity.co/v2/persons/1/notes?cursor=ICAgICAgYmVmb3JlOjo6Nw
+          nextUrl: https://api.affinity.co/v2/persons/1/notes?cursor=ICAgICAgIGFmdGVyOjo6NA
     interaction-4:
       x-stability-level: beta
       value:
@@ -1278,135 +1407,6 @@ components:
         pagination:
           prevUrl: https://api.affinity.co/v2/persons/1/notes?cursor=ICAgICAgYmVmb3JlOjo6Nw
           nextUrl: https://api.affinity.co/v2/persons/1/notes?cursor=ICAgICAgIGFmdGVyOjo6NA
-    ai-notetaker-3:
-      x-stability-level: beta
-      value:
-        data:
-        - id: 1
-          type: ai-notetaker
-          content:
-            html: <p>test</p><p>%</p>
-          creator:
-            id: 1
-            firstName: Jane
-            lastName: Doe
-            primaryEmailAddress: jane.doe@acme.co
-            type: internal
-          mentions:
-          - id: 1
-            type: person
-            person:
-              id: 1
-              firstName: Jane
-              lastName: Doe
-              primaryEmailAddress: jane.doe@acme.co
-              type: internal
-          createdAt: '2023-01-01T00:00:00Z'
-          updatedAt: '2023-01-01T00:00:00Z'
-          permissions:
-            sharingType: private
-            owner:
-              id: 1
-              firstName: Jane
-              lastName: Doe
-              primaryEmailAddress: jane.doe@acme.co
-              type: internal
-        pagination:
-          prevUrl: https://api.affinity.co/v2/persons/1/notes?cursor=ICAgICAgYmVmb3JlOjo6Nw
-          nextUrl: https://api.affinity.co/v2/persons/1/notes?cursor=ICAgICAgIGFmdGVyOjo6NA
-  responses:
-    '404':
-      description: Not Found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/NotFoundErrors'
-      headers:
-        X-Ratelimit-Limit-User:
-          $ref: '#/components/headers/X-Ratelimit-Limit-User'
-        X-Ratelimit-Limit-User-Remaining:
-          $ref: '#/components/headers/X-Ratelimit-Limit-User-Remaining'
-        X-Ratelimit-Limit-User-Reset:
-          $ref: '#/components/headers/X-Ratelimit-Limit-User-Reset'
-        X-Ratelimit-Limit-Org:
-          $ref: '#/components/headers/X-Ratelimit-Limit-Org'
-        X-Ratelimit-Limit-Org-Remaining:
-          $ref: '#/components/headers/X-Ratelimit-Limit-Org-Remaining'
-        X-Ratelimit-Limit-Org-Reset:
-          $ref: '#/components/headers/X-Ratelimit-Limit-Org-Reset'
-    '403':
-      description: Forbidden
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/AuthorizationErrors'
-      headers:
-        X-Ratelimit-Limit-User:
-          $ref: '#/components/headers/X-Ratelimit-Limit-User'
-        X-Ratelimit-Limit-User-Remaining:
-          $ref: '#/components/headers/X-Ratelimit-Limit-User-Remaining'
-        X-Ratelimit-Limit-User-Reset:
-          $ref: '#/components/headers/X-Ratelimit-Limit-User-Reset'
-        X-Ratelimit-Limit-Org:
-          $ref: '#/components/headers/X-Ratelimit-Limit-Org'
-        X-Ratelimit-Limit-Org-Remaining:
-          $ref: '#/components/headers/X-Ratelimit-Limit-Org-Remaining'
-        X-Ratelimit-Limit-Org-Reset:
-          $ref: '#/components/headers/X-Ratelimit-Limit-Org-Reset'
-    default:
-      description: Errors
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Errors'
-      headers:
-        X-Ratelimit-Limit-User:
-          $ref: '#/components/headers/X-Ratelimit-Limit-User'
-        X-Ratelimit-Limit-User-Remaining:
-          $ref: '#/components/headers/X-Ratelimit-Limit-User-Remaining'
-        X-Ratelimit-Limit-User-Reset:
-          $ref: '#/components/headers/X-Ratelimit-Limit-User-Reset'
-        X-Ratelimit-Limit-Org:
-          $ref: '#/components/headers/X-Ratelimit-Limit-Org'
-        X-Ratelimit-Limit-Org-Remaining:
-          $ref: '#/components/headers/X-Ratelimit-Limit-Org-Remaining'
-        X-Ratelimit-Limit-Org-Reset:
-          $ref: '#/components/headers/X-Ratelimit-Limit-Org-Reset'
-    '400':
-      description: Bad Request
-      content:
-        application/json:
-          schema:
-            title: responses.400
-            type: object
-            properties:
-              errors:
-                type: array
-                items:
-                  oneOf:
-                  - $ref: '#/components/schemas/BadRequestError'
-                  - $ref: '#/components/schemas/ValidationError'
-                  discriminator:
-                    propertyName: code
-                    mapping:
-                      bad-request: '#/components/schemas/BadRequestError'
-                      validation: '#/components/schemas/ValidationError'
-            required:
-            - errors
-            additionalProperties: false
-      headers:
-        X-Ratelimit-Limit-User:
-          $ref: '#/components/headers/X-Ratelimit-Limit-User'
-        X-Ratelimit-Limit-User-Remaining:
-          $ref: '#/components/headers/X-Ratelimit-Limit-User-Remaining'
-        X-Ratelimit-Limit-User-Reset:
-          $ref: '#/components/headers/X-Ratelimit-Limit-User-Reset'
-        X-Ratelimit-Limit-Org:
-          $ref: '#/components/headers/X-Ratelimit-Limit-Org'
-        X-Ratelimit-Limit-Org-Remaining:
-          $ref: '#/components/headers/X-Ratelimit-Limit-Org-Remaining'
-        X-Ratelimit-Limit-Org-Reset:
-          $ref: '#/components/headers/X-Ratelimit-Limit-Org-Reset'
   securitySchemes:
     bearerAuth:
       type: http

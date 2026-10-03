@@ -60,178 +60,7 @@ paths:
         default:
           $ref: '#/components/responses/default'
 components:
-  responses:
-    '404':
-      description: Not Found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/NotFoundErrors'
-      headers:
-        X-Ratelimit-Limit-User:
-          $ref: '#/components/headers/X-Ratelimit-Limit-User'
-        X-Ratelimit-Limit-User-Remaining:
-          $ref: '#/components/headers/X-Ratelimit-Limit-User-Remaining'
-        X-Ratelimit-Limit-User-Reset:
-          $ref: '#/components/headers/X-Ratelimit-Limit-User-Reset'
-        X-Ratelimit-Limit-Org:
-          $ref: '#/components/headers/X-Ratelimit-Limit-Org'
-        X-Ratelimit-Limit-Org-Remaining:
-          $ref: '#/components/headers/X-Ratelimit-Limit-Org-Remaining'
-        X-Ratelimit-Limit-Org-Reset:
-          $ref: '#/components/headers/X-Ratelimit-Limit-Org-Reset'
-    default:
-      description: Errors
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Errors'
-      headers:
-        X-Ratelimit-Limit-User:
-          $ref: '#/components/headers/X-Ratelimit-Limit-User'
-        X-Ratelimit-Limit-User-Remaining:
-          $ref: '#/components/headers/X-Ratelimit-Limit-User-Remaining'
-        X-Ratelimit-Limit-User-Reset:
-          $ref: '#/components/headers/X-Ratelimit-Limit-User-Reset'
-        X-Ratelimit-Limit-Org:
-          $ref: '#/components/headers/X-Ratelimit-Limit-Org'
-        X-Ratelimit-Limit-Org-Remaining:
-          $ref: '#/components/headers/X-Ratelimit-Limit-Org-Remaining'
-        X-Ratelimit-Limit-Org-Reset:
-          $ref: '#/components/headers/X-Ratelimit-Limit-Org-Reset'
-  headers:
-    X-Ratelimit-Limit-User-Reset:
-      description: Time in seconds before the limit resets for the user
-      schema:
-        type: integer
-    X-Ratelimit-Limit-User-Remaining:
-      description: Number of requests remaining for the user
-      schema:
-        type: integer
-    X-Ratelimit-Limit-Org-Remaining:
-      description: Number of requests remaining for the account
-      schema:
-        type: integer
-    X-Ratelimit-Limit-Org-Reset:
-      description: Time in seconds before the limit resets for the account
-      schema:
-        type: integer
-    X-Ratelimit-Limit-Org:
-      description: Number of requests allowed per month for the account
-      schema:
-        type: integer
-    X-Ratelimit-Limit-User:
-      description: Number of requests allowed per minute for the user
-      schema:
-        type: integer
   schemas:
-    NotFoundError:
-      title: NotFoundError
-      type: object
-      properties:
-        code:
-          description: Error code
-          type: string
-          enum:
-          - not-found
-        message:
-          description: Error message
-          type: string
-      required:
-      - code
-      - message
-      additionalProperties: false
-      examples:
-      - code: not-found
-        message: 🚨 Error! Sound the alarm! 🚨
-    NotFoundErrors:
-      title: NotFoundErrors
-      description: NotFoundErrors model
-      type: object
-      properties:
-        errors:
-          description: NotFoundError errors
-          type: array
-          items:
-            $ref: '#/components/schemas/NotFoundError'
-      required:
-      - errors
-      additionalProperties: false
-      examples:
-      - errors:
-        - code: not-found
-          message: 🚨 Error! Sound the alarm! 🚨
-        - code: not-found
-          message: 🚨 Error! Sound the alarm! 🚨
-    NotAcceptableError:
-      title: NotAcceptableError
-      type: object
-      properties:
-        code:
-          description: Error code
-          type: string
-          enum:
-          - not-acceptable
-        message:
-          description: Error message
-          type: string
-      required:
-      - code
-      - message
-      additionalProperties: false
-      examples:
-      - code: not-acceptable
-        message: 🚨 Error! Sound the alarm! 🚨
-    ConflictError:
-      title: ConflictError
-      type: object
-      properties:
-        code:
-          description: Error code
-          type: string
-          enum:
-          - conflict
-        message:
-          description: Error message
-          type: string
-      required:
-      - code
-      - message
-      additionalProperties: false
-      examples:
-      - code: conflict
-        message: 🚨 Error! Sound the alarm! 🚨
-    Errors:
-      title: Errors
-      type: object
-      properties:
-        errors:
-          description: Errors
-          type: array
-          items:
-            $ref: '#/components/schemas/Error'
-      required:
-      - errors
-      additionalProperties: false
-    ServerError:
-      title: ServerError
-      type: object
-      properties:
-        code:
-          description: Error code
-          type: string
-          enum:
-          - server
-        message:
-          description: Error message
-          type: string
-      required:
-      - code
-      - message
-      additionalProperties: false
-      examples:
-      - code: server
-        message: 🚨 Error! Sound the alarm! 🚨
     UnsupportedMediaTypeError:
       title: UnsupportedMediaTypeError
       type: object
@@ -251,15 +80,15 @@ components:
       examples:
       - code: unsupported-media-type
         message: 🚨 Error! Sound the alarm! 🚨
-    MethodNotAllowedError:
-      title: MethodNotAllowedError
+    AuthenticationError:
+      title: AuthenticationError
       type: object
       properties:
         code:
           description: Error code
           type: string
           enum:
-          - method-not-allowed
+          - authentication
         message:
           description: Error message
           type: string
@@ -268,64 +97,7 @@ components:
       - message
       additionalProperties: false
       examples:
-      - code: method-not-allowed
-        message: 🚨 Error! Sound the alarm! 🚨
-    NotImplementedError:
-      title: NotImplementedError
-      type: object
-      properties:
-        code:
-          description: Error code
-          type: string
-          enum:
-          - not-implemented
-        message:
-          description: Error message
-          type: string
-      required:
-      - code
-      - message
-      additionalProperties: false
-      examples:
-      - code: not-implemented
-        message: 🚨 Error! Sound the alarm! 🚨
-    AuthorizationError:
-      title: AuthorizationError
-      type: object
-      properties:
-        code:
-          description: Error code
-          type: string
-          enum:
-          - authorization
-        message:
-          description: Error message
-          type: string
-      required:
-      - code
-      - message
-      additionalProperties: false
-      examples:
-      - code: authorization
-        message: 🚨 Error! Sound the alarm! 🚨
-    UnprocessableEntityError:
-      title: UnprocessableEntityError
-      type: object
-      properties:
-        code:
-          description: Error code
-          type: string
-          enum:
-          - unprocessable-entity
-        message:
-          description: Error message
-          type: string
-      required:
-      - code
-      - message
-      additionalProperties: false
-      examples:
-      - code: unprocessable-entity
+      - code: authentication
         message: 🚨 Error! Sound the alarm! 🚨
     WhoAmI:
       title: WhoAmI
@@ -358,6 +130,250 @@ components:
           name: Contoso Ltd.
           subdomain: contoso
           id: 1
+    Tenant:
+      title: Tenant
+      type: object
+      properties:
+        id:
+          description: The tenant's unique identifier
+          type: integer
+          format: int64
+          minimum: 1
+          maximum: 9007199254740991
+          examples:
+          - 1
+        name:
+          description: The name of the tenant
+          type: string
+          examples:
+          - Contoso Ltd.
+        subdomain:
+          description: The tenant's subdomain under affinity.co
+          type: string
+          format: hostname
+          examples:
+          - contoso
+      required:
+      - id
+      - name
+      - subdomain
+      additionalProperties: false
+      examples:
+      - name: Contoso Ltd.
+        subdomain: contoso
+        id: 1
+    NotAcceptableError:
+      title: NotAcceptableError
+      type: object
+      properties:
+        code:
+          description: Error code
+          type: string
+          enum:
+          - not-acceptable
+        message:
+          description: Error message
+          type: string
+      required:
+      - code
+      - message
+      additionalProperties: false
+      examples:
+      - code: not-acceptable
+        message: 🚨 Error! Sound the alarm! 🚨
+    NotFoundErrors:
+      title: NotFoundErrors
+      description: NotFoundErrors model
+      type: object
+      properties:
+        errors:
+          description: NotFoundError errors
+          type: array
+          items:
+            $ref: '#/components/schemas/NotFoundError'
+      required:
+      - errors
+      additionalProperties: false
+      examples:
+      - errors:
+        - code: not-found
+          message: 🚨 Error! Sound the alarm! 🚨
+        - code: not-found
+          message: 🚨 Error! Sound the alarm! 🚨
+    Grant:
+      title: Grant
+      type: object
+      properties:
+        type:
+          description: The type of grant used to authenticate
+          type: string
+          enum:
+          - api-key
+          - access-token
+          examples:
+          - api-key
+        scopes:
+          description: The scopes available to the current grant
+          type: array
+          items:
+            type: string
+          examples:
+          - - api
+        createdAt:
+          description: When the grant was created
+          type: string
+          format: date-time
+          examples:
+          - '2023-01-01T00:00:00Z'
+      required:
+      - createdAt
+      - scopes
+      - type
+      additionalProperties: false
+      examples:
+      - createdAt: '2023-01-01T00:00:00Z'
+        scopes:
+        - api
+        type: api-key
+    ServerError:
+      title: ServerError
+      type: object
+      properties:
+        code:
+          description: Error code
+          type: string
+          enum:
+          - server
+        message:
+          description: Error message
+          type: string
+      required:
+      - code
+      - message
+      additionalProperties: false
+      examples:
+      - code: server
+        message: 🚨 Error! Sound the alarm! 🚨
+    NotImplementedError:
+      title: NotImplementedError
+      type: object
+      properties:
+        code:
+          description: Error code
+          type: string
+          enum:
+          - not-implemented
+        message:
+          description: Error message
+          type: string
+      required:
+      - code
+      - message
+      additionalProperties: false
+      examples:
+      - code: not-implemented
+        message: 🚨 Error! Sound the alarm! 🚨
+    BadRequestError:
+      title: BadRequestError
+      type: object
+      properties:
+        code:
+          description: Error code
+          type: string
+          enum:
+          - bad-request
+        message:
+          description: Error message
+          type: string
+      required:
+      - code
+      - message
+      additionalProperties: false
+      examples:
+      - code: bad-request
+        message: 🚨 Error! Sound the alarm! 🚨
+    Errors:
+      title: Errors
+      type: object
+      properties:
+        errors:
+          description: Errors
+          type: array
+          items:
+            $ref: '#/components/schemas/Error'
+      required:
+      - errors
+      additionalProperties: false
+    UnprocessableEntityError:
+      title: UnprocessableEntityError
+      type: object
+      properties:
+        code:
+          description: Error code
+          type: string
+          enum:
+          - unprocessable-entity
+        message:
+          description: Error message
+          type: string
+      required:
+      - code
+      - message
+      additionalProperties: false
+      examples:
+      - code: unprocessable-entity
+        message: 🚨 Error! Sound the alarm! 🚨
+    Error:
+      title: Error
+      oneOf:
+      - $ref: '#/components/schemas/AuthenticationError'
+      - $ref: '#/components/schemas/AuthorizationError'
+      - $ref: '#/components/schemas/BadRequestError'
+      - $ref: '#/components/schemas/ConflictError'
+      - $ref: '#/components/schemas/MethodNotAllowedError'
+      - $ref: '#/components/schemas/NotAcceptableError'
+      - $ref: '#/components/schemas/NotFoundError'
+      - $ref: '#/components/schemas/NotImplementedError'
+      - $ref: '#/components/schemas/RateLimitError'
+      - $ref: '#/components/schemas/ServerError'
+      - $ref: '#/components/schemas/UnprocessableEntityError'
+      - $ref: '#/components/schemas/UnsupportedMediaTypeError'
+      - $ref: '#/components/schemas/ValidationError'
+      discriminator:
+        propertyName: code
+        mapping:
+          authentication: '#/components/schemas/AuthenticationError'
+          authorization: '#/components/schemas/AuthorizationError'
+          bad-request: '#/components/schemas/BadRequestError'
+          conflict: '#/components/schemas/ConflictError'
+          method-not-allowed: '#/components/schemas/MethodNotAllowedError'
+          not-acceptable: '#/components/schemas/NotAcceptableError'
+          not-found: '#/components/schemas/NotFoundError'
+          not-implemented: '#/components/schemas/NotImplementedError'
+          rate-limit: '#/components/schemas/RateLimitError'
+          server: '#/components/schemas/ServerError'
+          unprocessable-entity: '#/components/schemas/UnprocessableEntityError'
+          unsupported-media-type: '#/components/schemas/UnsupportedMediaTypeError'
+          validation: '#/components/schemas/ValidationError'
+    ConflictError:
+      title: ConflictError
+      type: object
+      properties:
+        code:
+          description: Error code
+          type: string
+          enum:
+          - conflict
+        message:
+          description: Error message
+          type: string
+      required:
+      - code
+      - message
+      additionalProperties: false
+      examples:
+      - code: conflict
+        message: 🚨 Error! Sound the alarm! 🚨
     User:
       title: User
       type: object
@@ -399,15 +415,15 @@ components:
         lastName: Smith
         emailAddress: john.smith@contoso.com
         id: 1
-    RateLimitError:
-      title: RateLimitError
+    NotFoundError:
+      title: NotFoundError
       type: object
       properties:
         code:
           description: Error code
           type: string
           enum:
-          - rate-limit
+          - not-found
         message:
           description: Error message
           type: string
@@ -416,52 +432,17 @@ components:
       - message
       additionalProperties: false
       examples:
-      - code: rate-limit
+      - code: not-found
         message: 🚨 Error! Sound the alarm! 🚨
-    Grant:
-      title: Grant
-      type: object
-      properties:
-        type:
-          description: The type of grant used to authenticate
-          type: string
-          enum:
-          - api-key
-          - access-token
-          examples:
-          - api-key
-        scopes:
-          description: The scopes available to the current grant
-          type: array
-          items:
-            type: string
-          examples:
-          - - api
-        createdAt:
-          description: When the grant was created
-          type: string
-          format: date-time
-          examples:
-          - '2023-01-01T00:00:00Z'
-      required:
-      - createdAt
-      - scopes
-      - type
-      additionalProperties: false
-      examples:
-      - createdAt: '2023-01-01T00:00:00Z'
-        scopes:
-        - api
-        type: api-key
-    BadRequestError:
-      title: BadRequestError
+    AuthorizationError:
+      title: AuthorizationError
       type: object
       properties:
         code:
           description: Error code
           type: string
           enum:
-          - bad-request
+          - authorization
         message:
           description: Error message
           type: string
@@ -470,90 +451,7 @@ components:
       - message
       additionalProperties: false
       examples:
-      - code: bad-request
-        message: 🚨 Error! Sound the alarm! 🚨
-    Error:
-      title: Error
-      oneOf:
-      - $ref: '#/components/schemas/AuthenticationError'
-      - $ref: '#/components/schemas/AuthorizationError'
-      - $ref: '#/components/schemas/BadRequestError'
-      - $ref: '#/components/schemas/ConflictError'
-      - $ref: '#/components/schemas/MethodNotAllowedError'
-      - $ref: '#/components/schemas/NotAcceptableError'
-      - $ref: '#/components/schemas/NotFoundError'
-      - $ref: '#/components/schemas/NotImplementedError'
-      - $ref: '#/components/schemas/RateLimitError'
-      - $ref: '#/components/schemas/ServerError'
-      - $ref: '#/components/schemas/UnprocessableEntityError'
-      - $ref: '#/components/schemas/UnsupportedMediaTypeError'
-      - $ref: '#/components/schemas/ValidationError'
-      discriminator:
-        propertyName: code
-        mapping:
-          authentication: '#/components/schemas/AuthenticationError'
-          authorization: '#/components/schemas/AuthorizationError'
-          bad-request: '#/components/schemas/BadRequestError'
-          conflict: '#/components/schemas/ConflictError'
-          method-not-allowed: '#/components/schemas/MethodNotAllowedError'
-          not-acceptable: '#/components/schemas/NotAcceptableError'
-          not-found: '#/components/schemas/NotFoundError'
-          not-implemented: '#/components/schemas/NotImplementedError'
-          rate-limit: '#/components/schemas/RateLimitError'
-          server: '#/components/schemas/ServerError'
-          unprocessable-entity: '#/components/schemas/UnprocessableEntityError'
-          unsupported-media-type: '#/components/schemas/UnsupportedMediaTypeError'
-          validation: '#/components/schemas/ValidationError'
-    Tenant:
-      title: Tenant
-      type: object
-      properties:
-        id:
-          description: The tenant's unique identifier
-          type: integer
-          format: int64
-          minimum: 1
-          maximum: 9007199254740991
-          examples:
-          - 1
-        name:
-          description: The name of the tenant
-          type: string
-          examples:
-          - Contoso Ltd.
-        subdomain:
-          description: The tenant's subdomain under affinity.co
-          type: string
-          format: hostname
-          examples:
-          - contoso
-      required:
-      - id
-      - name
-      - subdomain
-      additionalProperties: false
-      examples:
-      - name: Contoso Ltd.
-        subdomain: contoso
-        id: 1
-    AuthenticationError:
-      title: AuthenticationError
-      type: object
-      properties:
-        code:
-          description: Error code
-          type: string
-          enum:
-          - authentication
-        message:
-          description: Error message
-          type: string
-      required:
-      - code
-      - message
-      additionalProperties: false
-      examples:
-      - code: authentication
+      - code: authorization
         message: 🚨 Error! Sound the alarm! 🚨
     ValidationError:
       title: ValidationError
@@ -579,6 +477,108 @@ components:
       - code: validation
         param: limit
         message: 🚨 Error! Sound the alarm! 🚨
+    MethodNotAllowedError:
+      title: MethodNotAllowedError
+      type: object
+      properties:
+        code:
+          description: Error code
+          type: string
+          enum:
+          - method-not-allowed
+        message:
+          description: Error message
+          type: string
+      required:
+      - code
+      - message
+      additionalProperties: false
+      examples:
+      - code: method-not-allowed
+        message: 🚨 Error! Sound the alarm! 🚨
+    RateLimitError:
+      title: RateLimitError
+      type: object
+      properties:
+        code:
+          description: Error code
+          type: string
+          enum:
+          - rate-limit
+        message:
+          description: Error message
+          type: string
+      required:
+      - code
+      - message
+      additionalProperties: false
+      examples:
+      - code: rate-limit
+        message: 🚨 Error! Sound the alarm! 🚨
+  headers:
+    X-Ratelimit-Limit-Org-Reset:
+      description: Time in seconds before the limit resets for the account
+      schema:
+        type: integer
+    X-Ratelimit-Limit-Org:
+      description: Number of requests allowed per month for the account
+      schema:
+        type: integer
+    X-Ratelimit-Limit-User-Reset:
+      description: Time in seconds before the limit resets for the user
+      schema:
+        type: integer
+    X-Ratelimit-Limit-User-Remaining:
+      description: Number of requests remaining for the user
+      schema:
+        type: integer
+    X-Ratelimit-Limit-Org-Remaining:
+      description: Number of requests remaining for the account
+      schema:
+        type: integer
+    X-Ratelimit-Limit-User:
+      description: Number of requests allowed per minute for the user
+      schema:
+        type: integer
+  responses:
+    default:
+      description: Errors
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Errors'
+      headers:
+        X-Ratelimit-Limit-User:
+          $ref: '#/components/headers/X-Ratelimit-Limit-User'
+        X-Ratelimit-Limit-User-Remaining:
+          $ref: '#/components/headers/X-Ratelimit-Limit-User-Remaining'
+        X-Ratelimit-Limit-User-Reset:
+          $ref: '#/components/headers/X-Ratelimit-Limit-User-Reset'
+        X-Ratelimit-Limit-Org:
+          $ref: '#/components/headers/X-Ratelimit-Limit-Org'
+        X-Ratelimit-Limit-Org-Remaining:
+          $ref: '#/components/headers/X-Ratelimit-Limit-Org-Remaining'
+        X-Ratelimit-Limit-Org-Reset:
+          $ref: '#/components/headers/X-Ratelimit-Limit-Org-Reset'
+    '404':
+      description: Not Found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/NotFoundErrors'
+      headers:
+        X-Ratelimit-Limit-User:
+          $ref: '#/components/headers/X-Ratelimit-Limit-User'
+        X-Ratelimit-Limit-User-Remaining:
+          $ref: '#/components/headers/X-Ratelimit-Limit-User-Remaining'
+        X-Ratelimit-Limit-User-Reset:
+          $ref: '#/components/headers/X-Ratelimit-Limit-User-Reset'
+        X-Ratelimit-Limit-Org:
+          $ref: '#/components/headers/X-Ratelimit-Limit-Org'
+        X-Ratelimit-Limit-Org-Remaining:
+          $ref: '#/components/headers/X-Ratelimit-Limit-Org-Remaining'
+        X-Ratelimit-Limit-Org-Reset:
+          $ref: '#/components/headers/X-Ratelimit-Limit-Org-Reset'
   securitySchemes:
     bearerAuth:
       type: http

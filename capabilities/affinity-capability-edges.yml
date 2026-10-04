@@ -1,0 +1,67 @@
+slug: affinity
+provider: Affinity
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Software & Technology
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 5
+edges:
+- tag: Opportunities
+  spec_file: affinity-opportunities-api-openapi.yml
+  capability_id: BC-410.30
+  capability_id_l1: BC-410
+  capability_name: Opportunity & Pipeline Management
+  confidence: 0.8
+  evidence: GET /v2/opportunities 'Get all Opportunities'; GET /v2/opportunities/{opportunityId} 'Get
+    a single Opportunity'; schema OpportunityPaged
+  reason: Read access to CRM opportunity (deal) records in a relationship-intelligence CRM maps to Opportunity
+    & Pipeline Management. Read-only scope, but the object is unambiguously the sales deal entity.
+- tag: Companies
+  spec_file: affinity-companies-api-openapi.yml
+  capability_id: BC-420.10
+  capability_id_l1: BC-420
+  capability_name: Customer Data Management
+  confidence: 0.7
+  evidence: GET /v2/companies — Get all Companies; GET /v2/companies/fields — Get metadata on Company
+    Fields; GET /v2/companies/{companyId}/notes — Get Notes for a Company
+  reason: Read access to company (organisation) records, their custom field metadata, list memberships
+    and notes in a relationship-intelligence CRM — i.e. maintenance and retrieval of customer/account
+    master records. Some ambiguity between customer data management and account management, so held at
+    0.7.
+- tag: Persons
+  spec_file: affinity-persons-api-openapi.yml
+  capability_id: BC-420.10
+  capability_id_l1: BC-420
+  capability_name: Customer Data Management
+  confidence: 0.7
+  evidence: GET /v2/persons 'Get all Persons'; GET /v2/persons/fields 'Get metadata on Person Fields'
+  reason: Persons are the contact master records of the CRM, with field metadata and list membership —
+    i.e. customer/contact data management. Mapped to Customer Data Management at moderate confidence since
+    the surface is read-only retrieval of contact records.
+- tag: companyMerges
+  spec_file: affinity-companymerges-api-openapi.yml
+  capability_id: BC-420.10
+  capability_id_l1: BC-420
+  capability_name: Customer Data Management
+  confidence: 0.7
+  evidence: POST /v2/company-merges 'Initiate Company Merge'; schemas CompanyMergeState, CompanyMergeTaskPaged
+  reason: Merging duplicate company records in a CRM is deduplication / identity resolution towards a
+    golden record, which is exactly Customer Data Management. Could alternatively be read as generic master
+    data management, hence not higher than 0.7.
+- tag: personMerges
+  spec_file: affinity-personmerges-api-openapi.yml
+  capability_id: BC-420.10
+  capability_id_l1: BC-420
+  capability_name: Customer Data Management
+  confidence: 0.7
+  evidence: POST /v2/person-merges 'Initiate Person Merge'; schemas PersonMergeRequest, PersonMergeState
+  reason: Merging duplicate person (contact) records is identity resolution / golden-record maintenance
+    over CRM contact data. Same reasoning and same residual ambiguity with generic MDM as the company
+    merge tag.

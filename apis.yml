@@ -228,6 +228,9 @@ apis:
   - type: Documentation
     url: https://developer.affinity.co/
 common:
+  - type: CapabilityMap
+    url: capabilities/affinity-capability-edges.yml
+    name: Affinity Business Capability Map
   - type: AgenticAccess
     url: agentic-access/affinity-agentic-access.yml
   - type: TrustCenter

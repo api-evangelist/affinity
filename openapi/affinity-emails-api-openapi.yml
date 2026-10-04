@@ -98,26 +98,32 @@ paths:
         default:
           $ref: '#/components/responses/default'
 components:
+  headers:
+    X-Ratelimit-Limit-Org-Remaining:
+      description: Number of requests remaining for the account
+      schema:
+        type: integer
+    X-Ratelimit-Limit-User-Reset:
+      description: Time in seconds before the limit resets for the user
+      schema:
+        type: integer
+    X-Ratelimit-Limit-Org:
+      description: Number of requests allowed per month for the account
+      schema:
+        type: integer
+    X-Ratelimit-Limit-User:
+      description: Number of requests allowed per minute for the user
+      schema:
+        type: integer
+    X-Ratelimit-Limit-User-Remaining:
+      description: Number of requests remaining for the user
+      schema:
+        type: integer
+    X-Ratelimit-Limit-Org-Reset:
+      description: Time in seconds before the limit resets for the account
+      schema:
+        type: integer
   schemas:
-    UnsupportedMediaTypeError:
-      title: UnsupportedMediaTypeError
-      type: object
-      properties:
-        code:
-          description: Error code
-          type: string
-          enum:
-          - unsupported-media-type
-        message:
-          description: Error message
-          type: string
-      required:
-      - code
-      - message
-      additionalProperties: false
-      examples:
-      - code: unsupported-media-type
-        message: 🚨 Error! Sound the alarm! 🚨
     AuthenticationError:
       title: AuthenticationError
       type: object
@@ -160,15 +166,15 @@ components:
       examples:
       - prevUrl: https://api.affinity.co/v2/foo?cursor=ICAgICAgYmVmb3JlOjo6Nw
         nextUrl: https://api.affinity.co/v2/foo?cursor=ICAgICAgIGFmdGVyOjo6NA
-    NotAcceptableError:
-      title: NotAcceptableError
+    AuthorizationError:
+      title: AuthorizationError
       type: object
       properties:
         code:
           description: Error code
           type: string
           enum:
-          - not-acceptable
+          - authorization
         message:
           description: Error message
           type: string
@@ -177,7 +183,69 @@ components:
       - message
       additionalProperties: false
       examples:
-      - code: not-acceptable
+      - code: authorization
+        message: 🚨 Error! Sound the alarm! 🚨
+    UnsupportedMediaTypeError:
+      title: UnsupportedMediaTypeError
+      type: object
+      properties:
+        code:
+          description: Error code
+          type: string
+          enum:
+          - unsupported-media-type
+        message:
+          description: Error message
+          type: string
+      required:
+      - code
+      - message
+      additionalProperties: false
+      examples:
+      - code: unsupported-media-type
+        message: 🚨 Error! Sound the alarm! 🚨
+    ValidationError:
+      title: ValidationError
+      type: object
+      properties:
+        code:
+          description: Error code
+          type: string
+          enum:
+          - validation
+        message:
+          description: Error message
+          type: string
+        param:
+          description: Param the error refers to
+          type: string
+      required:
+      - code
+      - message
+      - param
+      additionalProperties: false
+      examples:
+      - code: validation
+        param: limit
+        message: 🚨 Error! Sound the alarm! 🚨
+    UnprocessableEntityError:
+      title: UnprocessableEntityError
+      type: object
+      properties:
+        code:
+          description: Error code
+          type: string
+          enum:
+          - unprocessable-entity
+        message:
+          description: Error message
+          type: string
+      required:
+      - code
+      - message
+      additionalProperties: false
+      examples:
+      - code: unprocessable-entity
         message: 🚨 Error! Sound the alarm! 🚨
     interactions.Email:
       x-stability-level: beta
@@ -274,6 +342,66 @@ components:
       examples:
       - code: server
         message: 🚨 Error! Sound the alarm! 🚨
+    AttendeesPreview:
+      x-stability-level: beta
+      title: interactions.AttendeesPreview
+      type: object
+      properties:
+        data:
+          description: A preview of Attendees
+          type: array
+          items:
+            $ref: '#/components/schemas/Attendee'
+          maxItems: 100
+        totalCount:
+          description: The total count of Attendees
+          type: integer
+          format: int64
+          minimum: 0
+          maximum: 9007199254740991
+          examples:
+          - 200
+      required:
+      - data
+      - totalCount
+      additionalProperties: false
+    interactions.EmailPaged:
+      x-stability-level: beta
+      title: interactions.EmailPaged
+      description: EmailPaged model
+      type: object
+      properties:
+        data:
+          description: A page of Email results
+          type: array
+          items:
+            $ref: '#/components/schemas/interactions.Email'
+          maxItems: 100
+        pagination:
+          $ref: '#/components/schemas/PaginationWithTotalCount'
+      required:
+      - data
+      - pagination
+      additionalProperties: false
+    RateLimitError:
+      title: RateLimitError
+      type: object
+      properties:
+        code:
+          description: Error code
+          type: string
+          enum:
+          - rate-limit
+        message:
+          description: Error message
+          type: string
+      required:
+      - code
+      - message
+      additionalProperties: false
+      examples:
+      - code: rate-limit
+        message: 🚨 Error! Sound the alarm! 🚨
     NotImplementedError:
       title: NotImplementedError
       type: object
@@ -293,15 +421,15 @@ components:
       examples:
       - code: not-implemented
         message: 🚨 Error! Sound the alarm! 🚨
-    BadRequestError:
-      title: BadRequestError
+    NotAcceptableError:
+      title: NotAcceptableError
       type: object
       properties:
         code:
           description: Error code
           type: string
           enum:
-          - bad-request
+          - not-acceptable
         message:
           description: Error message
           type: string
@@ -310,7 +438,7 @@ components:
       - message
       additionalProperties: false
       examples:
-      - code: bad-request
+      - code: not-acceptable
         message: 🚨 Error! Sound the alarm! 🚨
     Errors:
       title: Errors
@@ -324,88 +452,6 @@ components:
       required:
       - errors
       additionalProperties: false
-    UnprocessableEntityError:
-      title: UnprocessableEntityError
-      type: object
-      properties:
-        code:
-          description: Error code
-          type: string
-          enum:
-          - unprocessable-entity
-        message:
-          description: Error message
-          type: string
-      required:
-      - code
-      - message
-      additionalProperties: false
-      examples:
-      - code: unprocessable-entity
-        message: 🚨 Error! Sound the alarm! 🚨
-    Error:
-      title: Error
-      oneOf:
-      - $ref: '#/components/schemas/AuthenticationError'
-      - $ref: '#/components/schemas/AuthorizationError'
-      - $ref: '#/components/schemas/BadRequestError'
-      - $ref: '#/components/schemas/ConflictError'
-      - $ref: '#/components/schemas/MethodNotAllowedError'
-      - $ref: '#/components/schemas/NotAcceptableError'
-      - $ref: '#/components/schemas/NotFoundError'
-      - $ref: '#/components/schemas/NotImplementedError'
-      - $ref: '#/components/schemas/RateLimitError'
-      - $ref: '#/components/schemas/ServerError'
-      - $ref: '#/components/schemas/UnprocessableEntityError'
-      - $ref: '#/components/schemas/UnsupportedMediaTypeError'
-      - $ref: '#/components/schemas/ValidationError'
-      discriminator:
-        propertyName: code
-        mapping:
-          authentication: '#/components/schemas/AuthenticationError'
-          authorization: '#/components/schemas/AuthorizationError'
-          bad-request: '#/components/schemas/BadRequestError'
-          conflict: '#/components/schemas/ConflictError'
-          method-not-allowed: '#/components/schemas/MethodNotAllowedError'
-          not-acceptable: '#/components/schemas/NotAcceptableError'
-          not-found: '#/components/schemas/NotFoundError'
-          not-implemented: '#/components/schemas/NotImplementedError'
-          rate-limit: '#/components/schemas/RateLimitError'
-          server: '#/components/schemas/ServerError'
-          unprocessable-entity: '#/components/schemas/UnprocessableEntityError'
-          unsupported-media-type: '#/components/schemas/UnsupportedMediaTypeError'
-          validation: '#/components/schemas/ValidationError'
-    ConflictError:
-      title: ConflictError
-      type: object
-      properties:
-        code:
-          description: Error code
-          type: string
-          enum:
-          - conflict
-        message:
-          description: Error message
-          type: string
-      required:
-      - code
-      - message
-      additionalProperties: false
-      examples:
-      - code: conflict
-        message: 🚨 Error! Sound the alarm! 🚨
-    PaginationWithTotalCount:
-      title: PaginationWithTotalCount
-      type: object
-      allOf:
-      - $ref: '#/components/schemas/Pagination'
-      properties:
-        totalCount:
-          description: The total count of the collection. Only included if requested via the totalCount query string parameter.
-          type: integer
-          format: int64
-          minimum: 0
-          maximum: 9007199254740991
     NotFoundError:
       title: NotFoundError
       type: object
@@ -445,90 +491,18 @@ components:
       - emailAddress
       - person
       additionalProperties: false
-    interactions.EmailPaged:
-      x-stability-level: beta
-      title: interactions.EmailPaged
-      description: EmailPaged model
+    PaginationWithTotalCount:
+      title: PaginationWithTotalCount
       type: object
+      allOf:
+      - $ref: '#/components/schemas/Pagination'
       properties:
-        data:
-          description: A page of Email results
-          type: array
-          items:
-            $ref: '#/components/schemas/interactions.Email'
-          maxItems: 100
-        pagination:
-          $ref: '#/components/schemas/PaginationWithTotalCount'
-      required:
-      - data
-      - pagination
-      additionalProperties: false
-    AuthorizationError:
-      title: AuthorizationError
-      type: object
-      properties:
-        code:
-          description: Error code
-          type: string
-          enum:
-          - authorization
-        message:
-          description: Error message
-          type: string
-      required:
-      - code
-      - message
-      additionalProperties: false
-      examples:
-      - code: authorization
-        message: 🚨 Error! Sound the alarm! 🚨
-    ValidationError:
-      title: ValidationError
-      type: object
-      properties:
-        code:
-          description: Error code
-          type: string
-          enum:
-          - validation
-        message:
-          description: Error message
-          type: string
-        param:
-          description: Param the error refers to
-          type: string
-      required:
-      - code
-      - message
-      - param
-      additionalProperties: false
-      examples:
-      - code: validation
-        param: limit
-        message: 🚨 Error! Sound the alarm! 🚨
-    AttendeesPreview:
-      x-stability-level: beta
-      title: interactions.AttendeesPreview
-      type: object
-      properties:
-        data:
-          description: A preview of Attendees
-          type: array
-          items:
-            $ref: '#/components/schemas/Attendee'
-          maxItems: 100
         totalCount:
-          description: The total count of Attendees
+          description: The total count of the collection. Only included if requested via the totalCount query string parameter.
           type: integer
           format: int64
           minimum: 0
           maximum: 9007199254740991
-          examples:
-          - 200
-      required:
-      - data
-      - totalCount
-      additionalProperties: false
     MethodNotAllowedError:
       title: MethodNotAllowedError
       type: object
@@ -548,6 +522,57 @@ components:
       examples:
       - code: method-not-allowed
         message: 🚨 Error! Sound the alarm! 🚨
+    ConflictError:
+      title: ConflictError
+      type: object
+      properties:
+        code:
+          description: Error code
+          type: string
+          enum:
+          - conflict
+        message:
+          description: Error message
+          type: string
+      required:
+      - code
+      - message
+      additionalProperties: false
+      examples:
+      - code: conflict
+        message: 🚨 Error! Sound the alarm! 🚨
+    Error:
+      title: Error
+      oneOf:
+      - $ref: '#/components/schemas/AuthenticationError'
+      - $ref: '#/components/schemas/AuthorizationError'
+      - $ref: '#/components/schemas/BadRequestError'
+      - $ref: '#/components/schemas/ConflictError'
+      - $ref: '#/components/schemas/MethodNotAllowedError'
+      - $ref: '#/components/schemas/NotAcceptableError'
+      - $ref: '#/components/schemas/NotFoundError'
+      - $ref: '#/components/schemas/NotImplementedError'
+      - $ref: '#/components/schemas/RateLimitError'
+      - $ref: '#/components/schemas/ServerError'
+      - $ref: '#/components/schemas/UnprocessableEntityError'
+      - $ref: '#/components/schemas/UnsupportedMediaTypeError'
+      - $ref: '#/components/schemas/ValidationError'
+      discriminator:
+        propertyName: code
+        mapping:
+          authentication: '#/components/schemas/AuthenticationError'
+          authorization: '#/components/schemas/AuthorizationError'
+          bad-request: '#/components/schemas/BadRequestError'
+          conflict: '#/components/schemas/ConflictError'
+          method-not-allowed: '#/components/schemas/MethodNotAllowedError'
+          not-acceptable: '#/components/schemas/NotAcceptableError'
+          not-found: '#/components/schemas/NotFoundError'
+          not-implemented: '#/components/schemas/NotImplementedError'
+          rate-limit: '#/components/schemas/RateLimitError'
+          server: '#/components/schemas/ServerError'
+          unprocessable-entity: '#/components/schemas/UnprocessableEntityError'
+          unsupported-media-type: '#/components/schemas/UnsupportedMediaTypeError'
+          validation: '#/components/schemas/ValidationError'
     PersonData:
       title: PersonData
       type: object
@@ -598,15 +623,15 @@ components:
       - primaryEmailAddress
       - type
       additionalProperties: false
-    RateLimitError:
-      title: RateLimitError
+    BadRequestError:
+      title: BadRequestError
       type: object
       properties:
         code:
           description: Error code
           type: string
           enum:
-          - rate-limit
+          - bad-request
         message:
           description: Error message
           type: string
@@ -615,33 +640,8 @@ components:
       - message
       additionalProperties: false
       examples:
-      - code: rate-limit
+      - code: bad-request
         message: 🚨 Error! Sound the alarm! 🚨
-  headers:
-    X-Ratelimit-Limit-Org-Reset:
-      description: Time in seconds before the limit resets for the account
-      schema:
-        type: integer
-    X-Ratelimit-Limit-Org:
-      description: Number of requests allowed per month for the account
-      schema:
-        type: integer
-    X-Ratelimit-Limit-User-Reset:
-      description: Time in seconds before the limit resets for the user
-      schema:
-        type: integer
-    X-Ratelimit-Limit-User-Remaining:
-      description: Number of requests remaining for the user
-      schema:
-        type: integer
-    X-Ratelimit-Limit-Org-Remaining:
-      description: Number of requests remaining for the account
-      schema:
-        type: integer
-    X-Ratelimit-Limit-User:
-      description: Number of requests allowed per minute for the user
-      schema:
-        type: integer
   responses:
     '400':
       description: Bad Request

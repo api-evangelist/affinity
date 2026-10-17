@@ -417,31 +417,6 @@ paths:
         default:
           $ref: '#/components/responses/default'
 components:
-  headers:
-    X-Ratelimit-Limit-Org-Remaining:
-      description: Number of requests remaining for the account
-      schema:
-        type: integer
-    X-Ratelimit-Limit-User-Reset:
-      description: Time in seconds before the limit resets for the user
-      schema:
-        type: integer
-    X-Ratelimit-Limit-Org:
-      description: Number of requests allowed per month for the account
-      schema:
-        type: integer
-    X-Ratelimit-Limit-User:
-      description: Number of requests allowed per minute for the user
-      schema:
-        type: integer
-    X-Ratelimit-Limit-User-Remaining:
-      description: Number of requests remaining for the user
-      schema:
-        type: integer
-    X-Ratelimit-Limit-Org-Reset:
-      description: Time in seconds before the limit resets for the account
-      schema:
-        type: integer
   schemas:
     AuthenticationError:
       title: AuthenticationError
@@ -462,48 +437,62 @@ components:
       examples:
       - code: authentication
         message: 🚨 Error! Sound the alarm! 🚨
-    Pagination:
-      title: Pagination
+    PersonMergeStatePaged:
+      x-stability-level: beta
+      title: PersonMergeStatePaged
+      description: Paginated person merge states
       type: object
       properties:
-        prevUrl:
-          description: URL for the previous page
-          type:
-          - string
-          - 'null'
-          format: uri
-          examples:
-          - https://api.affinity.co/v2/foo?cursor=ICAgICAgYmVmb3JlOjo6Nw
-        nextUrl:
-          description: URL for the next page
-          type:
-          - string
-          - 'null'
-          format: uri
-          examples:
-          - https://api.affinity.co/v2/foo?cursor=ICAgICAgIGFmdGVyOjo6NA
-      examples:
-      - prevUrl: https://api.affinity.co/v2/foo?cursor=ICAgICAgYmVmb3JlOjo6Nw
-        nextUrl: https://api.affinity.co/v2/foo?cursor=ICAgICAgIGFmdGVyOjo6NA
-    NotFoundErrors:
-      title: NotFoundErrors
-      description: NotFoundErrors model
-      type: object
-      properties:
-        errors:
-          description: NotFoundError errors
+        data:
+          description: Array of person merge states
           type: array
+          maxItems: 100
           items:
-            $ref: '#/components/schemas/NotFoundError'
+            $ref: '#/components/schemas/PersonMergeState'
+        pagination:
+          $ref: '#/components/schemas/Pagination'
       required:
-      - errors
+      - data
+      - pagination
+      additionalProperties: false
+    ConflictError:
+      title: ConflictError
+      type: object
+      properties:
+        code:
+          description: Error code
+          type: string
+          enum:
+          - conflict
+        message:
+          description: Error message
+          type: string
+      required:
+      - code
+      - message
       additionalProperties: false
       examples:
-      - errors:
-        - code: not-found
-          message: 🚨 Error! Sound the alarm! 🚨
-        - code: not-found
-          message: 🚨 Error! Sound the alarm! 🚨
+      - code: conflict
+        message: 🚨 Error! Sound the alarm! 🚨
+    AuthorizationError:
+      title: AuthorizationError
+      type: object
+      properties:
+        code:
+          description: Error code
+          type: string
+          enum:
+          - authorization
+        message:
+          description: Error message
+          type: string
+      required:
+      - code
+      - message
+      additionalProperties: false
+      examples:
+      - code: authorization
+        message: 🚨 Error! Sound the alarm! 🚨
     PersonMergeTaskPaged:
       x-stability-level: beta
       title: PersonMergeTaskPaged
@@ -537,88 +526,6 @@ components:
       - data
       - pagination
       additionalProperties: false
-    AuthorizationError:
-      title: AuthorizationError
-      type: object
-      properties:
-        code:
-          description: Error code
-          type: string
-          enum:
-          - authorization
-        message:
-          description: Error message
-          type: string
-      required:
-      - code
-      - message
-      additionalProperties: false
-      examples:
-      - code: authorization
-        message: 🚨 Error! Sound the alarm! 🚨
-    PersonMergeStatePaged:
-      x-stability-level: beta
-      title: PersonMergeStatePaged
-      description: Paginated person merge states
-      type: object
-      properties:
-        data:
-          description: Array of person merge states
-          type: array
-          maxItems: 100
-          items:
-            $ref: '#/components/schemas/PersonMergeState'
-        pagination:
-          $ref: '#/components/schemas/Pagination'
-      required:
-      - data
-      - pagination
-      additionalProperties: false
-    UnsupportedMediaTypeError:
-      title: UnsupportedMediaTypeError
-      type: object
-      properties:
-        code:
-          description: Error code
-          type: string
-          enum:
-          - unsupported-media-type
-        message:
-          description: Error message
-          type: string
-      required:
-      - code
-      - message
-      additionalProperties: false
-      examples:
-      - code: unsupported-media-type
-        message: 🚨 Error! Sound the alarm! 🚨
-    PersonMergeRequest:
-      x-stability-level: beta
-      title: PersonMergeRequest
-      description: Request body for initiating a person merge
-      type: object
-      properties:
-        primaryPersonId:
-          description: The ID of the person profile that will be kept after the merge. All data from the duplicate person will be merged into this person.
-          type: integer
-          format: int64
-          minimum: 1
-          maximum: 9007199254740991
-          examples:
-          - 12345
-        duplicatePersonId:
-          description: The ID of the person profile that will be merged and then deleted. All data from this person will be transferred to the primary person.
-          type: integer
-          format: int64
-          minimum: 1
-          maximum: 9007199254740991
-          examples:
-          - 67890
-      required:
-      - primaryPersonId
-      - duplicatePersonId
-      additionalProperties: false
     ValidationError:
       title: ValidationError
       type: object
@@ -643,15 +550,27 @@ components:
       - code: validation
         param: limit
         message: 🚨 Error! Sound the alarm! 🚨
-    UnprocessableEntityError:
-      title: UnprocessableEntityError
+    Errors:
+      title: Errors
+      type: object
+      properties:
+        errors:
+          description: Errors
+          type: array
+          items:
+            $ref: '#/components/schemas/Error'
+      required:
+      - errors
+      additionalProperties: false
+    MethodNotAllowedError:
+      title: MethodNotAllowedError
       type: object
       properties:
         code:
           description: Error code
           type: string
           enum:
-          - unprocessable-entity
+          - method-not-allowed
         message:
           description: Error message
           type: string
@@ -660,26 +579,7 @@ components:
       - message
       additionalProperties: false
       examples:
-      - code: unprocessable-entity
-        message: 🚨 Error! Sound the alarm! 🚨
-    ServerError:
-      title: ServerError
-      type: object
-      properties:
-        code:
-          description: Error code
-          type: string
-          enum:
-          - server
-        message:
-          description: Error message
-          type: string
-      required:
-      - code
-      - message
-      additionalProperties: false
-      examples:
-      - code: server
+      - code: method-not-allowed
         message: 🚨 Error! Sound the alarm! 🚨
     RateLimitError:
       title: RateLimitError
@@ -700,56 +600,57 @@ components:
       examples:
       - code: rate-limit
         message: 🚨 Error! Sound the alarm! 🚨
-    NotImplementedError:
-      title: NotImplementedError
-      type: object
-      properties:
-        code:
-          description: Error code
-          type: string
-          enum:
-          - not-implemented
-        message:
-          description: Error message
-          type: string
-      required:
-      - code
-      - message
-      additionalProperties: false
-      examples:
-      - code: not-implemented
-        message: 🚨 Error! Sound the alarm! 🚨
-    NotAcceptableError:
-      title: NotAcceptableError
-      type: object
-      properties:
-        code:
-          description: Error code
-          type: string
-          enum:
-          - not-acceptable
-        message:
-          description: Error message
-          type: string
-      required:
-      - code
-      - message
-      additionalProperties: false
-      examples:
-      - code: not-acceptable
-        message: 🚨 Error! Sound the alarm! 🚨
-    Errors:
-      title: Errors
+    Error:
+      title: Error
+      oneOf:
+      - $ref: '#/components/schemas/AuthenticationError'
+      - $ref: '#/components/schemas/AuthorizationError'
+      - $ref: '#/components/schemas/BadRequestError'
+      - $ref: '#/components/schemas/ConflictError'
+      - $ref: '#/components/schemas/MethodNotAllowedError'
+      - $ref: '#/components/schemas/NotAcceptableError'
+      - $ref: '#/components/schemas/NotFoundError'
+      - $ref: '#/components/schemas/NotImplementedError'
+      - $ref: '#/components/schemas/RateLimitError'
+      - $ref: '#/components/schemas/ServerError'
+      - $ref: '#/components/schemas/UnprocessableEntityError'
+      - $ref: '#/components/schemas/UnsupportedMediaTypeError'
+      - $ref: '#/components/schemas/ValidationError'
+      discriminator:
+        propertyName: code
+        mapping:
+          authentication: '#/components/schemas/AuthenticationError'
+          authorization: '#/components/schemas/AuthorizationError'
+          bad-request: '#/components/schemas/BadRequestError'
+          conflict: '#/components/schemas/ConflictError'
+          method-not-allowed: '#/components/schemas/MethodNotAllowedError'
+          not-acceptable: '#/components/schemas/NotAcceptableError'
+          not-found: '#/components/schemas/NotFoundError'
+          not-implemented: '#/components/schemas/NotImplementedError'
+          rate-limit: '#/components/schemas/RateLimitError'
+          server: '#/components/schemas/ServerError'
+          unprocessable-entity: '#/components/schemas/UnprocessableEntityError'
+          unsupported-media-type: '#/components/schemas/UnsupportedMediaTypeError'
+          validation: '#/components/schemas/ValidationError'
+    AuthorizationErrors:
+      title: AuthorizationErrors
+      description: AuthorizationErrors model
       type: object
       properties:
         errors:
-          description: Errors
+          description: AuthorizationError errors
           type: array
           items:
-            $ref: '#/components/schemas/Error'
+            $ref: '#/components/schemas/AuthorizationError'
       required:
       - errors
       additionalProperties: false
+      examples:
+      - errors:
+        - code: authorization
+          message: 🚨 Error! Sound the alarm! 🚨
+        - code: authorization
+          message: 🚨 Error! Sound the alarm! 🚨
     PersonMergeState:
       x-stability-level: beta
       title: PersonMergeState
@@ -828,15 +729,15 @@ components:
       - completedAt
       - errorMessage
       additionalProperties: false
-    NotFoundError:
-      title: NotFoundError
+    UnsupportedMediaTypeError:
+      title: UnsupportedMediaTypeError
       type: object
       properties:
         code:
           description: Error code
           type: string
           enum:
-          - not-found
+          - unsupported-media-type
         message:
           description: Error message
           type: string
@@ -845,112 +746,46 @@ components:
       - message
       additionalProperties: false
       examples:
-      - code: not-found
+      - code: unsupported-media-type
         message: 🚨 Error! Sound the alarm! 🚨
-    AuthorizationErrors:
-      title: AuthorizationErrors
-      description: AuthorizationErrors model
+    NotImplementedError:
+      title: NotImplementedError
+      type: object
+      properties:
+        code:
+          description: Error code
+          type: string
+          enum:
+          - not-implemented
+        message:
+          description: Error message
+          type: string
+      required:
+      - code
+      - message
+      additionalProperties: false
+      examples:
+      - code: not-implemented
+        message: 🚨 Error! Sound the alarm! 🚨
+    NotFoundErrors:
+      title: NotFoundErrors
+      description: NotFoundErrors model
       type: object
       properties:
         errors:
-          description: AuthorizationError errors
+          description: NotFoundError errors
           type: array
           items:
-            $ref: '#/components/schemas/AuthorizationError'
+            $ref: '#/components/schemas/NotFoundError'
       required:
       - errors
       additionalProperties: false
       examples:
       - errors:
-        - code: authorization
+        - code: not-found
           message: 🚨 Error! Sound the alarm! 🚨
-        - code: authorization
+        - code: not-found
           message: 🚨 Error! Sound the alarm! 🚨
-    PersonMergeResponse:
-      x-stability-level: beta
-      title: PersonMergeResponse
-      description: Response body for initiating a person merge
-      type: object
-      properties:
-        taskUrl:
-          description: URL to check the status of the merge task
-          type: string
-          format: uri
-          examples:
-          - https://api.affinit.com/tasks/person-merges/123e4567-e89b-12d3-a456-426614174000
-      required:
-      - taskUrl
-      additionalProperties: false
-    MethodNotAllowedError:
-      title: MethodNotAllowedError
-      type: object
-      properties:
-        code:
-          description: Error code
-          type: string
-          enum:
-          - method-not-allowed
-        message:
-          description: Error message
-          type: string
-      required:
-      - code
-      - message
-      additionalProperties: false
-      examples:
-      - code: method-not-allowed
-        message: 🚨 Error! Sound the alarm! 🚨
-    ConflictError:
-      title: ConflictError
-      type: object
-      properties:
-        code:
-          description: Error code
-          type: string
-          enum:
-          - conflict
-        message:
-          description: Error message
-          type: string
-      required:
-      - code
-      - message
-      additionalProperties: false
-      examples:
-      - code: conflict
-        message: 🚨 Error! Sound the alarm! 🚨
-    Error:
-      title: Error
-      oneOf:
-      - $ref: '#/components/schemas/AuthenticationError'
-      - $ref: '#/components/schemas/AuthorizationError'
-      - $ref: '#/components/schemas/BadRequestError'
-      - $ref: '#/components/schemas/ConflictError'
-      - $ref: '#/components/schemas/MethodNotAllowedError'
-      - $ref: '#/components/schemas/NotAcceptableError'
-      - $ref: '#/components/schemas/NotFoundError'
-      - $ref: '#/components/schemas/NotImplementedError'
-      - $ref: '#/components/schemas/RateLimitError'
-      - $ref: '#/components/schemas/ServerError'
-      - $ref: '#/components/schemas/UnprocessableEntityError'
-      - $ref: '#/components/schemas/UnsupportedMediaTypeError'
-      - $ref: '#/components/schemas/ValidationError'
-      discriminator:
-        propertyName: code
-        mapping:
-          authentication: '#/components/schemas/AuthenticationError'
-          authorization: '#/components/schemas/AuthorizationError'
-          bad-request: '#/components/schemas/BadRequestError'
-          conflict: '#/components/schemas/ConflictError'
-          method-not-allowed: '#/components/schemas/MethodNotAllowedError'
-          not-acceptable: '#/components/schemas/NotAcceptableError'
-          not-found: '#/components/schemas/NotFoundError'
-          not-implemented: '#/components/schemas/NotImplementedError'
-          rate-limit: '#/components/schemas/RateLimitError'
-          server: '#/components/schemas/ServerError'
-          unprocessable-entity: '#/components/schemas/UnprocessableEntityError'
-          unsupported-media-type: '#/components/schemas/UnsupportedMediaTypeError'
-          validation: '#/components/schemas/ValidationError'
     PersonMergeTask:
       x-stability-level: beta
       title: PersonMergeTask
@@ -1019,6 +854,146 @@ components:
       - status
       - resultsSummary
       additionalProperties: false
+    NotAcceptableError:
+      title: NotAcceptableError
+      type: object
+      properties:
+        code:
+          description: Error code
+          type: string
+          enum:
+          - not-acceptable
+        message:
+          description: Error message
+          type: string
+      required:
+      - code
+      - message
+      additionalProperties: false
+      examples:
+      - code: not-acceptable
+        message: 🚨 Error! Sound the alarm! 🚨
+    Pagination:
+      title: Pagination
+      type: object
+      properties:
+        prevUrl:
+          description: URL for the previous page
+          type:
+          - string
+          - 'null'
+          format: uri
+          examples:
+          - https://api.affinity.co/v2/foo?cursor=ICAgICAgYmVmb3JlOjo6Nw
+        nextUrl:
+          description: URL for the next page
+          type:
+          - string
+          - 'null'
+          format: uri
+          examples:
+          - https://api.affinity.co/v2/foo?cursor=ICAgICAgIGFmdGVyOjo6NA
+      examples:
+      - prevUrl: https://api.affinity.co/v2/foo?cursor=ICAgICAgYmVmb3JlOjo6Nw
+        nextUrl: https://api.affinity.co/v2/foo?cursor=ICAgICAgIGFmdGVyOjo6NA
+    PersonMergeRequest:
+      x-stability-level: beta
+      title: PersonMergeRequest
+      description: Request body for initiating a person merge
+      type: object
+      properties:
+        primaryPersonId:
+          description: The ID of the person profile that will be kept after the merge. All data from the duplicate person will be merged into this person.
+          type: integer
+          format: int64
+          minimum: 1
+          maximum: 9007199254740991
+          examples:
+          - 12345
+        duplicatePersonId:
+          description: The ID of the person profile that will be merged and then deleted. All data from this person will be transferred to the primary person.
+          type: integer
+          format: int64
+          minimum: 1
+          maximum: 9007199254740991
+          examples:
+          - 67890
+      required:
+      - primaryPersonId
+      - duplicatePersonId
+      additionalProperties: false
+    ServerError:
+      title: ServerError
+      type: object
+      properties:
+        code:
+          description: Error code
+          type: string
+          enum:
+          - server
+        message:
+          description: Error message
+          type: string
+      required:
+      - code
+      - message
+      additionalProperties: false
+      examples:
+      - code: server
+        message: 🚨 Error! Sound the alarm! 🚨
+    UnprocessableEntityError:
+      title: UnprocessableEntityError
+      type: object
+      properties:
+        code:
+          description: Error code
+          type: string
+          enum:
+          - unprocessable-entity
+        message:
+          description: Error message
+          type: string
+      required:
+      - code
+      - message
+      additionalProperties: false
+      examples:
+      - code: unprocessable-entity
+        message: 🚨 Error! Sound the alarm! 🚨
+    PersonMergeResponse:
+      x-stability-level: beta
+      title: PersonMergeResponse
+      description: Response body for initiating a person merge
+      type: object
+      properties:
+        taskUrl:
+          description: URL to check the status of the merge task
+          type: string
+          format: uri
+          examples:
+          - https://api.affinit.com/tasks/person-merges/123e4567-e89b-12d3-a456-426614174000
+      required:
+      - taskUrl
+      additionalProperties: false
+    NotFoundError:
+      title: NotFoundError
+      type: object
+      properties:
+        code:
+          description: Error code
+          type: string
+          enum:
+          - not-found
+        message:
+          description: Error message
+          type: string
+      required:
+      - code
+      - message
+      additionalProperties: false
+      examples:
+      - code: not-found
+        message: 🚨 Error! Sound the alarm! 🚨
     BadRequestError:
       title: BadRequestError
       type: object
@@ -1039,6 +1014,25 @@ components:
       - code: bad-request
         message: 🚨 Error! Sound the alarm! 🚨
   examples:
+    in-progress-merge-2:
+      x-stability-level: beta
+      summary: In-progress person merge
+      description: Example of a person merge currently being processed
+      value:
+        id: 98765
+        status: in-progress
+        taskId: 456e7890-e12b-34c5-d678-901234567890
+        startedAt: '2025-06-03T11:45:00Z'
+        primaryPersonId: 24680
+        duplicatePersonId: 13579
+        completedAt: null
+        errorMessage: null
+    merge-initiated-2:
+      x-stability-level: beta
+      summary: Merge task initiated
+      description: Response when a person merge task has been accepted for processing. The task ID can be used to track the progress of the merge task.
+      value:
+        taskUrl: https://api.affinity.co/v2/tasks/person-merges/123e4567-e89b-12d3-a456-426614174000
     succeeded-merge-2:
       x-stability-level: beta
       summary: Succeeded person merge
@@ -1052,53 +1046,17 @@ components:
         duplicatePersonId: 67890
         completedAt: '2025-06-03T10:32:15Z'
         errorMessage: null
-    failed-merge-2:
+    task-success:
       x-stability-level: beta
-      summary: Failed person merge
-      description: Example of a failed person merge with error details
+      summary: Merge task succeeded
+      description: Example response showing a merge task that has been successfully completed.
       value:
-        id: 67890
-        status: failed
-        taskId: 789e0123-e45b-67c8-d901-234567890123
-        startedAt: '2025-06-03T09:15:00Z'
-        primaryPersonId: 54321
-        duplicatePersonId: 98765
-        completedAt: '2025-06-03T09:16:30Z'
-        errorMessage: Primary person not found
-    tasks-list:
-      x-stability-level: beta
-      summary: Person merge tasks
-      description: Example response showing multiple person merge tasks with different statuses
-      value:
-        data:
-        - id: 123e4567-e89b-12d3-a456-426614174000
-          status: success
-          resultsSummary:
-            total: 1
-            inProgress: 0
-            success: 1
-            failed: 0
-        - id: 456e7890-e12b-34c5-d678-901234567890
-          status: failed
-          resultsSummary:
-            total: 1
-            inProgress: 0
-            success: 0
-            failed: 1
-        pagination:
-          nextUrl: https://api.affinity.co/v2/tasks/person-merges?cursor=eyJpZCI6NDU2ZTc4OTAtZTEyYi0zNGM1LWQ2NzgtOTAxMjM0NTY3ODkwfQ==
-          prevUrl: null
-    task-in-progress:
-      x-stability-level: beta
-      summary: Merge task in progress
-      description: Example response showing a merge task that is currently being processed.
-      value:
-        id: 456e7890-e12b-34c5-d678-901234567890
-        status: in-progress
+        id: 76b45575-c17a-4b73-b455-75c17a9b737c
+        status: success
         resultsSummary:
           total: 1
-          inProgress: 1
-          success: 0
+          inProgress: 0
+          success: 1
           failed: 0
     merges-list-2:
       x-stability-level: beta
@@ -1125,19 +1083,38 @@ components:
         pagination:
           nextUrl: https://api.affinity.co/v2/persons/merge?cursor=eyJpZCI6NDU2ZTc4OTAtZTEyYi0zNGM1LWQ2NzgtOTAxMjM0NTY3ODkwfQ==
           prevUrl: null
-    in-progress-merge-2:
+    task-in-progress:
       x-stability-level: beta
-      summary: In-progress person merge
-      description: Example of a person merge currently being processed
+      summary: Merge task in progress
+      description: Example response showing a merge task that is currently being processed.
       value:
-        id: 98765
+        id: 456e7890-e12b-34c5-d678-901234567890
         status: in-progress
-        taskId: 456e7890-e12b-34c5-d678-901234567890
-        startedAt: '2025-06-03T11:45:00Z'
-        primaryPersonId: 24680
-        duplicatePersonId: 13579
-        completedAt: null
-        errorMessage: null
+        resultsSummary:
+          total: 1
+          inProgress: 1
+          success: 0
+          failed: 0
+    merge-persons:
+      x-stability-level: beta
+      summary: Merge two person profiles
+      description: Example request to merge a duplicate person profile into a primary person profile. The primary person (ID 12345) will be kept and all data from the duplicate person (ID 67890) will be merged into it.
+      value:
+        primaryPersonId: 12345
+        duplicatePersonId: 67890
+    failed-merge-2:
+      x-stability-level: beta
+      summary: Failed person merge
+      description: Example of a failed person merge with error details
+      value:
+        id: 67890
+        status: failed
+        taskId: 789e0123-e45b-67c8-d901-234567890123
+        startedAt: '2025-06-03T09:15:00Z'
+        primaryPersonId: 54321
+        duplicatePersonId: 98765
+        completedAt: '2025-06-03T09:16:30Z'
+        errorMessage: Primary person not found
     task-failed:
       x-stability-level: beta
       summary: Merge task failed
@@ -1150,51 +1127,55 @@ components:
           inProgress: 0
           success: 0
           failed: 1
-    task-success:
+    tasks-list:
       x-stability-level: beta
-      summary: Merge task succeeded
-      description: Example response showing a merge task that has been successfully completed.
+      summary: Person merge tasks
+      description: Example response showing multiple person merge tasks with different statuses
       value:
-        id: 76b45575-c17a-4b73-b455-75c17a9b737c
-        status: success
-        resultsSummary:
-          total: 1
-          inProgress: 0
-          success: 1
-          failed: 0
-    merge-persons:
-      x-stability-level: beta
-      summary: Merge two person profiles
-      description: Example request to merge a duplicate person profile into a primary person profile. The primary person (ID 12345) will be kept and all data from the duplicate person (ID 67890) will be merged into it.
-      value:
-        primaryPersonId: 12345
-        duplicatePersonId: 67890
-    merge-initiated-2:
-      x-stability-level: beta
-      summary: Merge task initiated
-      description: Response when a person merge task has been accepted for processing. The task ID can be used to track the progress of the merge task.
-      value:
-        taskUrl: https://api.affinity.co/v2/tasks/person-merges/123e4567-e89b-12d3-a456-426614174000
+        data:
+        - id: 123e4567-e89b-12d3-a456-426614174000
+          status: success
+          resultsSummary:
+            total: 1
+            inProgress: 0
+            success: 1
+            failed: 0
+        - id: 456e7890-e12b-34c5-d678-901234567890
+          status: failed
+          resultsSummary:
+            total: 1
+            inProgress: 0
+            success: 0
+            failed: 1
+        pagination:
+          nextUrl: https://api.affinity.co/v2/tasks/person-merges?cursor=eyJpZCI6NDU2ZTc4OTAtZTEyYi0zNGM1LWQ2NzgtOTAxMjM0NTY3ODkwfQ==
+          prevUrl: null
+  headers:
+    X-Ratelimit-Limit-Org-Remaining:
+      description: Number of requests remaining for the account
+      schema:
+        type: integer
+    X-Ratelimit-Limit-User-Reset:
+      description: Time in seconds before the limit resets for the user
+      schema:
+        type: integer
+    X-Ratelimit-Limit-Org-Reset:
+      description: Time in seconds before the limit resets for the account
+      schema:
+        type: integer
+    X-Ratelimit-Limit-User:
+      description: Number of requests allowed per minute for the user
+      schema:
+        type: integer
+    X-Ratelimit-Limit-Org:
+      description: Number of requests allowed per month for the account
+      schema:
+        type: integer
+    X-Ratelimit-Limit-User-Remaining:
+      description: Number of requests remaining for the user
+      schema:
+        type: integer
   responses:
-    '404':
-      description: Not Found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/NotFoundErrors'
-      headers:
-        X-Ratelimit-Limit-User:
-          $ref: '#/components/headers/X-Ratelimit-Limit-User'
-        X-Ratelimit-Limit-User-Remaining:
-          $ref: '#/components/headers/X-Ratelimit-Limit-User-Remaining'
-        X-Ratelimit-Limit-User-Reset:
-          $ref: '#/components/headers/X-Ratelimit-Limit-User-Reset'
-        X-Ratelimit-Limit-Org:
-          $ref: '#/components/headers/X-Ratelimit-Limit-Org'
-        X-Ratelimit-Limit-Org-Remaining:
-          $ref: '#/components/headers/X-Ratelimit-Limit-Org-Remaining'
-        X-Ratelimit-Limit-Org-Reset:
-          $ref: '#/components/headers/X-Ratelimit-Limit-Org-Reset'
     '400':
       description: Bad Request
       content:
@@ -1230,6 +1211,25 @@ components:
           $ref: '#/components/headers/X-Ratelimit-Limit-Org-Remaining'
         X-Ratelimit-Limit-Org-Reset:
           $ref: '#/components/headers/X-Ratelimit-Limit-Org-Reset'
+    '403':
+      description: Forbidden
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/AuthorizationErrors'
+      headers:
+        X-Ratelimit-Limit-User:
+          $ref: '#/components/headers/X-Ratelimit-Limit-User'
+        X-Ratelimit-Limit-User-Remaining:
+          $ref: '#/components/headers/X-Ratelimit-Limit-User-Remaining'
+        X-Ratelimit-Limit-User-Reset:
+          $ref: '#/components/headers/X-Ratelimit-Limit-User-Reset'
+        X-Ratelimit-Limit-Org:
+          $ref: '#/components/headers/X-Ratelimit-Limit-Org'
+        X-Ratelimit-Limit-Org-Remaining:
+          $ref: '#/components/headers/X-Ratelimit-Limit-Org-Remaining'
+        X-Ratelimit-Limit-Org-Reset:
+          $ref: '#/components/headers/X-Ratelimit-Limit-Org-Reset'
     default:
       description: Errors
       content:
@@ -1249,12 +1249,12 @@ components:
           $ref: '#/components/headers/X-Ratelimit-Limit-Org-Remaining'
         X-Ratelimit-Limit-Org-Reset:
           $ref: '#/components/headers/X-Ratelimit-Limit-Org-Reset'
-    '403':
-      description: Forbidden
+    '404':
+      description: Not Found
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/AuthorizationErrors'
+            $ref: '#/components/schemas/NotFoundErrors'
       headers:
         X-Ratelimit-Limit-User:
           $ref: '#/components/headers/X-Ratelimit-Limit-User'

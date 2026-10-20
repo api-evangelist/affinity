@@ -9,6 +9,7 @@ checked:
 - https://fivetran.com/docs/connectors/partner-built-program
 - https://github.com/meltano/hub
 - https://github.com/n8n-io/n8n/tree/860f1273ebd73fabbd668cbec2c49ed9b48a286d/packages/nodes-base/nodes/
+- https://github.com/n8n-io/n8n/tree/f73dc337f8dc61a4fd44aebe41c55faafe4f53a4/packages/nodes-base/nodes/
 - https://monid.ai/tools/affinity
 - https://n8n.io/integrations/affinity/
 - https://zapier.com/api/v4/apps/
@@ -807,56 +808,40 @@ marketplace_apps:
   - key: AFFINITY_GET_METADATA_ON_PERSON_FIELDS
   - key: AFFINITY_GET_METADATA_ON_SAVED_VIEWS
 edges:
-- partner_name: Zapier
-  partner: zapier
-  partner_match: aggregator
+- partner_name: Slack (own)
+  partner: slack
+  partner_match: mirror
+  mirror_match: domain
   type: marketplace
-  marketplace: zapier-directory
-  channel: ipaas-listing
-  relationship: ipaas-bridge
+  relationship: platform-app
   direction: third-party
-  evidence: https://zapier.com/apps/affinity/integrations
-  category: null
-  contract_reference:
-    register: Zapier app directory (zapier.com/api/v4/apps)
-    spec_file: null
-    role: ipaas-connector:zapier
-    registered_name: Affinity
-    matched_domain: affinity.co
-    matched_by: domain
-    detected_by: sweep-workflow-automation.py
-    detected: '2026-10-15'
-    signal_note: one edge per (provider, platform); actions, triggers and usage counts are context, never read
-    app_slug: affinity
-    beta: false
-    builder: unknown (not in the directory record)
-  detected_by: sweep-workflow-automation.py
-  first_seen: '2026-10-15'
-- partner_name: n8n
-  partner: n8n
-  partner_match: aggregator
+  channel: partner-built
+  marketplace: own
+  evidence: https://slack.com/marketplace/A074EPN6LBF-affinity
+  mirror_of: slack/integrations/slack-integration-edges.yml
+  apps:
+  - Affinity
+  listing_count: 1
+  detected: '2026-10-18'
+  detected_by: mirror-platform-listings.py
+  category: Slack app
+- partner_name: Zoom (own)
+  partner: zoom
+  partner_match: mirror
+  mirror_match: domain
   type: marketplace
-  marketplace: n8n-nodes-base
-  channel: open-source-node
-  relationship: ipaas-bridge
+  relationship: platform-app
   direction: third-party
-  evidence: https://github.com/n8n-io/n8n/tree/860f1273ebd73fabbd668cbec2c49ed9b48a286d/packages/nodes-base/nodes/Affinity
-  category: null
-  contract_reference:
-    register: n8n built-in nodes (n8n-io/n8n packages/nodes-base)
-    spec_file: null
-    role: ipaas-connector:n8n-nodes-base
-    registered_name: Affinity
-    matched_domain: affinity.co
-    matched_by: domain
-    detected_by: sweep-workflow-automation.py
-    detected: '2026-10-15'
-    signal_note: one edge per (provider, platform); actions, triggers and usage counts are context, never read
-    node_path: Affinity
-    trigger: true
-    builder: n8n (built-in node)
-  detected_by: sweep-workflow-automation.py
-  first_seen: '2026-10-15'
+  channel: partner-built
+  marketplace: own
+  evidence: https://marketplace.zoom.us/apps/6cPx-hftQlac0M1BExfYSw
+  mirror_of: zoom/integrations/zoom-integration-edges.yml
+  apps:
+  - Affinity Notetaker
+  listing_count: 1
+  detected: '2026-10-18'
+  detected_by: mirror-platform-listings.py
+  category: Zoom app
 - partner_name: Fivetran
   partner: fivetran
   partner_match: aggregator
@@ -912,38 +897,54 @@ edges:
     builder: 'community (Meltano Hub variant maintainers: hotgluexyz)'
   detected_by: sweep-data-integration.py
   first_seen: '2026-10-18'
-- partner_name: Slack (own)
-  partner: slack
-  partner_match: mirror
-  mirror_match: domain
+- partner_name: Zapier
+  partner: zapier
+  partner_match: aggregator
   type: marketplace
-  relationship: platform-app
+  marketplace: zapier-directory
+  channel: ipaas-listing
+  relationship: ipaas-bridge
   direction: third-party
-  channel: partner-built
-  marketplace: own
-  evidence: https://slack.com/marketplace/A074EPN6LBF-affinity
-  mirror_of: slack/integrations/slack-integration-edges.yml
-  apps:
-  - Affinity
-  listing_count: 1
-  detected: '2026-10-18'
-  detected_by: mirror-platform-listings.py
-  category: Slack app
-- partner_name: Zoom (own)
-  partner: zoom
-  partner_match: mirror
-  mirror_match: domain
+  evidence: https://zapier.com/apps/affinity/integrations
+  category: null
+  contract_reference:
+    register: Zapier app directory (zapier.com/api/v4/apps)
+    spec_file: null
+    role: ipaas-connector:zapier
+    registered_name: Affinity
+    matched_domain: affinity.co
+    matched_by: domain
+    detected_by: sweep-workflow-automation.py
+    detected: '2026-10-15'
+    signal_note: one edge per (provider, platform); actions, triggers and usage counts are context, never read
+    app_slug: affinity
+    beta: false
+    builder: unknown (not in the directory record)
+  detected_by: sweep-workflow-automation.py
+  first_seen: '2026-10-15'
+- partner_name: n8n
+  partner: n8n
+  partner_match: aggregator
   type: marketplace
-  relationship: platform-app
+  marketplace: n8n-nodes-base
+  channel: open-source-node
+  relationship: ipaas-bridge
   direction: third-party
-  channel: partner-built
-  marketplace: own
-  evidence: https://marketplace.zoom.us/apps/6cPx-hftQlac0M1BExfYSw
-  mirror_of: zoom/integrations/zoom-integration-edges.yml
-  apps:
-  - Affinity Notetaker
-  listing_count: 1
-  detected: '2026-10-18'
-  detected_by: mirror-platform-listings.py
-  category: Zoom app
+  evidence: https://github.com/n8n-io/n8n/tree/f73dc337f8dc61a4fd44aebe41c55faafe4f53a4/packages/nodes-base/nodes/Affinity
+  category: null
+  contract_reference:
+    register: n8n built-in nodes (n8n-io/n8n packages/nodes-base)
+    spec_file: null
+    role: ipaas-connector:n8n-nodes-base
+    registered_name: Affinity
+    matched_domain: affinity.co
+    matched_by: domain
+    detected_by: sweep-workflow-automation.py
+    detected: '2026-10-15'
+    signal_note: one edge per (provider, platform); actions, triggers and usage counts are context, never read
+    node_path: Affinity
+    trigger: true
+    builder: n8n (built-in node)
+  detected_by: sweep-workflow-automation.py
+  first_seen: '2026-10-15'
 templates: []

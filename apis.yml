@@ -228,6 +228,8 @@ apis:
   - type: Documentation
     url: https://developer.affinity.co/
 common:
+  - type: PostmanWorkspace
+    url: https://www.postman.com/kinlaneapi/affinity/overview
   - type: CapabilityMap
     url: capabilities/affinity-capability-edges.yml
     name: Affinity Business Capability Map

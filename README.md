@@ -1,4 +1,4 @@
-# Affinity (affinity)
+# Affinity
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -66,74 +66,187 @@
 
 Affinity is a relationship intelligence CRM built for private equity, venture capital, and investment banking teams. It provides a REST API that enables developers to manage contacts, organizations, opportunities, lists, notes, and relationship timelines derived from email and calendar activity. The API is available in two versions: a legacy V1 with full read/write capabilities for persons, companies, opportunities, notes, interactions, reminders, and webhooks, and a modern V2 RESTful interface designed for internal apps, automated workflows, and third-party integrations. API access is included in the Scale, Advanced, and Enterprise subscription tiers, with monthly call limits ranging from 100,000 to unlimited depending on the plan.
 
-- **APIs.json:** https://raw.githubusercontent.com/api-evangelist/affinity/refs/heads/main/apis.yml
-- **Naftiko:** https://github.com/naftiko/fleet?utm_source=api-evangelist&utm_medium=readme&utm_campaign=affinity-api-evangelist&utm_content=repo
+**Areas:** CRM · Relationship Intelligence · Private Equity · Venture Capital · Contacts · Organization · Opportunities · Deal Management
 
-## Tags
+## Affinity on APIs.io
 
-- CRM
-- Relationship Intelligence
-- Private Equity
-- Venture Capital
-- Contacts
-- Organizations
-- Opportunities
-- Deal Management
+Everything profiled for Affinity is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/affinity/](https://apis.io/providers/affinity/)** — or go straight to one of the APIs or properties below.
 
-## APIs
+### APIs (11)
 
-### Affinity API V1
-The legacy Affinity V1 API provides comprehensive read and write access to core CRM data including persons, organizations, opportunities, lists, notes, interactions, reminders, and webhooks. It uses HTTP Basic Auth or Bearer Auth with an API key obtained from the Affinity Settings dashboard.
+- [Affinity API V1](https://apis.io/apis/affinity/affinity-api-v1/) — The legacy Affinity V1 API provides comprehensive read and write access to core CRM data including persons, organizations, opportunities, lists, notes,…
+- [Affinity Auth API](https://apis.io/apis/affinity/affinity-auth-api/) — Operations about auths
+- [Affinity Companies API](https://apis.io/apis/affinity/affinity-companies-api/) — Operations about companies
+- [Affinity Company Merges API](https://apis.io/apis/affinity/affinity-companymerges-api/) — Operations about company merges
+- [Affinity Emails API](https://apis.io/apis/affinity/affinity-emails-api/) — Operations about emails
+- [Affinity Lists API](https://apis.io/apis/affinity/affinity-lists-api/) — Operations about lists
+- [Affinity Meetings API](https://apis.io/apis/affinity/affinity-meetings-api/) — Operations about meetings
+- [Affinity Notes API](https://apis.io/apis/affinity/affinity-notes-api/) — Operations about notes
+- [Affinity Opportunities API](https://apis.io/apis/affinity/affinity-opportunities-api/) — Operations about opportunities
+- [Affinity Person Merges API](https://apis.io/apis/affinity/affinity-personmerges-api/) — Operations about person merges
+- [Affinity Persons API](https://apis.io/apis/affinity/affinity-persons-api/) — Operations about persons
 
-- **Documentation:** https://api-docs.affinity.co/
-- **Base URL:** https://api.affinity.co
+### Published properties
 
-### Affinity API V2
-The modern Affinity V2 API is a RESTful interface for building internal apps, automated workflows, and third-party integrations. It supports reading and writing data about people, companies, and opportunities, with Bearer Auth authentication. It is the actively developed version and includes a hosted MCP server integration for AI-powered workflows.
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-- **Documentation:** https://developer.affinity.co/
-- **Base URL:** https://api.affinity.co
+#### MCP servers (1)
 
-## Plans / Rate Limits / FinOps
+Model Context Protocol servers that expose the API to agents.
 
-- **Plans & Pricing:** [plans/affinity-plans-pricing.yml](plans/affinity-plans-pricing.yml)
-- **Rate Limits:** [rate-limits/affinity-rate-limits.yml](rate-limits/affinity-rate-limits.yml)
-- **FinOps:** [finops/affinity-finops.yml](finops/affinity-finops.yml)
+- [affinity](https://apis.io/servers/affinity/affinity/)
 
-### Plan Summary
+#### Agentic access (1)
 
-| Plan | Price | API Calls/Month |
-|------|-------|----------------|
-| Essential | $2,000/user/year | None |
-| Scale | $2,300/user/year | 100,000 |
-| Advanced | $2,700/user/year | 100,000 |
-| Enterprise | Custom | Unlimited |
+Which operations an agent can call, which act, and which need a human in the loop.
 
-### Rate Limit Summary
+- [Affinity Agentic Access](https://apis.io/agentic-access/affinity/affinity-agentic-access/)
 
-- 900 requests per user per minute (all plans)
-- 100,000 calls per month (Scale and Advanced)
-- Unlimited calls per month (Enterprise)
-- 429 status code returned when limits are exceeded
+#### JSON Schema (14)
 
-## Timestamps
+The data models the API reads and writes.
 
-- **Created:** 2026-06-12
-- **Modified:** 2026-06-12
+- [Attendee](https://apis.io/schemas/affinity/affinity-attendee/)
+- [CompanyData](https://apis.io/schemas/affinity/affinity-companydata/)
+- [Field](https://apis.io/schemas/affinity/affinity-field/)
+- [FieldValue](https://apis.io/schemas/affinity/affinity-fieldvalue/)
+- [Grant](https://apis.io/schemas/affinity/affinity-grant/)
+- [ListEntry](https://apis.io/schemas/affinity/affinity-listentry/)
+- [Meeting](https://apis.io/schemas/affinity/affinity-meeting/)
+- [notes.Note](https://apis.io/schemas/affinity/affinity-note/)
+- [Opportunity](https://apis.io/schemas/affinity/affinity-opportunity/)
+- [Pagination](https://apis.io/schemas/affinity/affinity-pagination/)
+- [PersonData](https://apis.io/schemas/affinity/affinity-persondata/)
+- [Tenant](https://apis.io/schemas/affinity/affinity-tenant/)
+- [User](https://apis.io/schemas/affinity/affinity-user/)
+- [WhoAmI](https://apis.io/schemas/affinity/affinity-whoami/)
 
-## Common
+#### JSON-LD (1)
 
-| Type | URL |
-|------|-----|
-| Website | https://www.affinity.co/ |
-| Documentation | https://developer.affinity.co/ |
-| GitHub Org | https://github.com/affinity |
-| LinkedIn | https://www.linkedin.com/company/project-affinity |
-| Blog | https://www.affinity.co/resources/blog |
-| Pricing | https://www.affinity.co/product/affinity-pricing |
-| Status Page | https://status.affinity.co/ |
-| X | https://x.com/affinity |
+Linked-data contexts for the provider's vocabulary.
 
-## Maintainers
+- [Affinity Context](https://apis.io/jsonld/affinity/affinity-context/)
 
-- **Kin Lane** - kin@apievangelist.com
+#### Vocabulary (1)
+
+The provider's domain terms, defined.
+
+- [Affinity API Vocabulary](https://apis.io/vocabularies/affinity/affinity-vocabulary/)
+
+#### Examples (1)
+
+Example requests and responses.
+
+- [Affinity V2 Examples](https://apis.io/examples/affinity/affinity-v2-examples/)
+
+#### Collections (10)
+
+Postman and Open Collection request collections.
+
+- [Affinity API v2 auth API](https://apis.io/collections/affinity/open-affinity-auth-api/)
+- [Affinity API v2 auth companies API](https://apis.io/collections/affinity/open-affinity-companies-api/)
+- [Affinity API v2 auth companyMerges API](https://apis.io/collections/affinity/open-affinity-companymerges-api/)
+- [Affinity API v2 auth emails API](https://apis.io/collections/affinity/open-affinity-emails-api/)
+- [Affinity API v2 auth lists API](https://apis.io/collections/affinity/open-affinity-lists-api/)
+- [Affinity API v2 auth meetings API](https://apis.io/collections/affinity/open-affinity-meetings-api/)
+- [Affinity API v2 auth notes API](https://apis.io/collections/affinity/open-affinity-notes-api/)
+- [Affinity API v2 auth opportunities API](https://apis.io/collections/affinity/open-affinity-opportunities-api/)
+- [Affinity API v2 auth personMerges API](https://apis.io/collections/affinity/open-affinity-personmerges-api/)
+- [Affinity API v2 auth persons API](https://apis.io/collections/affinity/open-affinity-persons-api/)
+
+#### Governance rules (1)
+
+Spectral rulesets for the provider's contracts.
+
+- [Affinity — jsonschema rules](https://apis.io/rules/affinity/affinity-jsonschema-spectral-rules/)
+
+#### Security (3)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Affinity Authentication](https://apis.io/security/affinity/affinity-authentication/)
+- [Affinity Domain Security](https://apis.io/security/affinity/affinity-domain-security/)
+- [Affinity Trust Center](https://apis.io/security/affinity/affinity-trust-center/)
+
+#### Plans and pricing (1)
+
+Published plans, tiers and prices.
+
+- [Affinity Plans Pricing](https://apis.io/plans/affinity/affinity-plans-pricing/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Affinity Rate Limits](https://apis.io/rate-limits/affinity/affinity-rate-limits/)
+
+#### FinOps (1)
+
+What the API costs to run, by operation.
+
+- [Affinity Finops](https://apis.io/finops/affinity/affinity-finops/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
+- [Website](https://www.affinity.co/)
+- [Documentation](https://developer.affinity.co/)
+- [Pricing](https://www.affinity.co/product/affinity-pricing)
+- [Blog](https://www.affinity.co/resources/blog)
+- [Status](https://status.affinity.co/)
+
+## API Evangelist rating
+
+**Kin Score 38.7** — thin · rubric 0.25.0 · scored 2026-10-23
+
+| Facet | Score |
+|---|---|
+| Discoverability | 68.3 |
+| Contract quality | 59.1 |
+| Contract governance | 23.5 |
+| Operational transparency | 28.9 |
+| Developer ergonomics | 25.0 |
+| Access clarity | 26.3 |
+
+**Agent readiness 42.9** — agent-ready (gated down from agent-native)
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | — |
+| MCP Server | verified |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | — |
+| OpenAPI Examples | verified |
+| Rate Limit Signal | verified |
+| Event Surface Described | — |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | verified |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+| Pagination Ratio | paginated |
+| Operation Distinctiveness | distinct |
+
+**Regulatory alignment 21.6** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/affinity/](https://apis.io/providers/affinity/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Affinity: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/affinity/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
